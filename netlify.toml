@@ -1,0 +1,11 @@
+# Este es el archivo netlify.toml en tu repo jaiderog.github.io
+
+[[redirects]]
+  # La ruta que quieres en tu dominio principal
+  from = "/fair/*"
+
+  # La URL del sitio de Netlify que creaste en el Paso 1
+  to = "https://redago-framework.netlify.app/:splat"
+
+  # El "200" es crucial. Significa que es un proxy (no una redirección)
+  status = 200
