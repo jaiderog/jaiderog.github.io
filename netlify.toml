@@ -7,7 +7,7 @@
 
 [[redirects]]
   # La ruta que quieres en tu dominio principal
-  from = "/fair/*"
+  from = "/redago/*"
 
   # La URL del sitio de Netlify que creaste en el Paso 1
   to = "https://redago-framework.netlify.app/:splat"
