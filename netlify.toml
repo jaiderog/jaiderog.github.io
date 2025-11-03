@@ -1,5 +1,10 @@
 # Este es el archivo netlify.toml en tu repo jaiderog.github.io
 
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "ALLOWALL"
+
 [[redirects]]
   # La ruta que quieres en tu dominio principal
   from = "/fair/*"
