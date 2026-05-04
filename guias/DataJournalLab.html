@@ -98,8 +98,10 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 /* ALERT/CHALLENGE BOX */
 .challenge-box { background: var(--warning-bg); border-left: 5px solid var(--warning-border); padding: 2.5rem; border-radius: var(--radius-lg); margin: 2rem 0; }
 .challenge-box.final-challenge { background: rgba(168, 126, 216, 0.1); border-left-color: var(--purple); }
+.challenge-box.mental-box { background: rgba(107, 163, 208, 0.1); border-left-color: var(--blue); }
 .challenge-box h4 { color: var(--warning-text); font-size: var(--tl); margin-bottom: 1rem; font-family: var(--ff-d); letter-spacing: 0.02em;}
 .challenge-box.final-challenge h4 { color: var(--purple); }
+.challenge-box.mental-box h4 { color: var(--blue); }
 .challenge-box p, .challenge-box ol { color: var(--text); font-size: var(--tb); margin-bottom: 1rem; }
 .challenge-box ol { padding-left: 1.5rem; }
 .challenge-box li { margin-bottom: 0.5rem; }
@@ -136,13 +138,8 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .tab-pane{display:none}
 .tab-pane.active{display:block}
 .tp-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}
-.tp-name{font-family:var(--ff-d);font-size:var(--txl);margin-bottom:6px}
+.tp-name{font-family:var(--ff-d);font-size:var(--txl);margin-bottom:6px; color: var(--text);}
 .tp-desc{font-size:var(--ts);color:var(--text-muted);max-width:52ch;line-height:1.6}
-.tp-badge{padding:4px 12px;border-radius:var(--radius-full);font-size:var(--tx);font-weight:700}
-.lvl-0{background:rgba(114,184,85,.12);color:var(--green)}
-.lvl-1{background:rgba(107,163,208,.12);color:var(--blue)}
-.lvl-2{background:rgba(168,126,216,.12);color:var(--purple)}
-.lvl-3{background:rgba(240,160,80,.12);color:var(--orange)}
 .tp-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 @media(max-width:680px){.tp-cols{grid-template-columns:1fr}}
 .tp-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px}
@@ -164,8 +161,10 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .power-grid { display: flex; flex-direction: column; gap: 30px;}
 .power-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 30px; position: relative; transition: all var(--t) var(--ease); display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; align-items: start;}
 @media(max-width:900px){.power-card{grid-template-columns: 1fr;}}
-.power-card:hover { border-color: var(--matrix); box-shadow: var(--shadow-md); }
+.power-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); }
 .power-tag { position: absolute; top: -12px; left: 30px; background: var(--matrix-dim); color: var(--matrix); font-family: monospace; border: 1px solid var(--matrix); font-size: var(--tx); font-weight: 700; padding: 4px 12px; border-radius: var(--radius-full); box-shadow: 0 2px 5px rgba(0,0,0,0.2);}
+.power-tag.alt { background: var(--purple); color: #fff; border-color: var(--purple); }
+.power-tag.blue { background: var(--blue); color: #fff; border-color: var(--blue); }
 .power-info h3 { font-family: var(--ff-d); font-size: var(--txl); margin-bottom: 12px; color: var(--text); display: flex; align-items: center; gap: 10px;}
 .power-info p { font-size: var(--tb); color: var(--text-muted); margin-bottom: 15px; line-height: 1.6;}
 
@@ -175,7 +174,6 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .info-box p, .info-box ol, .info-box ul { margin: 0 0 10px 0; padding-left: 20px; color: var(--text-muted); font-size: var(--ts); line-height: 1.6;}
 .info-box li { margin-bottom: 8px; }
 .info-box p:last-child, .info-box ul:last-child, .info-box ol:last-child { margin-bottom: 0;}
-
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;}
 
 /* AUTHOR SECTION */
@@ -208,6 +206,7 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
     <div class="nav-links" id="nav-links">
       <a class="nav-link" href="#index"><span class="m-icon">[~]</span> Index</a>
       <a class="nav-link" href="#diagnostico"><span class="m-icon">>_</span> Reto 1</a>
+      <a class="nav-link" href="#conceptos"><span class="m-icon">?</span> Conceptos</a>
       <a class="nav-link" href="#anatomia"><span class="m-icon">{ }</span> Prompts</a>
       <a class="nav-link" href="#power-user"><span class="m-icon">/&gt;</span> Power user</a>
       <a class="nav-link" href="#low-code"><span class="m-icon">&lt;/&gt;</span> Low-code</a>
@@ -245,8 +244,8 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
   <div class="wrap">
     <div class="welcome-box">
       <h2><span class="m-icon">~/</span> Index y bienvenida</h2>
-      <p>Este laboratorio interactivo fue creado y es facilitado por <strong>Jaider Ochoa Gutiérrez</strong> para el curso de Producción y Géneros Periodísticos III. El periodismo de datos ha dejado de ser un oficio exclusivo de programadores; hoy, la Inteligencia Artificial Generativa actúa como el puente entre tu investigación cualitativa y el código informático.</p>
-      <p>Aprenderás a usar la IA no como un buscador, sino como un <strong>"copiloto de código"</strong> para crear aplicaciones web, análisis estadísticos y visualizaciones que potenciarán tus reportajes.</p>
+      <p>Este laboratorio interactivo fue creado y es facilitado por <strong>Jaider Ochoa Gutiérrez</strong> <em>(Bibliotecólogo, magíster en gestión de ciencia, tecnología e innovación y doctorando en ingeniería con énfasis en Inteligencia Artificial)</em> para el curso de Producción y Géneros Periodísticos III.</p>
+      <p>El periodismo de datos ha dejado de ser un oficio exclusivo de programadores; hoy, la Inteligencia Artificial Generativa actúa como el puente entre tu investigación cualitativa y el código informático. Aprenderás a usar la IA no como un buscador, sino como un <strong>"copiloto de código"</strong> para crear aplicaciones web, análisis estadísticos y visualizaciones que potenciarán tus reportajes.</p>
       
       <div class="index-grid">
         <div class="index-item">
@@ -254,16 +253,20 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
           <p>Un reto contrarreloj de fact-checking.</p>
         </div>
         <div class="index-item">
-          <h4><span class="m-icon">{ }</span> 2. Guía de prompts</h4>
-          <p>El estándar RCIO y técnicas estructuradas.</p>
+          <h4><span class="m-icon">?</span> 2. Conceptos</h4>
+          <p>Qué es un LLM y cómo no caer en trampas.</p>
         </div>
         <div class="index-item">
-          <h4><span class="m-icon">/&gt;</span> 3. Entornos power user</h4>
-          <p>Ejecución nativa de código Python e interfaces.</p>
+          <h4><span class="m-icon">{ }</span> 3. Guía de prompts</h4>
+          <p>Técnicas estructuradas y el framework RCIO.</p>
         </div>
         <div class="index-item">
-          <h4><span class="m-icon">&lt;/&gt;</span> 4. Programación low-code</h4>
-          <p>Agentes permanentes y Google Opal.</p>
+          <h4><span class="m-icon">/&gt;</span> 4. Power user y low-code</h4>
+          <p>Python nativo y metodologías de desarrollo.</p>
+        </div>
+        <div class="index-item" style="grid-column: 1 / -1;">
+          <h4><span class="m-icon">[*]</span> 5. Programación visual</h4>
+          <p>Agentes permanentes (Gems) y flujos basados en nodos (Google Opal).</p>
         </div>
       </div>
     </div>
@@ -322,8 +325,32 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
   </div>
 </section>
 
+<!-- CONCEPTOS BÁSICOS (NUEVA SECCIÓN) -->
+<section class="section" id="conceptos">
+  <div class="wrap">
+    <p class="stag">Antes de programar</p>
+    <h2 class="stitle">Conceptos básicos: desmitificando la "Caja Negra"</h2>
+    <p class="sdesc">Entender cómo funciona la tecnología te evitará cometer errores éticos graves en tus investigaciones.</p>
+    
+    <div class="grid-3">
+      <div class="info-box">
+        <h4><span class="m-icon">🧠</span> ¿Qué es un LLM?</h4>
+        <p>Los <em>Large Language Models</em> (como GPT-4, Claude 3 o Gemini) son modelos estadísticos masivos entrenados con terabytes de texto. <strong>No "piensan" ni "saben" cosas.</strong> Simplemente predicen cuál es la siguiente palabra (token) más probable en una oración basándose en patrones matemáticos aprendidos durante su entrenamiento.</p>
+      </div>
+      <div class="info-box" style="border-left-color: var(--orange);">
+        <h4><span class="m-icon">⚡</span> La arquitectura Transformer</h4>
+        <p>Es la "T" en GPT (Generative Pre-trained Transformer). Esta arquitectura revolucionó la IA gracias a su <em>mecanismo de auto-atención</em>. Le permite a la máquina ponderar la importancia de cada palabra en un texto largo simultáneamente. Por eso pueden analizar bases de datos extensas o resumir reportajes de 50 páginas sin perder el hilo.</p>
+      </div>
+      <div class="info-box" style="border-left-color: var(--blue);">
+        <h4><span class="m-icon">📱</span> Aplicaciones de GenAI</h4>
+        <p>No confundas el motor con el coche. El LLM es el motor algorítmico, pero ChatGPT, Perplexity o Claude.ai son <strong>aplicaciones de GenAI</strong>. Estas interfaces agregan capas de seguridad (para que la IA no sea tóxica), buscadores web, o entornos de ejecución de código (como Artifacts) para hacer el modelo útil para humanos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- GUÍA DE PROMPT ENGINEERING -->
-<section class="section" id="anatomia">
+<section class="section section--alt" id="anatomia">
   <div class="wrap">
     <p class="stag">Bloque 1</p>
     <h2 class="stitle">Anatomía del prompt perfecto</h2>
@@ -365,7 +392,7 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
 </section>
 
 <!-- TÉCNICAS -->
-<section class="section section--alt" id="tecnicas">
+<section class="section" id="tecnicas">
   <div class="wrap">
     <p class="stag">Bloque 2</p>
     <h2 class="stitle">Las 7 técnicas esenciales</h2>
@@ -380,27 +407,100 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
         <button class="tab-btn" role="tab" data-tab="t6">RAG</button>
       </div>
       <div class="tabs-body">
+        
+        <!-- ZERO SHOT -->
         <div class="tab-pane active" id="t0" role="tabpanel">
            <div class="tp-header">
             <div class="tp-meta">
-              <div class="tp-name">Zero-Shot Prompting</div>
-              <p class="tp-desc">Le pides algo directamente a la IA <strong>sin darle ningún ejemplo</strong>. Útil para tareas de formato obvias, pero pobre para programación.</p>
+              <div class="tp-name">Zero-shot prompting</div>
+              <p class="tp-desc">Le pides algo directamente a la IA <strong>sin darle ningún ejemplo</strong>. Útil para tareas de formato obvias, pero pobre para programación profunda.</p>
             </div>
           </div>
+          <div class="tp-cols">
+            <div class="tp-box">
+              <div class="tp-box-label">¿Cuándo usarlo?</div>
+              <ul>
+                <li>Tareas estándar (resumir, traducir).</li>
+                <li>Primeras exploraciones de un tema.</li>
+              </ul>
+            </div>
+            <div class="tp-box">
+              <div class="tp-box-label">Limitaciones</div>
+              <ul>
+                <li>La IA asume el tono y formato por defecto.</li>
+                <li>Poco control sobre la salida técnica.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="prompt-block">
+            <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar</button>
+            <pre>Clasifica los siguientes titulares de noticias según si son <span class="pk">informativos</span>, <span class="pk">de opinión</span> o <span class="pk">sensacionalistas</span>:
+
+- "El gobierno anuncia reforma tributaria para 2026"
+- "Por qué Colombia no puede ignorar la crisis del agua"</pre>
+          </div>
         </div>
+
+        <!-- FEW SHOT -->
         <div class="tab-pane" id="t1" role="tabpanel">
           <div class="tp-header">
             <div class="tp-meta">
-              <div class="tp-name">Few-Shot Prompting</div>
+              <div class="tp-name">Few-shot prompting</div>
               <p class="tp-desc">Le das a la IA <strong>2 a 5 ejemplos</strong> de lo que esperas. Excelente para estructurar notas de reportería y forzar un formato exacto (JSON, CSV).</p>
             </div>
           </div>
+          <div class="tp-cols">
+            <div class="tp-box">
+              <div class="tp-box-label">¿Cuándo usarlo?</div>
+              <ul>
+                <li>Cuando el formato importa mucho.</li>
+                <li>Para replicar un patrón periodístico.</li>
+              </ul>
+            </div>
+            <div class="tp-box">
+              <div class="tp-box-label">Clave del éxito</div>
+              <ul>
+                <li>Los ejemplos deben ser representativos.</li>
+                <li>2-3 ejemplos suelen ser suficientes.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="prompt-block">
+            <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar</button>
+            <pre><span class="pk">## Tarea</span>
+Convierte estos hallazgos en fichas de resumen con el formato de los ejemplos.
+
+<span class="pk">## Ejemplos</span>
+<span class="pv">Hallazgo:</span> "El 62% no confía en las instituciones."
+<span class="pv">Ficha:</span> DESCONFIANZA · 62% · Relevancia: alta
+
+<span class="pk">## Ahora convierte este:</span>
+"Las comunidades rurales tardan 4 horas en acceder a salud."</pre>
+          </div>
         </div>
+
+        <!-- CHAIN OF THOUGHT -->
         <div class="tab-pane" id="t2" role="tabpanel">
           <div class="tp-header">
             <div class="tp-meta">
-              <div class="tp-name">Chain of Thought (CoT)</div>
-              <p class="tp-desc">Obliga a la IA a "pensar en voz alta" para evitar que alucine resultados matemáticos o lógicos al analizar tus datos.</p>
+              <div class="tp-name">Chain of thought (CoT)</div>
+              <p class="tp-desc">Obliga a la IA a <strong>"pensar en voz alta"</strong> para evitar que alucine resultados matemáticos o lógicos al analizar tus bases de datos.</p>
+            </div>
+          </div>
+          <div class="tp-cols">
+            <div class="tp-box">
+              <div class="tp-box-label">¿Por qué funciona?</div>
+              <ul>
+                <li>Fuerza a la IA a "mostrar el trabajo".</li>
+                <li>Reduce conclusiones apresuradas.</li>
+              </ul>
+            </div>
+            <div class="tp-box">
+              <div class="tp-box-label">Activadores clave</div>
+              <ul>
+                <li><em>"Razona paso a paso antes de responder"</em></li>
+                <li><em>"Explica tu lógica matemática"</em></li>
+              </ul>
             </div>
           </div>
           <div class="prompt-block">
@@ -414,45 +514,160 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
 3. ¿Qué datos adicionales faltarían para un análisis riguroso?</pre>
           </div>
         </div>
+
+        <!-- ROLE PROMPTING -->
         <div class="tab-pane" id="t3" role="tabpanel">
           <div class="tp-header">
             <div class="tp-meta">
-              <div class="tp-name">Role Prompting</div>
+              <div class="tp-name">Role prompting</div>
               <p class="tp-desc">Asignas un <strong>perfil de experto específico</strong> para que adopte su vocabulario y criterios de evaluación técnica.</p>
             </div>
           </div>
+          <div class="tp-cols">
+            <div class="tp-box">
+              <div class="tp-box-label">¿Por qué funciona?</div>
+              <ul>
+                <li>Cambia el nivel de tecnicismo y perspectiva.</li>
+                <li>Útil para simular revisión de pares.</li>
+              </ul>
+            </div>
+            <div class="tp-box">
+              <div class="tp-box-label">Roles útiles</div>
+              <ul>
+                <li>Jurado de trabajo de grado.</li>
+                <li>Editor de revista indexada.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="prompt-block">
+            <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar</button>
+            <pre><span class="pk">Actúa como jurado de sustentación de un trabajo de grado en periodismo</span>. Eres riguroso con la coherencia metodológica y exigente con los datos.
+
+Lee el siguiente resumen de mi trabajo y formula las <span class="pv">3 preguntas más difíciles</span> que me harías en la sustentación:
+[PEGAR RESUMEN AQUÍ]</pre>
+          </div>
         </div>
+
+        <!-- META PROMPTING -->
         <div class="tab-pane" id="t4" role="tabpanel">
           <div class="tp-header">
             <div class="tp-meta">
-              <div class="tp-name">Meta-Prompting</div>
-              <p class="tp-desc">Le pides a la IA que <strong>diseñe o mejore el prompt</strong> que le vas a dar.</p>
+              <div class="tp-name">Meta-prompting</div>
+              <p class="tp-desc">Le pides a la IA que <strong>diseñe o mejore el prompt</strong> que le vas a dar. La IA actúa como tu asistente antes de ejecutar la tarea.</p>
             </div>
           </div>
+          <div class="tp-cols">
+            <div class="tp-box">
+              <div class="tp-box-label">¿Cuándo usarlo?</div>
+              <ul>
+                <li>Cuando no sabes cómo formular lo que necesitas.</li>
+                <li>Para optimizar un prompt que no da resultados.</li>
+              </ul>
+            </div>
+            <div class="tp-box">
+              <div class="tp-box-label">Dos variantes</div>
+              <ul>
+                <li><strong>Mejora:</strong> Le das un borrador y lo optimiza.</li>
+                <li><strong>Diseña:</strong> Pides que lo construya desde cero.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="prompt-block">
+            <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar</button>
+            <pre><span class="pk">Actúa como experto en prompt engineering.</span>
+
+Tengo este prompt que no me está dando buenos resultados:
+<span class="pv">"Ayúdame a mejorar mi capítulo de metodología."</span>
+
+Mi objetivo real es que revises si mi diseño metodológico es coherente con mis preguntas.
+<span class="pk">Por favor:</span> Reescríbelo con las mejoras necesarias y explica qué cambió.</pre>
+          </div>
         </div>
+
+        <!-- PROMPT CHAINING -->
         <div class="tab-pane" id="t5" role="tabpanel">
           <div class="tp-header">
             <div class="tp-meta">
-              <div class="tp-name">Prompt Chaining</div>
+              <div class="tp-name">Prompt chaining</div>
               <p class="tp-desc">Divides una tarea compleja en <strong>pasos secuenciales</strong>. Obligatorio para programar (Ej: 1. Limpia datos. 2. Genera HTML. 3. Aplica CSS/JS).</p>
             </div>
           </div>
+          <div class="tp-cols">
+            <div class="tp-box">
+              <div class="tp-box-label">Ventajas</div>
+              <ul>
+                <li>Cada paso tiene un objetivo verificable.</li>
+                <li>Evita que la IA "se pierda".</li>
+              </ul>
+            </div>
+            <div class="tp-box">
+              <div class="tp-box-label">Cadena típica</div>
+              <ul>
+                <li>Paso 1: Analiza fuentes.</li>
+                <li>Paso 2: Construye esquema.</li>
+                <li>Paso 3: Redacta código/texto.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="prompt-block">
+            <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar</button>
+            <pre><span class="pk">## PASO 1 (ejecuta este primero)</span>
+Lee estas 3 citas y extrae los <span class="pv">temas emergentes</span> comunes:
+[PEGAR CITAS]
+
+———
+<span class="pk">## PASO 2 (usa la salida del Paso 1)</span>
+Toma los temas que identificaste y <span class="pv">agrúpalos en 3 categorías analíticas</span>.
+
+———
+<span class="pk">## PASO 3 (usa las categorías del Paso 2)</span>
+Redacta un párrafo de análisis de resultados para cada categoría.</pre>
+          </div>
         </div>
+
+        <!-- RAG -->
         <div class="tab-pane" id="t6" role="tabpanel">
           <div class="tp-header">
             <div class="tp-meta">
-              <div class="tp-name">RAG (Retrieval-Augmented Generation)</div>
-              <p class="tp-desc">Le proporcionas a la IA <strong>tus propios documentos o datos</strong> como fuente de referencia. Fundamental para no inventar información.</p>
+              <div class="tp-name">RAG (Retrieval-augmented generation)</div>
+              <p class="tp-desc">Le proporcionas a la IA <strong>tus propios documentos o datos</strong> como fuente de referencia. Fundamental para no inventar información periodística.</p>
             </div>
           </div>
+          <div class="tp-cols">
+            <div class="tp-box">
+              <div class="tp-box-label">¿Por qué es crítico?</div>
+              <ul>
+                <li>Elimina las alucinaciones.</li>
+                <li>Trabajas con tus datos reales.</li>
+              </ul>
+            </div>
+            <div class="tp-box">
+              <div class="tp-box-label">Implementación básica</div>
+              <ul>
+                <li>Pega el texto directamente.</li>
+                <li>Usa etiquetas: <code>&lt;doc&gt;...&lt;/doc&gt;</code>.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="prompt-block">
+            <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar</button>
+            <pre><span class="pk">INSTRUCCIÓN:</span> Responde <span class="pv">únicamente</span> con la información contenida en los documentos que te proporciono. Si la respuesta no está, dilo explícitamente.
+
+<span class="pk">&lt;documento_1&gt;</span>
+[PEGAR TEXTO DE ENTREVISTA AQUÍ]
+<span class="pk">&lt;/documento_1&gt;</span>
+
+<span class="pk">PREGUNTA:</span> Según este documento, ¿qué evidencia existe sobre [TEMA]? Cita los fragmentos exactos.</pre>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
 </section>
 
 <!-- POWER USER 2026 -->
-<section class="section" id="power-user">
+<section class="section section--alt" id="power-user">
   <div class="wrap">
     <p class="stag">Nivel experto ⚡</p>
     <h2 class="stitle">Entornos y metodologías power user</h2>
@@ -488,7 +703,7 @@ Tengo este dataset: [DATOS]
           <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar prompt</button>
           <pre><span class="pk">Instrucción (Ejecuta Python):</span>
 1. Limpia los valores nulos de la columna "Monto".
-2. Ejecuta un análisis estadístico para hallar outliers.
+2. Ejecuta un análisis estadístico (outliers).
 3. Genera un boxplot y devuélveme el CSV limpio.</pre>
         </div>
       </div>
@@ -496,12 +711,28 @@ Tengo este dataset: [DATOS]
   </div>
 </section>
 
-<!-- LOW CODE FUNDAMENTALS (NUEVA SECCIÓN) -->
-<section class="section section--alt" id="low-code">
+<!-- LOW CODE FUNDAMENTALS -->
+<section class="section" id="low-code">
   <div class="wrap">
     <p class="stag">Transición al desarrollo</p>
     <h2 class="stitle">Fundamentos para programar low-code</h2>
-    <p class="sdesc">Programar asistido por IA (low-code / no-code) no significa decirle "hazme una app" y sentarse a esperar. Significa que tú diseñas la lógica en lenguaje natural y la IA escribe la sintaxis (el código duro).</p>
+    <p class="sdesc">Programar asistido por IA no significa decirle "hazme una app" y sentarse a esperar. Significa que tú diseñas la lógica en lenguaje natural y la IA escribe la sintaxis (el código duro).</p>
+
+    <div class="challenge-box mental-box">
+      <h4><span class="m-icon">[?]</span> Ejercicio mental: el mapa imposible</h4>
+      <p>Imagina que tienes un PDF de 500 páginas con el presupuesto municipal y quieres un mapa web interactivo que muestre qué comuna recibe más dinero.</p>
+      <p>Si le pides a la IA: <em>"Hazme un mapa interactivo con los datos de este PDF"</em>, el modelo colapsará, alucinará o te dará código roto. <strong>Escribe en un papel los 3 pasos estrictamente secuenciales que tendrías que pedirle a la máquina para lograrlo.</strong></p>
+      <div style="margin-top: 15px;">
+        <details style="cursor: pointer; color: var(--text-muted);">
+          <summary style="font-weight: 600; color: var(--blue);">Ver la respuesta lógica (Pipeline)</summary>
+          <ul style="margin-top: 10px; line-height: 1.6;">
+            <li><strong>Paso 1 (Data):</strong> "Extrae los nombres de las comunas y su presupuesto de este PDF y entrégamelos en un JSON válido".</li>
+            <li><strong>Paso 2 (Estructura):</strong> "Escribe el código HTML y CSS básico para incrustar un mapa a pantalla completa".</li>
+            <li><strong>Paso 3 (Visualización):</strong> "Usa la librería Leaflet.js para mapear las comunas de Medellín, e inyecta el JSON del Paso 1 para crear zonas de calor según el presupuesto".</li>
+          </ul>
+        </details>
+      </div>
+    </div>
 
     <div class="grid-3">
       <div class="info-box">
@@ -516,7 +747,7 @@ Tengo este dataset: [DATOS]
       </div>
 
       <div class="info-box" style="border-left-color: var(--blue);">
-        <h4><span class="m-icon">_></span> El pipeline paso a paso</h4>
+        <h4><span class="m-icon">>_</span> El pipeline paso a paso</h4>
         <ol>
           <li><strong>Data prep:</strong> Limpia tu CSV y pídele a la IA que lo convierta a JSON.</li>
           <li><strong>Lógica base:</strong> <em>"Genera la estructura HTML de un dashboard"</em>.</li>
@@ -526,22 +757,22 @@ Tengo este dataset: [DATOS]
       </div>
 
       <div class="info-box" style="border-left-color: var(--orange);">
-        <h4><span class="m-icon">[!]</span> Reglas de iteración y debugging</h4>
+        <h4><span class="m-icon">[!]</span> Reglas de debugging</h4>
         <ul>
-          <li><strong>Modularidad:</strong> Nunca le pidas a la IA que haga la limpieza de datos y la visualización 3D en un mismo prompt. Su memoria colapsará.</li>
-          <li><strong>Debugging asistido:</strong> Si la visualización queda en blanco, copia el error de la consola (F12) y dile a la IA: <em>"La consola arrojó este error: [ERROR]. Corrige el script"</em>.</li>
+          <li><strong>Modularidad:</strong> Nunca pidas la limpieza de datos y la visualización en un mismo prompt. Su memoria colapsará.</li>
+          <li><strong>Debugging asistido:</strong> Si la visualización queda en blanco, copia el error de la consola del navegador (F12) y dile a la IA: <em>"La consola arrojó este error: [ERROR]. Corrige el script"</em>.</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- AGENTES Y OPAL (NUEVA SECCIÓN) -->
-<section class="section" id="agentes">
+<!-- AGENTES Y OPAL -->
+<section class="section section--alt" id="agentes">
   <div class="wrap">
     <p class="stag">Agentes y apps</p>
-    <h2 class="stitle">Programación visual (Google Opal y Gems)</h2>
-    <p class="sdesc">Construye ecosistemas completos utilizando instrucciones de sistema permanentes y creadores visuales basados en nodos.</p>
+    <h2 class="stitle">Programación visual y asistentes (Opal y Gems)</h2>
+    <p class="sdesc">Bienvenido al futuro del periodismo de datos. Aquí aprenderás a construir ecosistemas completos utilizando instrucciones de sistema permanentes y creadores visuales basados en nodos.</p>
 
     <div class="power-grid">
       <!-- Explicación de Gems -->
@@ -552,31 +783,31 @@ Tengo este dataset: [DATOS]
           <p>Un chat normal olvida tus instrucciones al cerrarse. Un <strong>Gem</strong> es una versión clonada de la IA a la que le inyectas instrucciones directamente en su "código base" (System Instructions). El Gem obedece esas reglas de forma permanente.</p>
           
           <div class="info-box" style="border-left-color: var(--purple);">
-            <h4>Plantilla genérica para tu Gem</h4>
+            <h4>Plantilla genérica para crear tu Gem de investigación</h4>
             <pre style="font-family: monospace; font-size: var(--ts); color: var(--text); white-space: pre-wrap; margin-top: 10px;"><span class="pk">Rol:</span> Eres un asistente técnico especializado en [TEMA DEL PROYECTO].
-<span class="pk">Objetivo:</span> Analizar y estructurar datos provenientes de [TIPO DE FUENTE].
+<span class="pk">Objetivo:</span> Analizar y estructurar datos provenientes de [TIPO DE FUENTE, ej: entrevistas, encuestas, informes gubernamentales].
 <span class="pk">Instrucciones obligatorias:</span>
-1. Identifica siempre [VARIABLE 1] y [VARIABLE 2].
-2. Cero alucinaciones: si no encuentras el dato, di "Dato no disponible".
-<span class="pk">Formato de salida:</span> Genera siempre una tabla Markdown con las columnas [COL 1, COL 2] y un análisis de anomalías.</pre>
+1. Al recibir datos, siempre identifica [VARIABLE 1] y [VARIABLE 2].
+2. Cero alucinaciones: si no encuentras el dato, responde "Dato no disponible".
+<span class="pk">Formato de salida:</span> Genera siempre una tabla Markdown con las columnas [COL 1, COL 2, COL 3] y un breve análisis de anomalías.</pre>
           </div>
         </div>
       </div>
       
       <!-- Google Opal -->
       <div class="power-card" style="grid-template-columns: 1fr;">
-        <span class="power-tag" style="background: var(--blue);">Google Labs: Opal</span>
+        <span class="power-tag" style="background: var(--blue); border-color: var(--blue);">Google Labs: Opal</span>
         <div class="power-info">
-          <h3><span class="m-icon large">🧩</span> Google Opal: programación basada en nodos</h3>
-          <p>Opal es una herramienta "no-code" integrada en el ecosistema Gemini. Te permite construir aplicaciones visuales arrastrando bloques (nodos) y conectándolos, ideal para automatizar flujos periodísticos pesados.</p>
+          <h3><span class="m-icon large">🧩</span> Google Opal: programación visual basada en nodos</h3>
+          <p>Opal es una herramienta experimental "no-code" de Google Labs. Te permite construir aplicaciones impulsadas por IA conectando bloques visuales, ideal para automatizar flujos periodísticos (ej: extraer datos de un PDF -> analizarlos -> redactar titular).</p>
           
           <div class="info-box" style="border-left-color: var(--blue);">
-            <h4>¿Cómo funciona la lógica de nodos en Opal?</h4>
-            <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 10px;">Creas una "tubería" de información visualmente:</p>
-            <ul>
-              <li><strong>Nodo de entrada (Input):</strong> Una caja de texto donde el lector pegará un PDF.</li>
-              <li><strong>Nodo de LLM (Prompt):</strong> La IA recibe el PDF y extrae las cifras clave usando tus reglas.</li>
-              <li><strong>Nodo de salida (Output):</strong> Conectas el LLM a un visualizador que muestra los datos en una tabla limpia.</li>
+            <h4>¿Cómo funciona la lógica de nodos?</h4>
+            <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 10px;">En lugar de escribir código, arrastras cajas y las conectas con líneas, creando una "tubería" (pipeline) de información.</p>
+            <ul style="margin-bottom: 10px;">
+              <li><strong>Nodo de entrada (Input):</strong> Donde el usuario pega el texto o archivo.</li>
+              <li><strong>Nodo de Prompt (LLM):</strong> Donde la IA procesa ese texto con tus instrucciones.</li>
+              <li><strong>Nodo de salida (Output):</strong> Donde se visualiza el resultado final.</li>
             </ul>
             <p style="font-size: var(--ts); color: var(--text); font-weight: 600; margin-top: 10px;">El resultado final es una mini-app interactiva con un enlace que puedes compartir públicamente.</p>
           </div>
@@ -587,54 +818,52 @@ Tengo este dataset: [DATOS]
 </section>
 
 <!-- RETO FINAL -->
-<section class="section section--alt" id="reto-final">
+<section class="section" id="reto-final">
   <div class="wrap">
     <p class="stag">Integración del semestre</p>
     <h2 class="stitle">Reto final: automatiza tu propio proyecto</h2>
-    <p class="sdesc">Es hora de aplicar todo a los datos reales que ya tienen recolectados para su trabajo final. Construirán un Gem que analice y programe visualizaciones de sus propios hallazgos.</p>
+    <p class="sdesc">Es hora de aplicar todo al 65% de avance que llevan en el curso. Construirás un Gem que analice y programe las visualizaciones para los datos reales de tu equipo.</p>
     
     <div class="challenge-box final-challenge">
       <h4><span class="m-icon">💎</span> Misión: tu "oráculo de datos" en Gemini</h4>
       
-      <p style="font-weight: 600; margin-top: 1rem;">Instrucciones (Hazlo con tu equipo):</p>
+      <p style="font-weight: 600; margin-top: 1rem;">Instrucciones (Hazlo con los datos de tu grupo):</p>
       <ol>
-        <li>Ve a <a href="https://gemini.google.com" target="_blank" style="color: var(--purple); font-weight: 600;">Google Gemini</a> y abre la sección <strong>"Gems"</strong> en el panel izquierdo.</li>
+        <li>Abre <a href="https://gemini.google.com" target="_blank" style="color: var(--purple); font-weight: 600;">Google Gemini</a> y ve a la sección <strong>"Gems"</strong>.</li>
         <li>Haz clic en <strong>Crear un nuevo Gem</strong> y ponle el nombre de tu investigación (Ej: "Analista de Movilidad UdeA").</li>
-        <li>Adapta la plantilla maestra de abajo con los detalles específicos de tu reportaje.</li>
-        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos o transcripciones de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente.</li>
+        <li>Adapta la plantilla de abajo con los detalles específicos de tu investigación periodística.</li>
+        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos o apuntes de reportería de tu grupo y verifica si genera el análisis y el código visual (HTML/Chart.js) correctamente.</li>
       </ol>
 
       <div class="prompt-block" style="border-color: var(--purple);">
         <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar base del Gem</button>
-        <pre><span class="pk">ROL Y OBJETIVO:</span> 
-Eres el "Analista Investigativo UdeA", experto en periodismo de datos. Tu función es analizar críticamente mis notas y bases de datos sobre [TEMA DE TU PROYECTO].
+        <pre><span class="pk">ROL:</span> Analista de datos e ingeniero frontend para el proyecto periodístico sobre [TEMA EXACTO DE TU GRUPO].
 
-<span class="pk">REGLAS INQUEBRANTABLES (SKILLS):</span>
-1. CERO ALUCINACIONES: Si no hay información suficiente en los datos, di explícitamente "Faltan datos". Nunca inventes cifras, nombres ni fechas.
-2. EXPLICABILIDAD: Siempre que calcules un porcentaje o total, muestra la operación matemática exacta en un renglón.
-3. ENFOQUE NARRATIVO: Los datos deben servir a una historia periodística, no ser un simple informe estadístico seco.
+<span class="pk">REGLAS INQUEBRANTABLES:</span>
+1. CERO ALUCINACIONES: Si no hay información suficiente en los datos que te entregue, di explícitamente "Faltan datos".
+2. EXPLICABILIDAD: Siempre que calcules porcentajes o extraigas una tendencia, muestra la operación matemática o lógica en un renglón.
 
 <span class="pk">FORMATO DE SALIDA (Markdown):</span>
-Cada vez que te envíe datos, responde SIEMPRE con esta estructura exacta:
+Cada vez que te envíe datos, responde SIEMPRE con esta estructura:
 
 ### 1. 🕵️ El ángulo periodístico
-(Dime en un párrafo cuál es el titular más impactante que esconden estos datos respecto a [OBJETIVO DE TU INVESTIGACIÓN]).
+(Dime cuál es el titular más impactante que esconden estos datos, relacionado con [OBJETIVO DE TU INVESTIGACIÓN]).
 
-### 2. ⚠️ Anomalías y patrones
-(Lista las contradicciones, "red flags" o conexiones extrañas en los datos).
+### 2. ⚠️ Anomalías
+(Lista las contradicciones o "red flags" en los datos entregados).
 
-### 3. 🗄️ Estructuración 
+### 3. 🗄️ Tabla de estructuración
 (Convierte la información clave en una tabla Markdown limpia).
 
 ### 4. 📊 Código de visualización
-(Escribe el código HTML y JS usando Chart.js para visualizar el hallazgo principal. El código debe ser 'responsive', usar colores sobrios, y estar 100% funcional para pegar en el navegador).</pre>
+(Analiza qué gráfico explicaría mejor esta historia. Escribe un bloque de código HTML y JS usando Chart.js para visualizar el hallazgo, listo para pegar en el navegador).</pre>
       </div>
     </div>
   </div>
 </section>
 
 <!-- SOBRE EL PROFESOR -->
-<section class="section" id="autor">
+<section class="section section--alt" id="autor">
   <div class="wrap">
     <div class="author-box">
       <div class="author-header">
