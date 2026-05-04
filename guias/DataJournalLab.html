@@ -90,7 +90,7 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .welcome-box { background: var(--surface); border: 1px solid var(--matrix); border-radius: var(--radius-lg); padding: 3rem; box-shadow: 0 0 15px var(--matrix-dim); display: flex; flex-direction: column; gap: 1.5rem; }
 .welcome-box h2 { font-family: var(--ff-d); font-size: var(--txl); color: var(--text); margin: 0; }
 .welcome-box p { font-size: var(--tb); color: var(--text-muted); line-height: 1.6; margin: 0; }
-.index-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+.index-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
 .index-item { background: var(--surface-2); padding: 1.5rem; border-radius: var(--radius-md); border-left: 3px solid var(--matrix); }
 .index-item h4 { margin: 0 0 10px 0; color: var(--text); font-size: var(--tb); display: flex; align-items: center;}
 .index-item p { margin: 0; color: var(--text-muted); font-size: var(--ts); }
@@ -168,13 +168,15 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .power-info h3 { font-family: var(--ff-d); font-size: var(--txl); margin-bottom: 12px; color: var(--text); display: flex; align-items: center; gap: 10px;}
 .power-info p { font-size: var(--tb); color: var(--text-muted); margin-bottom: 15px; line-height: 1.6;}
 
-/* EXPLANATION BOXES (Low code / Gems) */
-.info-box { background: var(--surface-off); padding: 20px; border-radius: var(--radius-md); border-left: 4px solid var(--matrix); margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+/* EXPLANATION BOXES */
+.info-box { background: var(--surface-off); padding: 20px; border-radius: var(--radius-md); border-left: 4px solid var(--matrix); margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); height: 100%;}
 .info-box h4 { margin: 0 0 10px 0; color: var(--text); font-size: var(--tb); font-weight: 600; letter-spacing: 0.02em;}
 .info-box p, .info-box ol, .info-box ul { margin: 0 0 10px 0; padding-left: 20px; color: var(--text-muted); font-size: var(--ts); line-height: 1.6;}
+.info-box p { padding-left: 0; }
 .info-box li { margin-bottom: 8px; }
 .info-box p:last-child, .info-box ul:last-child, .info-box ol:last-child { margin-bottom: 0;}
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;}
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem;}
 
 /* AUTHOR SECTION */
 .author-box { background: var(--surface-2); border: 1px solid var(--matrix); border-radius: var(--radius-xl); padding: 3rem; display: flex; flex-direction: column; gap: 1.5rem; max-width: 900px; margin: 0 auto; box-shadow: 0 0 20px var(--matrix-dim); }
@@ -185,6 +187,14 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .author-content strong { color: var(--text); font-weight: 600; }
 .author-btn { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--matrix); color: var(--matrix); text-decoration: none; padding: 10px 24px; border-radius: var(--radius-full); font-weight: 600; font-size: var(--ts); transition: background var(--t); margin-top: 1rem; width: fit-content; font-family: monospace;}
 .author-btn:hover { background: var(--matrix-dim); }
+
+/* RECURSOS GRID */
+.resources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 2rem;}
+.resource-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; transition: all var(--t); display: flex; flex-direction: column; text-decoration: none; color: inherit;}
+.resource-card:hover { transform: translateY(-3px); border-color: var(--matrix); background: var(--surface-off); box-shadow: 0 4px 12px var(--matrix-dim);}
+.res-title { font-size: var(--tb); font-weight: 700; color: var(--text); margin-bottom: 8px;}
+.res-desc { font-size: var(--ts); color: var(--text-muted); flex-grow: 1;}
+.res-meta { display: flex; justify-content: space-between; margin-top: 15px; font-size: var(--tx); color: var(--primary); font-weight: 600; font-family: monospace;}
 
 /* FOOTER */
 footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
@@ -212,6 +222,7 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
       <a class="nav-link" href="#low-code"><span class="m-icon">&lt;/&gt;</span> Low-code</a>
       <a class="nav-link" href="#agentes"><span class="m-icon">[*]</span> Opal y Gems</a>
       <a class="nav-link" href="#reto-final"><span class="m-icon">[!]</span> Reto final</a>
+      <a class="nav-link" href="#recursos"><span class="m-icon">[&amp;]</span> Recursos</a>
       <a class="nav-link" href="#autor"><span class="m-icon">@_</span> Profesor</a>
     </div>
     <div style="display:flex;align-items:center">
@@ -254,7 +265,7 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
         </div>
         <div class="index-item">
           <h4><span class="m-icon">?</span> 2. Conceptos</h4>
-          <p>Qué es un LLM y cómo no caer en trampas.</p>
+          <p>La anatomía de los LLMs, alucinaciones y agentes.</p>
         </div>
         <div class="index-item">
           <h4><span class="m-icon">{ }</span> 3. Guía de prompts</h4>
@@ -325,25 +336,41 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
   </div>
 </section>
 
-<!-- CONCEPTOS BÁSICOS (NUEVA SECCIÓN) -->
+<!-- CONCEPTOS BÁSICOS (AMPLIADO) -->
 <section class="section" id="conceptos">
   <div class="wrap">
     <p class="stag">Antes de programar</p>
-    <h2 class="stitle">Conceptos básicos: desmitificando la "Caja Negra"</h2>
-    <p class="sdesc">Entender cómo funciona la tecnología te evitará cometer errores éticos graves en tus investigaciones.</p>
+    <h2 class="stitle">Conceptos básicos: desmitificando la "caja negra"</h2>
+    <p class="sdesc">Entender cómo funciona la tecnología te evitará cometer errores éticos y técnicos graves en tus investigaciones periodísticas.</p>
     
     <div class="grid-3">
       <div class="info-box">
         <h4><span class="m-icon">🧠</span> ¿Qué es un LLM?</h4>
-        <p>Los <em>Large Language Models</em> (como GPT-4, Claude 3 o Gemini) son modelos estadísticos masivos entrenados con terabytes de texto. <strong>No "piensan" ni "saben" cosas.</strong> Simplemente predicen cuál es la siguiente palabra (token) más probable en una oración basándose en patrones matemáticos aprendidos durante su entrenamiento.</p>
+        <p>Los <em>Large Language Models</em> (como GPT-4 o Gemini) son modelos estadísticos masivos. <strong>No "piensan" ni "saben" verdades absolutas.</strong> Simplemente calculan y predicen cuál es la siguiente palabra más probable en una oración basándose en patrones matemáticos.</p>
       </div>
       <div class="info-box" style="border-left-color: var(--orange);">
-        <h4><span class="m-icon">⚡</span> La arquitectura Transformer</h4>
-        <p>Es la "T" en GPT (Generative Pre-trained Transformer). Esta arquitectura revolucionó la IA gracias a su <em>mecanismo de auto-atención</em>. Le permite a la máquina ponderar la importancia de cada palabra en un texto largo simultáneamente. Por eso pueden analizar bases de datos extensas o resumir reportajes de 50 páginas sin perder el hilo.</p>
+        <h4><span class="m-icon">⚡</span> Transformers</h4>
+        <p>Es la "T" en GPT. Esta arquitectura de red neuronal revolucionó la IA gracias a su <em>mecanismo de auto-atención</em>. Permite a la máquina ponderar la importancia de cada palabra en un texto simultáneamente, logrando analizar bases de datos extensas sin perder el hilo.</p>
       </div>
       <div class="info-box" style="border-left-color: var(--blue);">
-        <h4><span class="m-icon">📱</span> Aplicaciones de GenAI</h4>
-        <p>No confundas el motor con el coche. El LLM es el motor algorítmico, pero ChatGPT, Perplexity o Claude.ai son <strong>aplicaciones de GenAI</strong>. Estas interfaces agregan capas de seguridad (para que la IA no sea tóxica), buscadores web, o entornos de ejecución de código (como Artifacts) para hacer el modelo útil para humanos.</p>
+        <h4><span class="m-icon">🧩</span> Tokens</h4>
+        <p>Para la IA, las palabras no existen; existen los <strong>tokens</strong> (fragmentos de aprox. 4 letras). Si le pides a la IA que resuma un texto en "exactamente 100 palabras", fallará porque ella no cuenta palabras. Es mejor pedir "un párrafo corto".</p>
+      </div>
+      <div class="info-box" style="border-left-color: var(--purple);">
+        <h4><span class="m-icon">🗄️</span> Ventana de contexto</h4>
+        <p>Es la "memoria a corto plazo" de la IA en un chat. Indica cuántos tokens (texto o datos) puede procesar a la vez. Si le subes PDFs que exceden su límite, la IA sufrirá de amnesia y olvidará las primeras páginas.</p>
+      </div>
+      <div class="info-box" style="border-left-color: var(--red);">
+        <h4><span class="m-icon">👻</span> Alucinaciones</h4>
+        <p>El mayor riesgo en periodismo. Ocurre cuando el LLM inventa datos, fuentes o enlaces web que suenan increíblemente reales. Pasa porque el modelo busca "completar" el patrón estadístico, no decir la verdad.</p>
+      </div>
+      <div class="info-box" style="border-left-color: var(--matrix);">
+        <h4><span class="m-icon">🤖</span> Agentes (Agents)</h4>
+        <p>IAs avanzadas que no solo "hablan", sino que tienen la capacidad de usar herramientas (navegar por internet, leer bases de datos, ejecutar código) y planificar pasos secuenciales para lograr un objetivo de forma autónoma.</p>
+      </div>
+      <div class="info-box" style="grid-column: 1 / -1; border-left-color: var(--text);">
+        <h4><span class="m-icon">🔍</span> XAI (IA Explicable)</h4>
+        <p>El campo que busca abrir la "caja negra" de los algoritmos. Exige que los modelos puedan justificar paso a paso cómo llegaron a una conclusión matemática o lógica. Como periodistas de datos, debemos forzar siempre la explicabilidad en nuestros prompts (ej: "Muestra tu cálculo antes de responder") para poder auditar los hallazgos antes de publicarlos.</p>
       </div>
     </div>
   </div>
@@ -354,7 +381,7 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
   <div class="wrap">
     <p class="stag">Bloque 1</p>
     <h2 class="stitle">Anatomía del prompt perfecto</h2>
-    <p class="sdesc">Haz clic en cada tarjeta para ver cómo estructurar instrucciones que no fallen.</p>
+    <p class="sdesc">Haz clic en cada tarjeta para ver cómo estructurar instrucciones que no fallen utilizando el framework RCIO (Rol, Contexto, Instrucción, Output).</p>
     
     <div class="anatomy-grid" id="anatomy-grid">
       <div class="a-card" data-c="tarea" onclick="toggleCard(this)">
@@ -645,7 +672,7 @@ Redacta un párrafo de análisis de resultados para cada categoría.</pre>
               <div class="tp-box-label">Implementación básica</div>
               <ul>
                 <li>Pega el texto directamente.</li>
-                <li>Usa etiquetas: <code>&lt;doc&gt;...&lt;/doc&gt;</code>.</li>
+                <li>Usa etiquetas XML: <code>&lt;doc&gt;...&lt;/doc&gt;</code>.</li>
               </ul>
             </div>
           </div>
@@ -671,7 +698,7 @@ Redacta un párrafo de análisis de resultados para cada categoría.</pre>
   <div class="wrap">
     <p class="stag">Nivel experto ⚡</p>
     <h2 class="stitle">Entornos y metodologías power user</h2>
-    <p class="sdesc">Dejemos de interactuar con la IA como si fuera un chat. Estas herramientas diferencian a un periodista novato de uno altamente técnico.</p>
+    <p class="sdesc">Dejemos de interactuar con la IA como si fuera un chat básico. Estas herramientas diferencian a un periodista novato de uno altamente técnico.</p>
     
     <div class="power-grid">
       <!-- Claude Artifacts -->
@@ -679,7 +706,7 @@ Redacta un párrafo de análisis de resultados para cada categoría.</pre>
         <span class="power-tag">Claude 4.7 / Canvas</span>
         <div class="power-info">
           <h3><span class="m-icon large">🖥️</span> Visualización frontend (Artifacts)</h3>
-          <p>La IA divide tu pantalla: a la izquierda chateas, a la derecha <strong>renderiza en tiempo real</strong> el mapa interactivo (Leaflet) o gráfico (D3.js, React) que acaba de programar para ti.</p>
+          <p>La IA divide tu pantalla: a la izquierda chateas, a la derecha <strong>renderiza en tiempo real</strong> el mapa interactivo (Leaflet) o gráfico (D3.js, React) que acaba de programar para ti sin que tengas que compilar nada localmente.</p>
         </div>
         <div class="prompt-block" style="margin-top: 0;">
           <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar prompt</button>
@@ -697,13 +724,13 @@ Tengo este dataset: [DATOS]
         <span class="power-tag">GPT-5.5 / Advanced Data</span>
         <div class="power-info">
           <h3><span class="m-icon large">📊</span> Análisis de datos nativo</h3>
-          <p>Al subir un archivo CSV, el entorno <strong>escribe un script en Python en segundo plano</strong> y lo ejecuta. Las matemáticas las hace el código, no la probabilidad del lenguaje, evitando alucinaciones estadísticas.</p>
+          <p>Al subir un archivo CSV pesado, el entorno <strong>escribe un script en Python en segundo plano</strong> y lo ejecuta de manera invisible. Las matemáticas las hace el código exacto de Pandas, no la probabilidad del lenguaje, evitando alucinaciones estadísticas.</p>
         </div>
         <div class="prompt-block" style="margin-top: 0;">
           <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar prompt</button>
           <pre><span class="pk">Instrucción (Ejecuta Python):</span>
 1. Limpia los valores nulos de la columna "Monto".
-2. Ejecuta un análisis estadístico (outliers).
+2. Ejecuta un análisis estadístico para hallar outliers.
 3. Genera un boxplot y devuélveme el CSV limpio.</pre>
         </div>
       </div>
@@ -711,24 +738,26 @@ Tengo este dataset: [DATOS]
   </div>
 </section>
 
-<!-- LOW CODE FUNDAMENTALS -->
+<!-- LOW CODE FUNDAMENTALS Y ASISTENTES DE CÓDIGO -->
 <section class="section" id="low-code">
   <div class="wrap">
     <p class="stag">Transición al desarrollo</p>
     <h2 class="stitle">Fundamentos para programar low-code</h2>
     <p class="sdesc">Programar asistido por IA no significa decirle "hazme una app" y sentarse a esperar. Significa que tú diseñas la lógica en lenguaje natural y la IA escribe la sintaxis (el código duro).</p>
 
+    <!-- EJERCICIO MENTAL DE LÓGICA -->
     <div class="challenge-box mental-box">
-      <h4><span class="m-icon">[?]</span> Ejercicio mental: el mapa imposible</h4>
-      <p>Imagina que tienes un PDF de 500 páginas con el presupuesto municipal y quieres un mapa web interactivo que muestre qué comuna recibe más dinero.</p>
-      <p>Si le pides a la IA: <em>"Hazme un mapa interactivo con los datos de este PDF"</em>, el modelo colapsará, alucinará o te dará código roto. <strong>Escribe en un papel los 3 pasos estrictamente secuenciales que tendrías que pedirle a la máquina para lograrlo.</strong></p>
+      <h4><span class="m-icon">[?]</span> Ejercicio mental: el oficinista literal</h4>
+      <p>Imagina que tienes a un pasante que lee a la velocidad de la luz, pero carece absolutamente de sentido común. Tienes 1,000 páginas de contratos públicos en PDF desordenados. Necesitas que extraiga solo los contratos que mencionan un "Sobrecosto" mayor a $50 millones.</p>
+      <p>Si le dices a la IA: <em>"Extrae los sobrecostos altos"</em>, el modelo te dará basura porque "alto" es subjetivo. <strong>Redacta mentalmente los 4 pasos lógicos (condicionales If/Then) a prueba de tontos para que el pasante logre la tarea sin equivocarse.</strong></p>
       <div style="margin-top: 15px;">
         <details style="cursor: pointer; color: var(--text-muted);">
-          <summary style="font-weight: 600; color: var(--blue);">Ver la respuesta lógica (Pipeline)</summary>
-          <ul style="margin-top: 10px; line-height: 1.6;">
-            <li><strong>Paso 1 (Data):</strong> "Extrae los nombres de las comunas y su presupuesto de este PDF y entrégamelos en un JSON válido".</li>
-            <li><strong>Paso 2 (Estructura):</strong> "Escribe el código HTML y CSS básico para incrustar un mapa a pantalla completa".</li>
-            <li><strong>Paso 3 (Visualización):</strong> "Usa la librería Leaflet.js para mapear las comunas de Medellín, e inyecta el JSON del Paso 1 para crear zonas de calor según el presupuesto".</li>
+          <summary style="font-weight: 600; color: var(--blue); outline: none;">Ver la respuesta lógica (Pipeline)</summary>
+          <ul style="margin-top: 10px; line-height: 1.6; padding-left: 20px;">
+            <li><strong>Paso 1:</strong> Lee el documento. Si encuentras la palabra exacta "Sobrecosto", continúa al Paso 2. Si no, pasa a la siguiente página.</li>
+            <li><strong>Paso 2:</strong> Extrae el número que está inmediatamente después de la palabra "Sobrecosto".</li>
+            <li><strong>Paso 3:</strong> Verifica matemáticamente: Si el número extraído es mayor a 50,000,000, continúa al Paso 4. Si es menor, descártalo.</li>
+            <li><strong>Paso 4:</strong> Copia la fecha y el monto en una fila de la tabla final.</li>
           </ul>
         </details>
       </div>
@@ -764,6 +793,30 @@ Tengo este dataset: [DATOS]
         </ul>
       </div>
     </div>
+
+    <!-- ASISTENTES DE CÓDIGO -->
+    <h3 class="power-section-title" style="margin-top: 4rem;">Asistentes de código (Copilotos)</h3>
+    <p class="sdesc">Si decides dar el salto definitivo al código real, estas son las IAs entrenadas específicamente para programar junto a ti.</p>
+    
+    <div class="grid-4">
+      <div class="info-box" style="border-left-color: var(--purple);">
+        <h4><span class="m-icon">>_</span> Claude Code</h4>
+        <p>La herramienta de línea de comandos de Anthropic. Le permite a Claude interactuar directamente con tus archivos locales, leer tus carpetas y escribir software complejo de forma autónoma desde la terminal.</p>
+      </div>
+      <div class="info-box" style="border-left-color: var(--primary);">
+        <h4><span class="m-icon">{ }</span> OpenAI Codex</h4>
+        <p>El motor fundacional entrenado con miles de millones de líneas de código público. Es el "cerebro" detrás de herramientas como GitHub Copilot, traduciendo tus instrucciones de lenguaje natural a código puro.</p>
+      </div>
+      <div class="info-box" style="border-left-color: var(--blue);">
+        <h4><span class="m-icon">/&gt;</span> Gemini Code Assist</h4>
+        <p>El copiloto empresarial de Google diseñado para integrarse directamente en los editores de código (IDEs). Te asiste en la escritura, depuración y optimización de bases de datos y scripts en tiempo real.</p>
+      </div>
+      <div class="info-box" style="border-left-color: var(--orange);">
+        <h4><span class="m-icon">🚀</span> Google Antigravity</h4>
+        <p>Entornos experimentales de Google enfocados en la abstracción extrema del desarrollo. Su objetivo es permitir a creadores desplegar arquitecturas complejas y herramientas web casi sin tener que escribir sintaxis manual.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -780,12 +833,12 @@ Tengo este dataset: [DATOS]
         <span class="power-tag alt">Gemini Gems / OpenAI GPTs</span>
         <div class="power-info">
           <h3><span class="m-icon large">🤖</span> Asistentes permanentes (Gems)</h3>
-          <p>Un chat normal olvida tus instrucciones al cerrarse. Un <strong>Gem</strong> es una versión clonada de la IA a la que le inyectas instrucciones directamente en su "código base" (System Instructions). El Gem obedece esas reglas de forma permanente.</p>
+          <p>Un chat normal olvida tus instrucciones al cerrarse. Un <strong>Gem</strong> es una versión clonada de la IA a la que le inyectas instrucciones directamente en su "código base" (System Instructions). El Gem obedece esas reglas de forma permanente, sin tener que repetir el contexto en cada sesión.</p>
           
           <div class="info-box" style="border-left-color: var(--purple);">
             <h4>Plantilla genérica para crear tu Gem de investigación</h4>
             <pre style="font-family: monospace; font-size: var(--ts); color: var(--text); white-space: pre-wrap; margin-top: 10px;"><span class="pk">Rol:</span> Eres un asistente técnico especializado en [TEMA DEL PROYECTO].
-<span class="pk">Objetivo:</span> Analizar y estructurar datos provenientes de [TIPO DE FUENTE, ej: entrevistas, encuestas, informes gubernamentales].
+<span class="pk">Objetivo:</span> Analizar y estructurar datos provenientes de [TIPO DE FUENTE, ej: entrevistas, informes gubernamentales].
 <span class="pk">Instrucciones obligatorias:</span>
 1. Al recibir datos, siempre identifica [VARIABLE 1] y [VARIABLE 2].
 2. Cero alucinaciones: si no encuentras el dato, responde "Dato no disponible".
@@ -799,17 +852,17 @@ Tengo este dataset: [DATOS]
         <span class="power-tag" style="background: var(--blue); border-color: var(--blue);">Google Labs: Opal</span>
         <div class="power-info">
           <h3><span class="m-icon large">🧩</span> Google Opal: programación visual basada en nodos</h3>
-          <p>Opal es una herramienta experimental "no-code" de Google Labs. Te permite construir aplicaciones impulsadas por IA conectando bloques visuales, ideal para automatizar flujos periodísticos (ej: extraer datos de un PDF -> analizarlos -> redactar titular).</p>
+          <p>Opal es una herramienta experimental "no-code" de Google Labs. Te permite construir aplicaciones impulsadas por IA conectando bloques visuales, ideal para automatizar flujos periodísticos pesados sin saber programar.</p>
           
           <div class="info-box" style="border-left-color: var(--blue);">
             <h4>¿Cómo funciona la lógica de nodos?</h4>
-            <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 10px;">En lugar de escribir código, arrastras cajas y las conectas con líneas, creando una "tubería" (pipeline) de información.</p>
+            <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 10px;">En lugar de escribir código de texto, arrastras cajas y las conectas con líneas, creando una "tubería" (pipeline) de información:</p>
             <ul style="margin-bottom: 10px;">
-              <li><strong>Nodo de entrada (Input):</strong> Donde el usuario pega el texto o archivo.</li>
-              <li><strong>Nodo de Prompt (LLM):</strong> Donde la IA procesa ese texto con tus instrucciones.</li>
-              <li><strong>Nodo de salida (Output):</strong> Donde se visualiza el resultado final.</li>
+              <li><strong>Nodo de entrada (Input):</strong> Donde el usuario pega el texto o sube un PDF.</li>
+              <li><strong>Nodo de Prompt (LLM):</strong> Donde la IA recibe y procesa el input basándose en tus reglas maestras.</li>
+              <li><strong>Nodo de salida (Output):</strong> Donde se visualiza el resultado estructurado final.</li>
             </ul>
-            <p style="font-size: var(--ts); color: var(--text); font-weight: 600; margin-top: 10px;">El resultado final es una mini-app interactiva con un enlace que puedes compartir públicamente.</p>
+            <p style="font-size: var(--ts); color: var(--text); font-weight: 600; margin-top: 10px;">El resultado final es una mini-app interactiva con un enlace web propio que puedes compartir con tus lectores para que ellos mismos consulten la base de datos.</p>
           </div>
         </div>
       </div>
@@ -822,48 +875,79 @@ Tengo este dataset: [DATOS]
   <div class="wrap">
     <p class="stag">Integración del semestre</p>
     <h2 class="stitle">Reto final: automatiza tu propio proyecto</h2>
-    <p class="sdesc">Es hora de aplicar todo al 65% de avance que llevan en el curso. Construirás un Gem que analice y programe las visualizaciones para los datos reales de tu equipo.</p>
+    <p class="sdesc">Es hora de aplicar todo a los datos reales que ya tienen recolectados para su trabajo final. Construirán un Gem que analice y programe visualizaciones de sus propios hallazgos.</p>
     
     <div class="challenge-box final-challenge">
       <h4><span class="m-icon">💎</span> Misión: tu "oráculo de datos" en Gemini</h4>
       
-      <p style="font-weight: 600; margin-top: 1rem;">Instrucciones (Hazlo con los datos de tu grupo):</p>
+      <p style="font-weight: 600; margin-top: 1rem;">Instrucciones (Hazlo con tu equipo):</p>
       <ol>
-        <li>Abre <a href="https://gemini.google.com" target="_blank" style="color: var(--purple); font-weight: 600;">Google Gemini</a> y ve a la sección <strong>"Gems"</strong>.</li>
+        <li>Ve a <a href="https://gemini.google.com" target="_blank" style="color: var(--purple); font-weight: 600;">Google Gemini</a> y abre la sección <strong>"Gems"</strong> en el panel izquierdo.</li>
         <li>Haz clic en <strong>Crear un nuevo Gem</strong> y ponle el nombre de tu investigación (Ej: "Analista de Movilidad UdeA").</li>
-        <li>Adapta la plantilla de abajo con los detalles específicos de tu investigación periodística.</li>
-        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos o apuntes de reportería de tu grupo y verifica si genera el análisis y el código visual (HTML/Chart.js) correctamente.</li>
+        <li>Adapta la plantilla maestra de abajo con los detalles específicos de tu reportaje.</li>
+        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos o transcripciones de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente.</li>
       </ol>
 
       <div class="prompt-block" style="border-color: var(--purple);">
         <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar base del Gem</button>
-        <pre><span class="pk">ROL:</span> Analista de datos e ingeniero frontend para el proyecto periodístico sobre [TEMA EXACTO DE TU GRUPO].
+        <pre><span class="pk">ROL Y OBJETIVO:</span> 
+Eres el "Analista Investigativo", experto en periodismo de datos. Tu función es analizar críticamente mis notas y bases de datos sobre [TEMA DE TU PROYECTO].
 
-<span class="pk">REGLAS INQUEBRANTABLES:</span>
-1. CERO ALUCINACIONES: Si no hay información suficiente en los datos que te entregue, di explícitamente "Faltan datos".
-2. EXPLICABILIDAD: Siempre que calcules porcentajes o extraigas una tendencia, muestra la operación matemática o lógica en un renglón.
+<span class="pk">REGLAS INQUEBRANTABLES (SKILLS):</span>
+1. CERO ALUCINACIONES: Si no hay información suficiente en los datos, di explícitamente "Faltan datos". Nunca inventes cifras.
+2. EXPLICABILIDAD: Siempre que calcules un porcentaje o extraigas una tendencia, muestra la operación matemática exacta.
+3. ENFOQUE NARRATIVO: Los datos deben servir a una historia periodística, no ser un simple informe estadístico seco.
 
 <span class="pk">FORMATO DE SALIDA (Markdown):</span>
-Cada vez que te envíe datos, responde SIEMPRE con esta estructura:
+Cada vez que te envíe datos, responde SIEMPRE con esta estructura exacta:
 
 ### 1. 🕵️ El ángulo periodístico
-(Dime cuál es el titular más impactante que esconden estos datos, relacionado con [OBJETIVO DE TU INVESTIGACIÓN]).
+(Dime en un párrafo cuál es el titular más impactante que esconden estos datos respecto a [OBJETIVO DE TU INVESTIGACIÓN]).
 
-### 2. ⚠️ Anomalías
-(Lista las contradicciones o "red flags" en los datos entregados).
+### 2. ⚠️ Anomalías y patrones
+(Lista las contradicciones, "red flags" o conexiones extrañas).
 
-### 3. 🗄️ Tabla de estructuración
+### 3. 🗄️ Estructuración 
 (Convierte la información clave en una tabla Markdown limpia).
 
 ### 4. 📊 Código de visualización
-(Analiza qué gráfico explicaría mejor esta historia. Escribe un bloque de código HTML y JS usando Chart.js para visualizar el hallazgo, listo para pegar en el navegador).</pre>
+(Escribe el código HTML y JS usando Chart.js para visualizar el hallazgo principal. El código debe ser 'responsive' y funcional para probar en el navegador).</pre>
       </div>
     </div>
   </div>
 </section>
 
+<!-- RECURSOS Y GUÍAS -->
+<section class="section section--alt" id="recursos">
+  <div class="wrap">
+    <p class="stag">Para profundizar</p>
+    <h2 class="stitle">Recursos y guías maestras de IA</h2>
+    <p class="sdesc">Guarda estos enlaces oficiales e independientes para mantenerte actualizado con las mejores metodologías de investigación, prompt engineering y análisis de datos.</p>
+    
+    <div class="resources-grid">
+      <a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" class="resource-card">
+        <div class="res-title">Anthropic Prompt Engineering</div>
+        <div class="res-desc">La guía oficial de los creadores de Claude. Esencial para entender cómo usar etiquetas XML y estructurar bases de datos largas en prompts complejos.</div>
+        <div class="res-meta"><span>Técnico</span><span>docs.anthropic.com</span></div>
+      </a>
+      
+      <a href="https://platform.openai.com/docs/guides/prompt-engineering" target="_blank" class="resource-card">
+        <div class="res-title">OpenAI Prompt Guide</div>
+        <div class="res-desc">Las "Seis Estrategias" oficiales para obtener mejores resultados en ChatGPT, especialmente útiles para la ejecución de Advanced Data Analysis en Python.</div>
+        <div class="res-meta"><span>Oficial</span><span>platform.openai.com</span></div>
+      </a>
+      
+      <a href="https://gijn.org/ai/" target="_blank" class="resource-card">
+        <div class="res-title">GIJN - IA para Periodistas</div>
+        <div class="res-desc">El Hub de Inteligencia Artificial de la Red Global de Periodismo de Investigación. Casos de estudio de herramientas, dilemas éticos y guías aplicadas.</div>
+        <div class="res-meta"><span>Periodismo</span><span>gijn.org</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- SOBRE EL PROFESOR -->
-<section class="section section--alt" id="autor">
+<section class="section" id="autor">
   <div class="wrap">
     <div class="author-box">
       <div class="author-header">
