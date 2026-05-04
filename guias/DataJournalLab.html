@@ -168,7 +168,7 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .power-info h3 { font-family: var(--ff-d); font-size: var(--txl); margin-bottom: 12px; color: var(--text); display: flex; align-items: center; gap: 10px;}
 .power-info p { font-size: var(--tb); color: var(--text-muted); margin-bottom: 15px; line-height: 1.6;}
 
-/* EXPLANATION BOXES */
+/* EXPLANATION BOXES (Concepts / Low code) */
 .info-box { background: var(--surface-off); padding: 20px; border-radius: var(--radius-md); border-left: 4px solid var(--matrix); margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); height: 100%;}
 .info-box h4 { margin: 0 0 10px 0; color: var(--text); font-size: var(--tb); font-weight: 600; letter-spacing: 0.02em;}
 .info-box p, .info-box ol, .info-box ul { margin: 0 0 10px 0; padding-left: 20px; color: var(--text-muted); font-size: var(--ts); line-height: 1.6;}
@@ -273,7 +273,7 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
         </div>
         <div class="index-item">
           <h4><span class="m-icon">/&gt;</span> 4. Power user y low-code</h4>
-          <p>Python nativo y metodologías de desarrollo.</p>
+          <p>Lógica de programación y metodologías de desarrollo.</p>
         </div>
         <div class="index-item" style="grid-column: 1 / -1;">
           <h4><span class="m-icon">[*]</span> 5. Programación visual</h4>
@@ -336,7 +336,7 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
   </div>
 </section>
 
-<!-- CONCEPTOS BÁSICOS (AMPLIADO) -->
+<!-- CONCEPTOS BÁSICOS -->
 <section class="section" id="conceptos">
   <div class="wrap">
     <p class="stag">Antes de programar</p>
@@ -346,31 +346,31 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
     <div class="grid-3">
       <div class="info-box">
         <h4><span class="m-icon">🧠</span> ¿Qué es un LLM?</h4>
-        <p>Los <em>Large Language Models</em> (como GPT-4 o Gemini) son modelos estadísticos masivos. <strong>No "piensan" ni "saben" verdades absolutas.</strong> Simplemente calculan y predicen cuál es la siguiente palabra más probable en una oración basándose en patrones matemáticos.</p>
+        <p>Los <em>Large Language Models</em> (como GPT-4 o Gemini) son modelos estadísticos masivos. <strong>No "piensan" ni "saben" verdades absolutas.</strong> Simplemente calculan y predicen cuál es la siguiente palabra más probable en una oración basándose en patrones matemáticos aprendidos durante su entrenamiento.</p>
       </div>
       <div class="info-box" style="border-left-color: var(--orange);">
         <h4><span class="m-icon">⚡</span> Transformers</h4>
-        <p>Es la "T" en GPT. Esta arquitectura de red neuronal revolucionó la IA gracias a su <em>mecanismo de auto-atención</em>. Permite a la máquina ponderar la importancia de cada palabra en un texto simultáneamente, logrando analizar bases de datos extensas sin perder el hilo.</p>
+        <p>Es la "T" en GPT. Esta arquitectura de red neuronal revolucionó la IA gracias a su <em>mecanismo de auto-atención</em>. Permite a la máquina ponderar la importancia de cada palabra en un texto simultáneamente, logrando analizar bases de datos extensas sin perder el hilo de la conversación.</p>
       </div>
       <div class="info-box" style="border-left-color: var(--blue);">
         <h4><span class="m-icon">🧩</span> Tokens</h4>
-        <p>Para la IA, las palabras no existen; existen los <strong>tokens</strong> (fragmentos de aprox. 4 letras). Si le pides a la IA que resuma un texto en "exactamente 100 palabras", fallará porque ella no cuenta palabras. Es mejor pedir "un párrafo corto".</p>
+        <p>Para la IA, las palabras enteras no existen; existen los <strong>tokens</strong> (fragmentos de aprox. 4 letras). Si le pides a la IA que resuma un texto en "exactamente 100 palabras", fallará miserablemente porque ella no cuenta palabras, cuenta *tokens*. Es mucho más efectivo pedir "un párrafo corto".</p>
       </div>
       <div class="info-box" style="border-left-color: var(--purple);">
         <h4><span class="m-icon">🗄️</span> Ventana de contexto</h4>
-        <p>Es la "memoria a corto plazo" de la IA en un chat. Indica cuántos tokens (texto o datos) puede procesar a la vez. Si le subes PDFs que exceden su límite, la IA sufrirá de amnesia y olvidará las primeras páginas.</p>
+        <p>Es la "memoria a corto plazo" de la IA en un chat. Indica cuántos tokens (texto o datos) puede procesar a la vez. Si le subes 50 PDFs y exceden su límite, la IA sufrirá de amnesia y empezará a olvidar las primeras páginas de tu investigación.</p>
       </div>
       <div class="info-box" style="border-left-color: var(--red);">
         <h4><span class="m-icon">👻</span> Alucinaciones</h4>
-        <p>El mayor riesgo en periodismo. Ocurre cuando el LLM inventa datos, fuentes o enlaces web que suenan increíblemente reales. Pasa porque el modelo busca "completar" el patrón estadístico, no decir la verdad.</p>
+        <p>El mayor riesgo en el periodismo. Ocurre cuando el LLM inventa datos, nombres de fuentes o enlaces web que suenan increíblemente reales. Esto sucede porque el modelo busca "completar" el patrón estadístico del texto, no decir la verdad objetiva.</p>
       </div>
       <div class="info-box" style="border-left-color: var(--matrix);">
         <h4><span class="m-icon">🤖</span> Agentes (Agents)</h4>
-        <p>IAs avanzadas que no solo "hablan", sino que tienen la capacidad de usar herramientas (navegar por internet, leer bases de datos, ejecutar código) y planificar pasos secuenciales para lograr un objetivo de forma autónoma.</p>
+        <p>Sistemas de IA avanzados que no solo "hablan" en un chat, sino que tienen la capacidad de usar herramientas externas (navegar por internet, consultar bases de datos, ejecutar código) y planificar pasos secuenciales para lograr un objetivo de forma autónoma.</p>
       </div>
       <div class="info-box" style="grid-column: 1 / -1; border-left-color: var(--text);">
         <h4><span class="m-icon">🔍</span> XAI (IA Explicable)</h4>
-        <p>El campo que busca abrir la "caja negra" de los algoritmos. Exige que los modelos puedan justificar paso a paso cómo llegaron a una conclusión matemática o lógica. Como periodistas de datos, debemos forzar siempre la explicabilidad en nuestros prompts (ej: "Muestra tu cálculo antes de responder") para poder auditar los hallazgos antes de publicarlos.</p>
+        <p>El campo de la Inteligencia Artificial Explicable busca abrir la "caja negra" de los algoritmos. Exige que los modelos puedan justificar paso a paso cómo llegaron a una conclusión. Como periodistas de datos, debemos forzar la explicabilidad en nuestros prompts (ej: "Muestra tu cálculo matemático antes de responder") para poder auditar los hallazgos antes de publicar la noticia.</p>
       </div>
     </div>
   </div>
@@ -748,13 +748,13 @@ Tengo este dataset: [DATOS]
     <!-- EJERCICIO MENTAL DE LÓGICA -->
     <div class="challenge-box mental-box">
       <h4><span class="m-icon">[?]</span> Ejercicio mental: el oficinista literal</h4>
-      <p>Imagina que tienes a un pasante que lee a la velocidad de la luz, pero carece absolutamente de sentido común. Tienes 1,000 páginas de contratos públicos en PDF desordenados. Necesitas que extraiga solo los contratos que mencionan un "Sobrecosto" mayor a $50 millones.</p>
+      <p>Imagina que tienes a un pasante (la IA) que lee a la velocidad de la luz, pero carece absolutamente de sentido común. Tienes 1,000 páginas de contratos públicos en PDF desordenados. Necesitas que extraiga solo los contratos que mencionan un "Sobrecosto" mayor a $50 millones.</p>
       <p>Si le dices a la IA: <em>"Extrae los sobrecostos altos"</em>, el modelo te dará basura porque "alto" es subjetivo. <strong>Redacta mentalmente los 4 pasos lógicos (condicionales If/Then) a prueba de tontos para que el pasante logre la tarea sin equivocarse.</strong></p>
       <div style="margin-top: 15px;">
         <details style="cursor: pointer; color: var(--text-muted);">
           <summary style="font-weight: 600; color: var(--blue); outline: none;">Ver la respuesta lógica (Pipeline)</summary>
           <ul style="margin-top: 10px; line-height: 1.6; padding-left: 20px;">
-            <li><strong>Paso 1:</strong> Lee el documento. Si encuentras la palabra exacta "Sobrecosto", continúa al Paso 2. Si no, pasa a la siguiente página.</li>
+            <li><strong>Paso 1:</strong> Lee el documento. Si encuentras la palabra exacta "Sobrecosto", continúa al Paso 2. Si no, pasa al siguiente documento.</li>
             <li><strong>Paso 2:</strong> Extrae el número que está inmediatamente después de la palabra "Sobrecosto".</li>
             <li><strong>Paso 3:</strong> Verifica matemáticamente: Si el número extraído es mayor a 50,000,000, continúa al Paso 4. Si es menor, descártalo.</li>
             <li><strong>Paso 4:</strong> Copia la fecha y el monto en una fila de la tabla final.</li>
@@ -768,7 +768,7 @@ Tengo este dataset: [DATOS]
         <h4><span class="m-icon">&lt;/&gt;</span> Glosario de supervivencia</h4>
         <ul>
           <li><strong>HTML:</strong> El esqueleto de tu visualización (los huesos).</li>
-          <li><strong>CSS:</strong> El diseño, colores y tipografía (la piel y ropa).</li>
+          <li><strong>CSS:</strong> El diseño, colores y tipografía (la piel).</li>
           <li><strong>JavaScript (JS):</strong> La interactividad (los músculos).</li>
           <li><strong>JSON / CSV:</strong> El formato de tus datos limpios.</li>
           <li><strong>Librerías web:</strong> Herramientas pre-hechas (Chart.js para gráficos, Leaflet para mapas).</li>
@@ -795,8 +795,8 @@ Tengo este dataset: [DATOS]
     </div>
 
     <!-- ASISTENTES DE CÓDIGO -->
-    <h3 class="power-section-title" style="margin-top: 4rem;">Asistentes de código (Copilotos)</h3>
-    <p class="sdesc">Si decides dar el salto definitivo al código real, estas son las IAs entrenadas específicamente para programar junto a ti.</p>
+    <h3 style="font-family: var(--ff-d); font-size: var(--tl); color: var(--text); margin: 4rem 0 1rem 0;">Asistentes de código (copilotos)</h3>
+    <p class="sdesc">Si decides dar el salto definitivo al código real para crear bases de datos interactivas o web-scraping, estas son las IAs entrenadas específicamente para programar junto a ti.</p>
     
     <div class="grid-4">
       <div class="info-box" style="border-left-color: var(--purple);">
@@ -823,9 +823,9 @@ Tengo este dataset: [DATOS]
 <!-- AGENTES Y OPAL -->
 <section class="section section--alt" id="agentes">
   <div class="wrap">
-    <p class="stag">Agentes y apps</p>
-    <h2 class="stitle">Programación visual y asistentes (Opal y Gems)</h2>
-    <p class="sdesc">Bienvenido al futuro del periodismo de datos. Aquí aprenderás a construir ecosistemas completos utilizando instrucciones de sistema permanentes y creadores visuales basados en nodos.</p>
+    <p class="stag">Lógica sistémica</p>
+    <h2 class="stitle">Programación visual de agentes (Opal y Gems)</h2>
+    <p class="sdesc">Aprenderás a construir ecosistemas completos utilizando instrucciones de sistema permanentes y creadores visuales basados en nodos. Es decir, desarrollarás *software* con palabras.</p>
 
     <div class="power-grid">
       <!-- Explicación de Gems -->
@@ -833,16 +833,16 @@ Tengo este dataset: [DATOS]
         <span class="power-tag alt">Gemini Gems / OpenAI GPTs</span>
         <div class="power-info">
           <h3><span class="m-icon large">🤖</span> Asistentes permanentes (Gems)</h3>
-          <p>Un chat normal olvida tus instrucciones al cerrarse. Un <strong>Gem</strong> es una versión clonada de la IA a la que le inyectas instrucciones directamente en su "código base" (System Instructions). El Gem obedece esas reglas de forma permanente, sin tener que repetir el contexto en cada sesión.</p>
+          <p>Un chat normal olvida tus instrucciones al cerrarse. Un <strong>Gem</strong> es una versión clonada de la IA a la que le inyectas instrucciones directamente en su "código base" (System Instructions). El Gem obedece esas reglas de forma permanente, ahorrándote horas de *prompting* repetitivo.</p>
           
           <div class="info-box" style="border-left-color: var(--purple);">
-            <h4>Plantilla genérica para crear tu Gem de investigación</h4>
+            <h4>Plantilla técnica para crear un Gem de investigación</h4>
             <pre style="font-family: monospace; font-size: var(--ts); color: var(--text); white-space: pre-wrap; margin-top: 10px;"><span class="pk">Rol:</span> Eres un asistente técnico especializado en [TEMA DEL PROYECTO].
 <span class="pk">Objetivo:</span> Analizar y estructurar datos provenientes de [TIPO DE FUENTE, ej: entrevistas, informes gubernamentales].
-<span class="pk">Instrucciones obligatorias:</span>
-1. Al recibir datos, siempre identifica [VARIABLE 1] y [VARIABLE 2].
-2. Cero alucinaciones: si no encuentras el dato, responde "Dato no disponible".
-<span class="pk">Formato de salida:</span> Genera siempre una tabla Markdown con las columnas [COL 1, COL 2, COL 3] y un breve análisis de anomalías.</pre>
+<span class="pk">Instrucciones lógicas obligatorias:</span>
+1. Al recibir datos, siempre identifica la variable [VARIABLE 1] y crúzala con [VARIABLE 2].
+2. Cero alucinaciones: Si [VARIABLE 1] no está en el texto, responde obligatoriamente "Dato no disponible".
+<span class="pk">Formato de salida (Output):</span> Genera siempre una tabla Markdown con las columnas [COL 1, COL 2, COL 3] y un breve análisis estadístico de anomalías debajo.</pre>
           </div>
         </div>
       </div>
@@ -855,14 +855,14 @@ Tengo este dataset: [DATOS]
           <p>Opal es una herramienta experimental "no-code" de Google Labs. Te permite construir aplicaciones impulsadas por IA conectando bloques visuales, ideal para automatizar flujos periodísticos pesados sin saber programar.</p>
           
           <div class="info-box" style="border-left-color: var(--blue);">
-            <h4>¿Cómo funciona la lógica de nodos?</h4>
+            <h4>¿Cómo funciona la arquitectura de nodos?</h4>
             <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 10px;">En lugar de escribir código de texto, arrastras cajas y las conectas con líneas, creando una "tubería" (pipeline) de información:</p>
             <ul style="margin-bottom: 10px;">
-              <li><strong>Nodo de entrada (Input):</strong> Donde el usuario pega el texto o sube un PDF.</li>
-              <li><strong>Nodo de Prompt (LLM):</strong> Donde la IA recibe y procesa el input basándose en tus reglas maestras.</li>
-              <li><strong>Nodo de salida (Output):</strong> Donde se visualiza el resultado estructurado final.</li>
+              <li><strong>Nodo de entrada (Input):</strong> Donde el usuario final de tu app pega el texto o sube un PDF (Ej: un contrato público).</li>
+              <li><strong>Nodo de Prompt (LLM):</strong> Donde la IA recibe el *Input* y lo procesa basándose en tus reglas maestras secretas.</li>
+              <li><strong>Nodo de salida (Output):</strong> Donde se visualiza el resultado estructurado final (Ej: Solo la cifra de sobrecosto).</li>
             </ul>
-            <p style="font-size: var(--ts); color: var(--text); font-weight: 600; margin-top: 10px;">El resultado final es una mini-app interactiva con un enlace web propio que puedes compartir con tus lectores para que ellos mismos consulten la base de datos.</p>
+            <p style="font-size: var(--ts); color: var(--text); font-weight: 600; margin-top: 10px;">El resultado final es una mini-app interactiva con un enlace web propio que puedes compartir con tus lectores para que ellos mismos auditen o consulten la base de datos de tu reportaje.</p>
           </div>
         </div>
       </div>
@@ -875,43 +875,43 @@ Tengo este dataset: [DATOS]
   <div class="wrap">
     <p class="stag">Integración del semestre</p>
     <h2 class="stitle">Reto final: automatiza tu propio proyecto</h2>
-    <p class="sdesc">Es hora de aplicar todo a los datos reales que ya tienen recolectados para su trabajo final. Construirán un Gem que analice y programe visualizaciones de sus propios hallazgos.</p>
+    <p class="sdesc">Es hora de aplicar la lógica sistémica a los datos reales que ya tienen recolectados. Construirán un Gem (Agente) que analice y programe visualizaciones automáticas de sus propios hallazgos.</p>
     
     <div class="challenge-box final-challenge">
       <h4><span class="m-icon">💎</span> Misión: tu "oráculo de datos" en Gemini</h4>
       
-      <p style="font-weight: 600; margin-top: 1rem;">Instrucciones (Hazlo con tu equipo):</p>
+      <p style="font-weight: 600; margin-top: 1rem;">Instrucciones (Hazlo con tu equipo de proyecto):</p>
       <ol>
         <li>Ve a <a href="https://gemini.google.com" target="_blank" style="color: var(--purple); font-weight: 600;">Google Gemini</a> y abre la sección <strong>"Gems"</strong> en el panel izquierdo.</li>
-        <li>Haz clic en <strong>Crear un nuevo Gem</strong> y ponle el nombre de tu investigación (Ej: "Analista de Movilidad UdeA").</li>
-        <li>Adapta la plantilla maestra de abajo con los detalles específicos de tu reportaje.</li>
-        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos o transcripciones de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente.</li>
+        <li>Haz clic en <strong>Crear un nuevo Gem</strong> y ponle un nombre relacionado con tu investigación (Ej: "Analista de Movilidad UdeA").</li>
+        <li>Adapta la plantilla maestra de abajo reemplazando los corchetes [ ] con los detalles específicos de tu reportaje.</li>
+        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos real (CSV) o las transcripciones de entrevistas de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente.</li>
       </ol>
 
       <div class="prompt-block" style="border-color: var(--purple);">
-        <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar base del Gem</button>
+        <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar código del Gem</button>
         <pre><span class="pk">ROL Y OBJETIVO:</span> 
-Eres el "Analista Investigativo", experto en periodismo de datos. Tu función es analizar críticamente mis notas y bases de datos sobre [TEMA DE TU PROYECTO].
+Eres el "Analista Investigativo Principal", experto en periodismo de datos. Tu única función es analizar críticamente mis notas y bases de datos sobre [ESCRIBE EL TEMA EXACTO DE TU PROYECTO].
 
-<span class="pk">REGLAS INQUEBRANTABLES (SKILLS):</span>
-1. CERO ALUCINACIONES: Si no hay información suficiente en los datos, di explícitamente "Faltan datos". Nunca inventes cifras.
-2. EXPLICABILIDAD: Siempre que calcules un porcentaje o extraigas una tendencia, muestra la operación matemática exacta.
+<span class="pk">REGLAS INQUEBRANTABLES (SKILLS LÓGICOS):</span>
+1. CERO ALUCINACIONES: Si no hay información suficiente en los datos que te entregue, tu única respuesta debe ser "Faltan datos". Nunca inventes cifras ni nombres.
+2. EXPLICABILIDAD (XAI): Siempre que calcules un porcentaje o extraigas una tendencia, debes mostrar la operación matemática exacta debajo del resultado.
 3. ENFOQUE NARRATIVO: Los datos deben servir a una historia periodística, no ser un simple informe estadístico seco.
 
-<span class="pk">FORMATO DE SALIDA (Markdown):</span>
-Cada vez que te envíe datos, responde SIEMPRE con esta estructura exacta:
+<span class="pk">FORMATO DE SALIDA (Output Pipeline):</span>
+Cada vez que recibas datos de mi parte, debes procesarlos y responder SIEMPRE con esta estructura exacta en Markdown:
 
 ### 1. 🕵️ El ángulo periodístico
-(Dime en un párrafo cuál es el titular más impactante que esconden estos datos respecto a [OBJETIVO DE TU INVESTIGACIÓN]).
+(Dime en un párrafo corto cuál es el titular más impactante que esconden estos datos respecto a [ESCRIBE EL OBJETIVO DE TU INVESTIGACIÓN]).
 
 ### 2. ⚠️ Anomalías y patrones
-(Lista las contradicciones, "red flags" o conexiones extrañas).
+(Lista en viñetas las contradicciones, "red flags" o conexiones atípicas en los datos).
 
 ### 3. 🗄️ Estructuración 
-(Convierte la información clave en una tabla Markdown limpia).
+(Convierte la información clave del hallazgo en una tabla Markdown limpia).
 
 ### 4. 📊 Código de visualización
-(Escribe el código HTML y JS usando Chart.js para visualizar el hallazgo principal. El código debe ser 'responsive' y funcional para probar en el navegador).</pre>
+(Analiza qué tipo de gráfico explicaría mejor esta historia específica. Luego, escribe el código HTML y JS usando la librería Chart.js para visualizar el hallazgo principal. El código debe ser 'responsive' y 100% funcional para probar directamente en el navegador).</pre>
       </div>
     </div>
   </div>
@@ -937,9 +937,9 @@ Cada vez que te envíe datos, responde SIEMPRE con esta estructura exacta:
         <div class="res-meta"><span>Oficial</span><span>platform.openai.com</span></div>
       </a>
       
-      <a href="https://gijn.org/ai/" target="_blank" class="resource-card">
-        <div class="res-title">GIJN - IA para Periodistas</div>
-        <div class="res-desc">El Hub de Inteligencia Artificial de la Red Global de Periodismo de Investigación. Casos de estudio de herramientas, dilemas éticos y guías aplicadas.</div>
+      <a href="https://gijn.org/es/tag/inteligencia-artificial-es/" target="_blank" class="resource-card">
+        <div class="res-title">GIJN - IA para periodistas</div>
+        <div class="res-desc">El Hub en español de Inteligencia Artificial de la Red Global de Periodismo de Investigación. Casos de estudio de herramientas, dilemas éticos y guías aplicadas al oficio.</div>
         <div class="res-meta"><span>Periodismo</span><span>gijn.org</span></div>
       </a>
     </div>
@@ -955,10 +955,10 @@ Cada vez que te envíe datos, responde SIEMPRE con esta estructura exacta:
       </div>
       <div class="author-content">
         <p>
-          <strong>Bibliotecólogo, magíster en gestión de ciencia, tecnología e innovación y doctorando en ingeniería con énfasis en inteligencia artificial.</strong> Profesor e investigador en ciencia de la información y gestión de datos en la Escuela Interamericana de Bibliotecología de la Universidad de Antioquia. 
+          <strong>Bibliotecólogo, magíster en gestión de ciencia, tecnología e innovación y doctorando en ingeniería con énfasis en Inteligencia Artificial.</strong> Profesor e investigador en ciencia de la información y gestión de datos en la Escuela Interamericana de Bibliotecología de la Universidad de Antioquia. 
         </p>
         <p>
-          Su trabajo investigativo y profesional se centra en el diseño de sistemas de información y el desarrollo de soluciones computacionales basadas en IA y NLP para la gestión, análisis y transferencia del conocimiento científico y tecnológico. Desde allí ha desarrollado una perspectiva crítica y aplicada sobre el papel de la inteligencia artificial en los procesos de comunicación y evaluación científica.
+          Su trabajo investigativo y profesional se centra en el diseño de sistemas de información y el desarrollo de soluciones computacionales basadas en IA y NLP para la gestión, análisis y transferencia del conocimiento científico y tecnológico. Desde allí ha desarrollado una perspectiva crítica y aplicada sobre el papel de la Inteligencia Artificial en los procesos de comunicación y evaluación científica.
         </p>
         <a href="https://flow.page/jaiderog" target="_blank" class="author-btn">
           <span class="m-icon" style="color: var(--matrix); text-shadow: none; margin-right: 8px;">//</span> Conoce más en mi perfil
