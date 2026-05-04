@@ -168,7 +168,7 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .power-info h3 { font-family: var(--ff-d); font-size: var(--txl); margin-bottom: 12px; color: var(--text); display: flex; align-items: center; gap: 10px;}
 .power-info p { font-size: var(--tb); color: var(--text-muted); margin-bottom: 15px; line-height: 1.6;}
 
-/* EXPLANATION BOXES */
+/* EXPLANATION BOXES (Concepts / Low code) */
 .info-box { background: var(--surface-off); padding: 20px; border-radius: var(--radius-md); border-left: 4px solid var(--matrix); margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); height: 100%;}
 .info-box h4 { margin: 0 0 10px 0; color: var(--text); font-size: var(--tb); font-weight: 600; letter-spacing: 0.02em;}
 .info-box p, .info-box ol, .info-box ul { margin: 0 0 10px 0; padding-left: 20px; color: var(--text-muted); font-size: var(--ts); line-height: 1.6;}
@@ -203,6 +203,8 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .o-node-body { padding: 12px 10px; font-size: 0.8rem; color: var(--text-muted); text-align: center; line-height: 1.4; flex-grow: 1; display: flex; align-items: center; justify-content: center;}
 .o-node.input .o-node-head { background: rgba(107,163,208,0.15); color: var(--blue); border-color: var(--blue); }
 .o-node.input { border-color: var(--blue); }
+.o-node.md .o-node-head { background: rgba(79,168,155,0.15); color: var(--primary); border-color: var(--primary); }
+.o-node.md { border-color: var(--primary); }
 .o-node.llm .o-node-head { background: rgba(168,126,216,0.15); color: var(--purple); border-color: var(--purple); }
 .o-node.llm { border-color: var(--purple); }
 .o-node.condition .o-node-head { background: rgba(240,160,80,0.15); color: var(--orange); border-color: var(--orange); }
@@ -408,7 +410,7 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
         <p>Sistemas de IA avanzados que no solo "hablan" en un chat, sino que tienen la capacidad de usar herramientas externas (navegar por internet, consultar bases de datos, ejecutar código) y planificar pasos secuenciales para lograr un objetivo de forma autónoma.</p>
       </div>
       <div class="info-box" style="grid-column: 1 / -1; border-left-color: var(--text);">
-        <h4><span class="m-icon">🔍</span> XAI (IA explicable)</h4>
+        <h4><span class="m-icon">🔍</span> XAI (IA Explicable)</h4>
         <p>El campo de la Inteligencia Artificial Explicable busca abrir la "caja negra" de los algoritmos. Exige que los modelos puedan justificar paso a paso cómo llegaron a una conclusión. Como periodistas de datos, debemos forzar la explicabilidad en nuestros prompts (ej: "Muestra tu cálculo matemático antes de responder") para poder auditar los hallazgos antes de publicar la noticia.</p>
       </div>
     </div>
@@ -784,8 +786,33 @@ Tengo este dataset: [DATOS]
     <h2 class="stitle">Fundamentos para programar low-code</h2>
     <p class="sdesc">Programar asistido por IA no significa decirle "hazme una app" y sentarse a esperar. Significa que tú diseñas la lógica en lenguaje natural y la IA escribe la sintaxis (el código duro).</p>
 
+    <!-- GUIA MARKDOWN (.md) -->
+    <div class="power-grid" style="margin-bottom: 2rem;">
+      <div class="power-card" style="grid-template-columns: 1fr; background: var(--surface-2); border-color: var(--primary);">
+        <span class="power-tag" style="background: var(--primary); color: #fff; border: none;">Estructura de Datos</span>
+        <div class="power-info">
+          <h3><span class="m-icon large" style="color: var(--primary);">📝</span> El poder oculto de los archivos Markdown (.md)</h3>
+          <p>Para que la IA entienda el contexto de tu proyecto, no puedes depender de que "recuerde" lo que le dijiste en el chat. Debes inyectarle la memoria a través de archivos Markdown (`.md`).</p>
+          <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 15px;"><strong>¿Qué son?</strong> Son archivos de texto plano, sin el "ruido" visual de Word o PDF. Los LLMs "respiran" Markdown porque es su idioma nativo de entrenamiento. Al subirle un archivo `.md` estructurado (como un diccionario de datos o glosario del reportaje), la IA lo procesa casi instantáneamente y lo usa como marco de referencia absoluto.</p>
+          
+          <div class="info-box" style="border-left-color: var(--primary); margin-top: 0;">
+            <h4>Plantilla: Diccionario de Contexto (.md)</h4>
+            <p>Guarda esto en un bloc de notas como <code>contexto_reportaje.md</code> y súbelo siempre junto a tu prompt:</p>
+            <pre style="font-family: monospace; font-size: var(--ts); color: var(--text); white-space: pre-wrap; margin-top: 10px; background: var(--bg); padding: 10px; border-radius: 4px;"># Proyecto: [Nombre de tu Reportaje]
+## Glosario de Variables
+- **Variable_1:** Significa [Definición exacta].
+- **Métrica_Clave:** Se calcula dividiendo [A] entre [B].
+## Reglas de Inclusión
+Solo nos interesan los datos que cumplan:
+1. Pertenecer a la región [Región].
+2. Ocurridos después del año [Año].</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- EJERCICIO MENTAL DE LÓGICA -->
-    <div class="challenge-box mental-box">
+    <div class="challenge-box mental-box" style="margin-top: 0;">
       <h4><span class="m-icon">[?]</span> Ejercicio mental: el oficinista literal</h4>
       <p>Imagina que tienes a un pasante (la IA) que lee a la velocidad de la luz, pero carece absolutamente de sentido común. Tienes 1,000 páginas de contratos públicos en PDF desordenados. Necesitas que extraiga solo los contratos que mencionan un "Sobrecosto" mayor a $50 millones.</p>
       <p>Si le dices a la IA: <em>"Extrae los sobrecostos altos"</em>, el modelo te dará basura porque "alto" es subjetivo. <strong>Redacta mentalmente los 4 pasos lógicos (condicionales If/Then) a prueba de tontos para que el pasante logre la tarea sin equivocarse.</strong></p>
@@ -872,7 +899,7 @@ Tengo este dataset: [DATOS]
         <span class="power-tag alt">Gemini Gems / OpenAI GPTs</span>
         <div class="power-info">
           <h3><span class="m-icon large">🤖</span> Arquitectura de agentes (Gems)</h3>
-          <p>Para que un Gem funcione como un agente sistémico y no como un simple chat, debes programar su <strong>System Prompt</strong> (código base) utilizando capas lógicas, contexto adicional (archivos `.md`) y variables.</p>
+          <p>Para que un Gem funcione como un agente sistémico y no como un simple chat, debes programar su <strong>System Prompt</strong> (código base) estructurando el comportamiento ante los datos y el manejo de errores. <em>Recuerda subir tu diccionario `.md` en la sección de configuración de conocimiento.</em></p>
           
           <div class="ui-mockup">
             <div class="ui-header">
@@ -886,16 +913,17 @@ Tengo este dataset: [DATOS]
 <span class="pk">[IDENTIDAD]</span>
 Eres un Analista de Datos especializado. Tu función es procesar inputs y devolver análisis estructurados.
 
-<span class="pk">[CONTEXTO ADICIONAL]</span>
-Tus definiciones técnicas están en el archivo adjunto: `glosario_proyecto.md`.
+<span class="pk">[ARCHIVOS ADJUNTOS (.md)]</span>
+Tu base de conocimiento técnico está en el archivo adjunto: `glosario_proyecto.md`. Lee esas reglas antes de ejecutar cualquier acción.
 
 <span class="pk">[PROCESAMIENTO LÓGICO]</span>
 Cuando recibas el INPUT, ejecuta silenciosamente:
 1. Extrae la {{variable_principal}} y crúzala con {{variable_secundaria}}.
 2. Cruza los datos buscando anomalías matemáticas.
 
-<span class="pk">[MANEJO DE EXCEPCIONES]</span>
-Si la base de datos está vacía, imprime "Error: Input nulo".
+<span class="pk">[MANEJO DE EXCEPCIONES Y ERRORES]</span>
+- Si la base de datos está vacía o el archivo está corrupto, imprime: "Error crítico: Input nulo".
+- Si no encuentras la {{variable_principal}}, aborta el proceso y di "Dato no disponible".
 
 <span class="pk">[OUTPUT REQUERIDO]</span>
 No saludes. Imprime el resultado en Markdown estricto con las llaves: {titular, tabla_limpia}.</pre>
@@ -903,7 +931,7 @@ No saludes. Imprime el resultado en Markdown estricto con las llaves: {titular, 
               <div class="ui-panel right">
                 <span class="ui-label">Vista previa (Frontend / Chat)</span>
                 <div class="ui-chat">
-                  <div class="ui-msg user">Aquí está la base de datos de contratos 2026.csv</div>
+                  <div class="ui-msg user">Adjunto archivo de conocimiento `diccionario.md` y la base de datos de contratos 2026.csv</div>
                   <div class="ui-msg ai"><strong>Titular:</strong> El 40% de los contratos se concentraron en 3 empresas en 2026.<br><br><strong>Tabla:</strong><br>| Empresa | Monto | Fecha |</div>
                 </div>
               </div>
@@ -917,11 +945,11 @@ No saludes. Imprime el resultado en Markdown estricto con las llaves: {titular, 
         <span class="power-tag" style="background: var(--blue); border-color: var(--blue);">Google Labs: Opal</span>
         <div class="power-info">
           <h3><span class="m-icon large">🧩</span> Google Opal: arquitectura de nodos</h3>
-          <p>Opal es una herramienta "no-code" que permite construir aplicaciones web conectando bloques visuales. Funciona bajo el paradigma de programación orientada a flujos de datos (*Dataflow programming*).</p>
+          <p>Opal es una herramienta experimental "no-code" de Google Labs. Te permite construir aplicaciones web conectando bloques visuales. Funciona bajo el paradigma de programación orientada a flujos de datos (*Dataflow programming*).</p>
           
           <div class="info-box" style="border-left-color: var(--blue);">
             <h4>El flujo de datos (Pipeline avanzado)</h4>
-            <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 15px;">En Opal, tú construyes la "tubería" lógica por donde viaja la información desde el usuario hasta la pantalla final.</p>
+            <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 15px;">En Opal, tú construyes la "tubería" lógica por donde viaja la información desde el usuario hasta la pantalla final, pudiendo inyectar archivos `.md` de contexto a lo largo del proceso.</p>
             
             <div class="opal-canvas">
               <div class="o-node input">
@@ -930,10 +958,15 @@ No saludes. Imprime el resultado en Markdown estricto con las llaves: {titular, 
                 <div class="o-socket right"></div>
               </div>
               <div class="o-wire active"></div>
+              <div class="o-node md" style="margin: -30px 10px 0 -40px; transform: scale(0.85); opacity: 0.9;">
+                <div class="o-node-head"><span class="m-icon" style="font-size: 1em; color: var(--primary);">📝</span> Contexto</div>
+                <div class="o-node-body">diccionario.md</div>
+                <div class="o-socket right" style="background: var(--primary); border-color: var(--primary);"></div>
+              </div>
               <div class="o-node llm">
                 <div class="o-socket left"></div>
                 <div class="o-node-head"><span class="m-icon" style="font-size: 1em; color: var(--purple);">🧠</span> LLM Node</div>
-                <div class="o-node-body">"Extrae cláusula penal y monto"</div>
+                <div class="o-node-body">"Extrae cláusula penal y monto usando las reglas de diccionario.md"</div>
                 <div class="o-socket right"></div>
               </div>
               <div class="o-wire"></div>
@@ -971,11 +1004,12 @@ No saludes. Imprime el resultado en Markdown estricto con las llaves: {titular, 
       
       <p style="font-weight: 600; margin-top: 1rem;">Instrucciones (Hazlo con tu equipo de proyecto):</p>
       <ol>
+        <li>Crea un archivo de texto en tu computadora llamado <code>diccionario_[tu_tema].md</code> y redacta allí qué significan las variables de tu base de datos y cómo quieres que se analicen.</li>
         <li>Ve a <a href="https://gemini.google.com" target="_blank" style="color: var(--purple); font-weight: 600;">Google Gemini</a> y abre la sección <strong>"Gems"</strong> en el panel izquierdo.</li>
         <li>Haz clic en <strong>Crear un nuevo Gem</strong> y ponle un nombre relacionado con tu investigación (Ej: "Analista de Movilidad UdeA").</li>
-        <li><strong>Agrega contexto (Opcional):</strong> Si tienes un diccionario de variables o contexto de tu investigación, súbelo como un archivo `.md` a la configuración del Gem.</li>
-        <li>Adapta la plantilla maestra de abajo reemplazando las variables en corchetes [ ] con los detalles de tu reportaje.</li>
-        <li><strong>Prueba de fuego:</strong> Tírale a tu Gem la base de datos real (CSV) de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente.</li>
+        <li><strong>Sube (adjunta) el archivo `.md`</strong> que acabas de crear a la configuración de "Conocimiento" del Gem.</li>
+        <li>Adapta la plantilla maestra de abajo reemplazando las variables en corchetes [ ] con los detalles específicos de tu reportaje.</li>
+        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos real (CSV) de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente, respetando las reglas de tu archivo Markdown.</li>
       </ol>
 
       <div class="prompt-block" style="border-color: var(--purple);">
@@ -983,19 +1017,21 @@ No saludes. Imprime el resultado en Markdown estricto con las llaves: {titular, 
         <pre><span class="pk">[IDENTIDAD]</span> 
 Eres el "Analista Investigativo Principal", experto en periodismo de datos. Tu única función es analizar críticamente mis bases de datos sobre [ESCRIBE EL TEMA EXACTO DE TU PROYECTO].
 
-<span class="pk">[REGLAS INQUEBRANTABLES (SKILLS LÓGICOS)]</span>
-1. CERO ALUCINACIONES: Si no hay información suficiente en los datos que te entregue, tu única respuesta debe ser "Faltan datos". Nunca inventes cifras ni nombres.
-2. EXPLICABILIDAD (XAI): Siempre que calcules un porcentaje o extraigas una tendencia, debes mostrar la operación matemática exacta debajo del resultado.
-3. ENFOQUE NARRATIVO: Los datos deben servir a una historia periodística, no ser un simple informe estadístico seco.
+<span class="pk">[CONOCIMIENTO INYECTADO]</span>
+Antes de ejecutar cualquier análisis, debes leer exhaustivamente el archivo `diccionario_[tu_tema].md` adjunto. Aplica rigurosamente las definiciones y cruces estadísticos que allí se indican.
+
+<span class="pk">[REGLAS LÓGICAS DE EXCEPCIÓN]</span>
+1. CERO ALUCINACIONES: Si no hay información suficiente en el INPUT que te entregue para cumplir con las reglas del `.md`, tu única respuesta debe ser "Faltan datos en el CSV para ejecutar el análisis". Nunca inventes cifras.
+2. EXPLICABILIDAD (XAI): Siempre que calcules un porcentaje o tendencia estadística, debes mostrar la operación matemática exacta debajo del resultado para que yo pueda auditarla.
 
 <span class="pk">[OUTPUT PIPELINE]</span>
 Cada vez que recibas datos de mi parte, debes procesarlos y responder SIEMPRE con esta estructura exacta en Markdown:
 
 ### 1. 🕵️ El ángulo periodístico
-(Dime en un párrafo corto cuál es el titular más impactante que esconden estos datos respecto a [ESCRIBE EL OBJETIVO DE TU INVESTIGACIÓN]).
+(Dime en un párrafo corto cuál es el titular más impactante que esconden estos datos, cruzando [VARIABLE A] y [VARIABLE B]).
 
 ### 2. ⚠️ Anomalías y patrones
-(Lista en viñetas las contradicciones, "red flags" o conexiones atípicas en los datos).
+(Lista en viñetas las contradicciones, "red flags" o valores atípicos (outliers) en los datos).
 
 ### 3. 🗄️ Estructuración 
 (Convierte la información clave del hallazgo en una tabla Markdown limpia).
