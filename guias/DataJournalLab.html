@@ -168,7 +168,7 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .power-info h3 { font-family: var(--ff-d); font-size: var(--txl); margin-bottom: 12px; color: var(--text); display: flex; align-items: center; gap: 10px;}
 .power-info p { font-size: var(--tb); color: var(--text-muted); margin-bottom: 15px; line-height: 1.6;}
 
-/* EXPLANATION BOXES */
+/* EXPLANATION BOXES (Concepts / Low code) */
 .info-box { background: var(--surface-off); padding: 20px; border-radius: var(--radius-md); border-left: 4px solid var(--matrix); margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); height: 100%;}
 .info-box h4 { margin: 0 0 10px 0; color: var(--text); font-size: var(--tb); font-weight: 600; letter-spacing: 0.02em;}
 .info-box p, .info-box ol, .info-box ul { margin: 0 0 10px 0; padding-left: 20px; color: var(--text-muted); font-size: var(--ts); line-height: 1.6;}
@@ -197,7 +197,7 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .ui-msg.ai { background: var(--matrix-dim); color: var(--matrix); border: 1px solid var(--matrix); align-self: flex-start; border-bottom-left-radius: 0; font-family: monospace; }
 
 /* OPAL CANVAS */
-.opal-canvas { background: #0a0a0a; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 3rem 1.5rem; position: relative; display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; overflow-x: auto; background-image: radial-gradient(var(--surface-3) 1px, transparent 1px); background-size: 20px 20px; gap: 10px;}
+.opal-canvas { background: #0a0a0a; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 2.5rem 1.5rem; position: relative; display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; overflow-x: auto; background-image: radial-gradient(var(--surface-3) 1px, transparent 1px); background-size: 20px 20px; gap: 15px;}
 .o-node { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; width: 140px; flex-shrink: 0; position: relative; z-index: 2; box-shadow: 0 4px 10px rgba(0,0,0,0.4); display: flex; flex-direction: column; }
 .o-node-head { padding: 8px 10px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid var(--border); border-top-left-radius: 8px; border-top-right-radius: 8px; display: flex; align-items: center; gap: 6px; letter-spacing: 0.05em; font-family: monospace;}
 .o-node-body { padding: 12px 10px; font-size: 0.8rem; color: var(--text-muted); text-align: center; line-height: 1.4; flex-grow: 1; display: flex; align-items: center; justify-content: center;}
@@ -872,7 +872,7 @@ Tengo este dataset: [DATOS]
         <span class="power-tag alt">Gemini Gems / OpenAI GPTs</span>
         <div class="power-info">
           <h3><span class="m-icon large">🤖</span> Arquitectura de agentes (Gems)</h3>
-          <p>Para que un Gem funcione como un agente sistémico y no como un simple chat, debes programar su <strong>System Prompt</strong> (código base) utilizando capas lógicas y variables.</p>
+          <p>Para que un Gem funcione como un agente sistémico y no como un simple chat, debes programar su <strong>System Prompt</strong> (código base) utilizando capas lógicas, contexto adicional (archivos `.md`) y variables.</p>
           
           <div class="ui-mockup">
             <div class="ui-header">
@@ -884,25 +884,27 @@ Tengo este dataset: [DATOS]
                 <span class="ui-label">Instrucciones del Sistema (Backend)</span>
                 <pre style="font-family: monospace; font-size: 0.75rem; color: var(--text); white-space: pre-wrap; line-height: 1.5;">
 <span class="pk">[IDENTIDAD]</span>
-Eres un Analista de Datos especializado en periodismo investigativo. Tu función es procesar inputs crudos y devolver análisis estructurados.
+Eres un Analista de Datos especializado. Tu función es procesar inputs y devolver análisis estructurados.
 
-<span class="pk">[INPUT ESPERADO]</span>
-El usuario te proporcionará datos en formato CSV o transcripciones de texto. 
+<span class="pk">[CONTEXTO ADICIONAL]</span>
+Tus definiciones técnicas están en el archivo adjunto: `glosario_proyecto.md`.
 
 <span class="pk">[PROCESAMIENTO LÓGICO]</span>
-Cuando recibas el INPUT, ejecuta silenciosamente este algoritmo:
+Cuando recibas el INPUT, ejecuta silenciosamente:
 1. Extrae la {{variable_principal}} y crúzala con {{variable_secundaria}}.
 2. Cruza los datos buscando anomalías matemáticas.
-3. Formula un titular periodístico basado en la mayor anomalía.
+
+<span class="pk">[MANEJO DE EXCEPCIONES]</span>
+Si la base de datos está vacía, imprime "Error: Input nulo".
 
 <span class="pk">[OUTPUT REQUERIDO]</span>
-No saludes. Imprime el resultado en formato Markdown estricto con las llaves: {titular, hallazgo_clave, tabla_limpia}.</pre>
+No saludes. Imprime el resultado en Markdown estricto con las llaves: {titular, tabla_limpia}.</pre>
               </div>
               <div class="ui-panel right">
                 <span class="ui-label">Vista previa (Frontend / Chat)</span>
                 <div class="ui-chat">
                   <div class="ui-msg user">Aquí está la base de datos de contratos 2026.csv</div>
-                  <div class="ui-msg ai"><strong>Titular:</strong> El 40% de los contratos de La Alpujarra se concentraron en 3 empresas en 2026.<br><br><strong>Anomalía:</strong> Las 3 empresas se registraron la misma semana.<br><br><strong>Tabla:</strong><br>| Empresa | Monto | Fecha |</div>
+                  <div class="ui-msg ai"><strong>Titular:</strong> El 40% de los contratos se concentraron en 3 empresas en 2026.<br><br><strong>Tabla:</strong><br>| Empresa | Monto | Fecha |</div>
                 </div>
               </div>
             </div>
@@ -917,38 +919,40 @@ No saludes. Imprime el resultado en formato Markdown estricto con las llaves: {t
           <h3><span class="m-icon large">🧩</span> Google Opal: arquitectura de nodos</h3>
           <p>Opal es una herramienta "no-code" que permite construir aplicaciones web conectando bloques visuales. Funciona bajo el paradigma de programación orientada a flujos de datos (*Dataflow programming*).</p>
           
-          <div class="opal-canvas">
-            <!-- Node 1 -->
-            <div class="o-node input">
-              <div class="o-node-head"><span class="m-icon" style="font-size: 1em;">📄</span> Input</div>
-              <div class="o-node-body">PDF del contrato público</div>
-              <div class="o-socket right"></div>
+          <div class="info-box" style="border-left-color: var(--blue);">
+            <h4>El flujo de datos (Pipeline avanzado)</h4>
+            <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 15px;">En Opal, tú construyes la "tubería" lógica por donde viaja la información desde el usuario hasta la pantalla final.</p>
+            
+            <div class="opal-canvas">
+              <div class="o-node input">
+                <div class="o-node-head"><span class="m-icon" style="font-size: 1em;">📄</span> Input</div>
+                <div class="o-node-body">PDF del contrato público</div>
+                <div class="o-socket right"></div>
+              </div>
+              <div class="o-wire active"></div>
+              <div class="o-node llm">
+                <div class="o-socket left"></div>
+                <div class="o-node-head"><span class="m-icon" style="font-size: 1em; color: var(--purple);">🧠</span> LLM Node</div>
+                <div class="o-node-body">"Extrae cláusula penal y monto"</div>
+                <div class="o-socket right"></div>
+              </div>
+              <div class="o-wire"></div>
+              <div class="o-node condition">
+                <div class="o-socket left"></div>
+                <div class="o-node-head"><span class="m-icon" style="font-size: 1em; color: var(--orange);">⚡</span> Logic</div>
+                <div class="o-node-body">¿Monto > 50M?</div>
+                <div class="o-socket right"></div>
+              </div>
+              <div class="o-wire"></div>
+              <div class="o-node output">
+                <div class="o-socket left"></div>
+                <div class="o-node-head"><span class="m-icon" style="font-size: 1em; color: var(--matrix);">🖥️</span> Output App</div>
+                <div class="o-node-body">Renderizar alerta visual web</div>
+              </div>
             </div>
-            <div class="o-wire active"></div>
-            <!-- Node 2 -->
-            <div class="o-node llm">
-              <div class="o-socket left"></div>
-              <div class="o-node-head"><span class="m-icon" style="font-size: 1em; color: var(--purple);">🧠</span> LLM Node</div>
-              <div class="o-node-body">Prompt: "Extrae cláusula penal y monto"</div>
-              <div class="o-socket right"></div>
-            </div>
-            <div class="o-wire"></div>
-            <!-- Node 3 -->
-            <div class="o-node condition">
-              <div class="o-socket left"></div>
-              <div class="o-node-head"><span class="m-icon" style="font-size: 1em; color: var(--orange);">⚡</span> Logic</div>
-              <div class="o-node-body">¿Monto > 50M?</div>
-              <div class="o-socket right"></div>
-            </div>
-            <div class="o-wire"></div>
-            <!-- Node 4 -->
-            <div class="o-node output">
-              <div class="o-socket left"></div>
-              <div class="o-node-head"><span class="m-icon" style="font-size: 1em; color: var(--matrix);">🖥️</span> Output App</div>
-              <div class="o-node-body">Renderizar alerta en rojo en la interfaz</div>
-            </div>
+            
+            <p style="font-size: var(--ts); color: var(--text); font-weight: 600; margin-top: 15px;">Al terminar de conectar los nodos, Opal compila el flujo y genera una URL pública. Tu equipo de investigación puede entrar a esa web, subir cualquier contrato, y la aplicación ejecutará todo el análisis algorítmico diseñado.</p>
           </div>
-          <p style="font-size: var(--ts); color: var(--text-muted); margin-top: 15px;">Al terminar de conectar los nodos, Opal compila el flujo y genera una URL pública. Tu equipo de investigación puede entrar a esa web, subir cualquier contrato, y la aplicación ejecutará todo el análisis algorítmico diseñado en los nodos centrales.</p>
         </div>
       </div>
     </div>
@@ -969,14 +973,15 @@ No saludes. Imprime el resultado en formato Markdown estricto con las llaves: {t
       <ol>
         <li>Ve a <a href="https://gemini.google.com" target="_blank" style="color: var(--purple); font-weight: 600;">Google Gemini</a> y abre la sección <strong>"Gems"</strong> en el panel izquierdo.</li>
         <li>Haz clic en <strong>Crear un nuevo Gem</strong> y ponle un nombre relacionado con tu investigación (Ej: "Analista de Movilidad UdeA").</li>
-        <li>Adapta la plantilla maestra de abajo reemplazando los corchetes [ ] con los detalles específicos de tu reportaje.</li>
-        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos real (CSV) o las transcripciones de entrevistas de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente.</li>
+        <li><strong>Agrega contexto (Opcional):</strong> Si tienes un diccionario de variables o contexto de tu investigación, súbelo como un archivo `.md` a la configuración del Gem.</li>
+        <li>Adapta la plantilla maestra de abajo reemplazando las variables en corchetes [ ] con los detalles de tu reportaje.</li>
+        <li><strong>Prueba de fuego:</strong> Tírale a tu Gem la base de datos real (CSV) de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente.</li>
       </ol>
 
       <div class="prompt-block" style="border-color: var(--purple);">
         <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar código del Gem</button>
         <pre><span class="pk">[IDENTIDAD]</span> 
-Eres el "Analista Investigativo Principal", experto en periodismo de datos. Tu única función es analizar críticamente mis notas y bases de datos sobre [ESCRIBE EL TEMA EXACTO DE TU PROYECTO].
+Eres el "Analista Investigativo Principal", experto en periodismo de datos. Tu única función es analizar críticamente mis bases de datos sobre [ESCRIBE EL TEMA EXACTO DE TU PROYECTO].
 
 <span class="pk">[REGLAS INQUEBRANTABLES (SKILLS LÓGICOS)]</span>
 1. CERO ALUCINACIONES: Si no hay información suficiente en los datos que te entregue, tu única respuesta debe ser "Faltan datos". Nunca inventes cifras ni nombres.
