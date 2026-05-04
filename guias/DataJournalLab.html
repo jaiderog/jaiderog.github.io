@@ -178,6 +178,16 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;}
 .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem;}
 
+/* NODE VISUALIZATION */
+.node-flow { display: flex; align-items: center; justify-content: space-between; margin: 20px 0; padding: 20px; background: var(--bg); border-radius: 8px; border: 1px dashed var(--divider); flex-wrap: wrap; gap: 10px;}
+.node-box { background: var(--surface); border: 1px solid var(--border); padding: 15px; border-radius: 6px; text-align: center; flex: 1; min-width: 120px; position: relative;}
+.node-box h5 { margin: 0 0 5px 0; color: var(--text); font-size: var(--ts); font-family: monospace;}
+.node-box p { margin: 0; color: var(--text-muted); font-size: var(--tx);}
+.node-box.blue { border-color: var(--blue); }
+.node-box.purple { border-color: var(--purple); }
+.node-box.matrix { border-color: var(--matrix); }
+.node-arrow { color: var(--matrix); font-size: 1.5rem; font-weight: bold;}
+
 /* AUTHOR SECTION */
 .author-box { background: var(--surface-2); border: 1px solid var(--matrix); border-radius: var(--radius-xl); padding: 3rem; display: flex; flex-direction: column; gap: 1.5rem; max-width: 900px; margin: 0 auto; box-shadow: 0 0 20px var(--matrix-dim); }
 .author-header { display: flex; align-items: center; gap: 1rem; border-bottom: 1px solid var(--divider); padding-bottom: 1.5rem; margin-bottom: 0.5rem; }
@@ -276,8 +286,8 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
           <p>Lógica de programación y metodologías de desarrollo.</p>
         </div>
         <div class="index-item" style="grid-column: 1 / -1;">
-          <h4><span class="m-icon">[*]</span> 5. Programación visual</h4>
-          <p>Agentes permanentes (Gems) y flujos basados en nodos (Google Opal).</p>
+          <h4><span class="m-icon">[*]</span> 5. Programación visual (agentes)</h4>
+          <p>Arquitectura de agentes permanentes (Gems) y flujos basados en nodos (Google Opal).</p>
         </div>
       </div>
     </div>
@@ -358,11 +368,11 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
       </div>
       <div class="info-box" style="border-left-color: var(--purple);">
         <h4><span class="m-icon">🗄️</span> Ventana de contexto</h4>
-        <p>Es la "memoria a corto plazo" de la IA en un chat. Indica cuántos tokens (texto o datos) puede procesar a la vez. Si le subes 50 PDFs y exceden su límite, la IA sufrirá de amnesia y empezará a olvidar las primeras páginas de tu investigación.</p>
+        <p>Es la "memoria a corto plazo" de la IA en un chat. Indica cuántos tokens (texto o datos) puede procesar a la vez. Si le subes PDFs que exceden su límite, la IA sufrirá de amnesia y empezará a olvidar las primeras páginas de tu investigación.</p>
       </div>
       <div class="info-box" style="border-left-color: var(--red);">
         <h4><span class="m-icon">👻</span> Alucinaciones</h4>
-        <p>El mayor riesgo en el periodismo. Ocurre cuando el LLM inventa datos, nombres de fuentes o enlaces web que suenan increíblemente reales. Esto sucede porque el modelo busca "completar" el patrón estadístico del texto, no decir la verdad objetiva.</p>
+        <p>El mayor riesgo en el periodismo. Ocurre cuando el LLM inventa datos, nombres de fuentes o enlaces web que suenan increíblemente reales. Esto sucede porque el modelo busca "completar" el patrón estadístico, no decir la verdad objetiva.</p>
       </div>
       <div class="info-box" style="border-left-color: var(--matrix);">
         <h4><span class="m-icon">🤖</span> Agentes (Agents)</h4>
@@ -820,7 +830,7 @@ Tengo este dataset: [DATOS]
   </div>
 </section>
 
-<!-- AGENTES Y OPAL -->
+<!-- LÓGICA SISTÉMICA DE AGENTES Y OPAL -->
 <section class="section section--alt" id="agentes">
   <div class="wrap">
     <p class="stag">Lógica sistémica</p>
@@ -832,17 +842,28 @@ Tengo este dataset: [DATOS]
       <div class="power-card" style="grid-template-columns: 1fr;">
         <span class="power-tag alt">Gemini Gems / OpenAI GPTs</span>
         <div class="power-info">
-          <h3><span class="m-icon large">🤖</span> Asistentes permanentes (Gems)</h3>
-          <p>Un chat normal olvida tus instrucciones al cerrarse. Un <strong>Gem</strong> es una versión clonada de la IA a la que le inyectas instrucciones directamente en su "código base" (System Instructions). El Gem obedece esas reglas de forma permanente, ahorrándote horas de *prompting* repetitivo.</p>
+          <h3><span class="m-icon large">🤖</span> Arquitectura de agentes (Gems)</h3>
+          <p>Para que un Gem funcione como un agente sistémico y no como un simple chat, debes programar su <strong>System Prompt</strong> utilizando capas lógicas y variables.</p>
           
           <div class="info-box" style="border-left-color: var(--purple);">
-            <h4>Plantilla técnica para crear un Gem de investigación</h4>
-            <pre style="font-family: monospace; font-size: var(--ts); color: var(--text); white-space: pre-wrap; margin-top: 10px;"><span class="pk">Rol:</span> Eres un asistente técnico especializado en [TEMA DEL PROYECTO].
-<span class="pk">Objetivo:</span> Analizar y estructurar datos provenientes de [TIPO DE FUENTE, ej: entrevistas, informes gubernamentales].
-<span class="pk">Instrucciones lógicas obligatorias:</span>
-1. Al recibir datos, siempre identifica la variable [VARIABLE 1] y crúzala con [VARIABLE 2].
-2. Cero alucinaciones: Si [VARIABLE 1] no está en el texto, responde obligatoriamente "Dato no disponible".
-<span class="pk">Formato de salida (Output):</span> Genera siempre una tabla Markdown con las columnas [COL 1, COL 2, COL 3] y un breve análisis estadístico de anomalías debajo.</pre>
+            <h4>Framework de desarrollo de agentes (Copiar y adaptar)</h4>
+            <pre style="font-family: monospace; font-size: var(--ts); color: var(--text); white-space: pre-wrap; margin-top: 10px;"><span class="pk">[IDENTIDAD]</span>
+Eres un Analista de Datos especializado en periodismo investigativo. Tu función es procesar inputs crudos y devolver análisis estructurados.
+
+<span class="pk">[INPUT ESPERADO]</span>
+El usuario (yo) te proporcionará datos en formato CSV o transcripciones de texto. 
+
+<span class="pk">[PROCESAMIENTO LÓGICO]</span>
+Cuando recibas el INPUT, ejecuta silenciosamente este algoritmo:
+1. Extrae las variables principales (fechas, montos, nombres).
+2. Cruza los datos buscando anomalías matemáticas.
+3. Formula un titular periodístico basado en la mayor anomalía.
+
+<span class="pk">[HERRAMIENTAS]</span>
+Usa Python (Advanced Data Analysis) obligatoriamente si el input contiene números financieros para evitar alucinaciones.
+
+<span class="pk">[OUTPUT REQUERIDO]</span>
+No saludes ni expliques tu proceso. Imprime directamente el resultado en formato JSON estricto con las llaves: {titular, hallazgo_clave, codigo_html_grafico}.</pre>
           </div>
         </div>
       </div>
@@ -851,18 +872,31 @@ Tengo este dataset: [DATOS]
       <div class="power-card" style="grid-template-columns: 1fr;">
         <span class="power-tag" style="background: var(--blue); border-color: var(--blue);">Google Labs: Opal</span>
         <div class="power-info">
-          <h3><span class="m-icon large">🧩</span> Google Opal: programación visual basada en nodos</h3>
-          <p>Opal es una herramienta experimental "no-code" de Google Labs. Te permite construir aplicaciones impulsadas por IA conectando bloques visuales, ideal para automatizar flujos periodísticos pesados sin saber programar.</p>
+          <h3><span class="m-icon large">🧩</span> Google Opal: arquitectura de nodos</h3>
+          <p>Opal es una herramienta "no-code" que permite construir aplicaciones conectando bloques visuales. Funciona bajo el paradigma de programación orientada a flujos de datos.</p>
           
           <div class="info-box" style="border-left-color: var(--blue);">
-            <h4>¿Cómo funciona la arquitectura de nodos?</h4>
-            <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 10px;">En lugar de escribir código de texto, arrastras cajas y las conectas con líneas, creando una "tubería" (pipeline) de información:</p>
-            <ul style="margin-bottom: 10px;">
-              <li><strong>Nodo de entrada (Input):</strong> Donde el usuario final de tu app pega el texto o sube un PDF (Ej: un contrato público).</li>
-              <li><strong>Nodo de Prompt (LLM):</strong> Donde la IA recibe el *Input* y lo procesa basándose en tus reglas maestras secretas.</li>
-              <li><strong>Nodo de salida (Output):</strong> Donde se visualiza el resultado estructurado final (Ej: Solo la cifra de sobrecosto).</li>
-            </ul>
-            <p style="font-size: var(--ts); color: var(--text); font-weight: 600; margin-top: 10px;">El resultado final es una mini-app interactiva con un enlace web propio que puedes compartir con tus lectores para que ellos mismos auditen o consulten la base de datos de tu reportaje.</p>
+            <h4>El flujo de datos (Pipeline)</h4>
+            <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 15px;">En Opal, tú construyes la "tubería" por donde viaja la información de tus lectores.</p>
+            
+            <div class="node-flow">
+              <div class="node-box blue">
+                <h5>Input Node</h5>
+                <p>Caja donde el usuario sube un PDF (Ej: Contrato).</p>
+              </div>
+              <div class="node-arrow">→</div>
+              <div class="node-box purple">
+                <h5>LLM Node (Prompt)</h5>
+                <p>"Extrae solo la cláusula penal del documento anterior".</p>
+              </div>
+              <div class="node-arrow">→</div>
+              <div class="node-box matrix">
+                <h5>Output Node</h5>
+                <p>Renderiza el texto extraído en una tarjeta limpia web.</p>
+              </div>
+            </div>
+            
+            <p style="font-size: var(--ts); color: var(--text); font-weight: 600; margin-top: 15px;">Al terminar de conectar los nodos, Opal genera un enlace web (App) que puedes enviar a tu equipo de investigación para que la utilicen masivamente.</p>
           </div>
         </div>
       </div>
@@ -884,22 +918,21 @@ Tengo este dataset: [DATOS]
       <ol>
         <li>Ve a <a href="https://gemini.google.com" target="_blank" style="color: var(--purple); font-weight: 600;">Google Gemini</a> y abre la sección <strong>"Gems"</strong> en el panel izquierdo.</li>
         <li>Haz clic en <strong>Crear un nuevo Gem</strong> y ponle un nombre relacionado con tu investigación (Ej: "Analista de Movilidad UdeA").</li>
-        <li>Adapta la plantilla maestra de abajo reemplazando los corchetes [ ] con los detalles específicos de tu reportaje.</li>
-        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos real (CSV) o las transcripciones de entrevistas de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente.</li>
+        <li>Adapta la plantilla maestra de abajo reemplazando las variables en corchetes [ ] con los detalles específicos de tu reportaje.</li>
+        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos real (CSV) o las notas de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente.</li>
       </ol>
 
       <div class="prompt-block" style="border-color: var(--purple);">
         <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar código del Gem</button>
-        <pre><span class="pk">ROL Y OBJETIVO:</span> 
-Eres el "Analista Investigativo Principal", experto en periodismo de datos. Tu única función es analizar críticamente mis notas y bases de datos sobre [ESCRIBE EL TEMA EXACTO DE TU PROYECTO].
+        <pre><span class="pk">[IDENTIDAD]</span> 
+Eres el "Analista Investigativo Principal", experto en periodismo de datos. Tu única función es analizar críticamente bases de datos sobre [ESCRIBE EL TEMA EXACTO DE TU PROYECTO].
 
-<span class="pk">REGLAS INQUEBRANTABLES (SKILLS LÓGICOS):</span>
-1. CERO ALUCINACIONES: Si no hay información suficiente en los datos que te entregue, tu única respuesta debe ser "Faltan datos". Nunca inventes cifras ni nombres.
-2. EXPLICABILIDAD (XAI): Siempre que calcules un porcentaje o extraigas una tendencia, debes mostrar la operación matemática exacta debajo del resultado.
-3. ENFOQUE NARRATIVO: Los datos deben servir a una historia periodística, no ser un simple informe estadístico seco.
+<span class="pk">[REGLAS LÓGICAS INQUEBRANTABLES]</span>
+1. CERO ALUCINACIONES: Si no hay información suficiente en el INPUT que te entregue, tu única respuesta debe ser "Faltan datos". Nunca inventes cifras.
+2. EXPLICABILIDAD (XAI): Siempre que calcules un porcentaje o tendencia, muestra la operación matemática exacta debajo del resultado.
 
-<span class="pk">FORMATO DE SALIDA (Output Pipeline):</span>
-Cada vez que recibas datos de mi parte, debes procesarlos y responder SIEMPRE con esta estructura exacta en Markdown:
+<span class="pk">[OUTPUT PIPELINE (Markdown)]</span>
+Cada vez que recibas datos, procésalos y responde SIEMPRE con esta estructura exacta:
 
 ### 1. 🕵️ El ángulo periodístico
 (Dime en un párrafo corto cuál es el titular más impactante que esconden estos datos respecto a [ESCRIBE EL OBJETIVO DE TU INVESTIGACIÓN]).
@@ -911,7 +944,7 @@ Cada vez que recibas datos de mi parte, debes procesarlos y responder SIEMPRE co
 (Convierte la información clave del hallazgo en una tabla Markdown limpia).
 
 ### 4. 📊 Código de visualización
-(Analiza qué tipo de gráfico explicaría mejor esta historia específica. Luego, escribe el código HTML y JS usando la librería Chart.js para visualizar el hallazgo principal. El código debe ser 'responsive' y 100% funcional para probar directamente en el navegador).</pre>
+(Analiza qué tipo de gráfico explicaría mejor esta historia. Luego, escribe el código HTML y JS usando la librería Chart.js para visualizar el hallazgo principal. El código debe ser 'responsive' y 100% funcional para probar en navegador).</pre>
       </div>
     </div>
   </div>
