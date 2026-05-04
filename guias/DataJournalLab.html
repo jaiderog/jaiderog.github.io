@@ -168,13 +168,14 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .power-info h3 { font-family: var(--ff-d); font-size: var(--txl); margin-bottom: 12px; color: var(--text); display: flex; align-items: center; gap: 10px;}
 .power-info p { font-size: var(--tb); color: var(--text-muted); margin-bottom: 15px; line-height: 1.6;}
 
-/* EXPLANATION BOXES (Concepts / Low code) */
+/* EXPLANATION BOXES */
 .info-box { background: var(--surface-off); padding: 20px; border-radius: var(--radius-md); border-left: 4px solid var(--matrix); margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); height: 100%;}
 .info-box h4 { margin: 0 0 10px 0; color: var(--text); font-size: var(--tb); font-weight: 600; letter-spacing: 0.02em;}
 .info-box p, .info-box ol, .info-box ul { margin: 0 0 10px 0; padding-left: 20px; color: var(--text-muted); font-size: var(--ts); line-height: 1.6;}
 .info-box p { padding-left: 0; }
 .info-box li { margin-bottom: 8px; }
 .info-box p:last-child, .info-box ul:last-child, .info-box ol:last-child { margin-bottom: 0;}
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;}
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;}
 .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem;}
 
@@ -410,7 +411,7 @@ footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
         <p>Sistemas de IA avanzados que no solo "hablan" en un chat, sino que tienen la capacidad de usar herramientas externas (navegar por internet, consultar bases de datos, ejecutar código) y planificar pasos secuenciales para lograr un objetivo de forma autónoma.</p>
       </div>
       <div class="info-box" style="grid-column: 1 / -1; border-left-color: var(--text);">
-        <h4><span class="m-icon">🔍</span> XAI (IA Explicable)</h4>
+        <h4><span class="m-icon">🔍</span> XAI (IA explicable)</h4>
         <p>El campo de la Inteligencia Artificial Explicable busca abrir la "caja negra" de los algoritmos. Exige que los modelos puedan justificar paso a paso cómo llegaron a una conclusión. Como periodistas de datos, debemos forzar la explicabilidad en nuestros prompts (ej: "Muestra tu cálculo matemático antes de responder") para poder auditar los hallazgos antes de publicar la noticia.</p>
       </div>
     </div>
@@ -786,33 +787,8 @@ Tengo este dataset: [DATOS]
     <h2 class="stitle">Fundamentos para programar low-code</h2>
     <p class="sdesc">Programar asistido por IA no significa decirle "hazme una app" y sentarse a esperar. Significa que tú diseñas la lógica en lenguaje natural y la IA escribe la sintaxis (el código duro).</p>
 
-    <!-- GUIA MARKDOWN (.md) -->
-    <div class="power-grid" style="margin-bottom: 2rem;">
-      <div class="power-card" style="grid-template-columns: 1fr; background: var(--surface-2); border-color: var(--primary);">
-        <span class="power-tag" style="background: var(--primary); color: #fff; border: none;">Estructura de Datos</span>
-        <div class="power-info">
-          <h3><span class="m-icon large" style="color: var(--primary);">📝</span> El poder oculto de los archivos Markdown (.md)</h3>
-          <p>Para que la IA entienda el contexto de tu proyecto, no puedes depender de que "recuerde" lo que le dijiste en el chat. Debes inyectarle la memoria a través de archivos Markdown (`.md`).</p>
-          <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 15px;"><strong>¿Qué son?</strong> Son archivos de texto plano, sin el "ruido" visual de Word o PDF. Los LLMs "respiran" Markdown porque es su idioma nativo de entrenamiento. Al subirle un archivo `.md` estructurado (como un diccionario de datos o glosario del reportaje), la IA lo procesa casi instantáneamente y lo usa como marco de referencia absoluto.</p>
-          
-          <div class="info-box" style="border-left-color: var(--primary); margin-top: 0;">
-            <h4>Plantilla: Diccionario de Contexto (.md)</h4>
-            <p>Guarda esto en un bloc de notas como <code>contexto_reportaje.md</code> y súbelo siempre junto a tu prompt:</p>
-            <pre style="font-family: monospace; font-size: var(--ts); color: var(--text); white-space: pre-wrap; margin-top: 10px; background: var(--bg); padding: 10px; border-radius: 4px;"># Proyecto: [Nombre de tu Reportaje]
-## Glosario de Variables
-- **Variable_1:** Significa [Definición exacta].
-- **Métrica_Clave:** Se calcula dividiendo [A] entre [B].
-## Reglas de Inclusión
-Solo nos interesan los datos que cumplan:
-1. Pertenecer a la región [Región].
-2. Ocurridos después del año [Año].</pre>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- EJERCICIO MENTAL DE LÓGICA -->
-    <div class="challenge-box mental-box" style="margin-top: 0;">
+    <div class="challenge-box mental-box">
       <h4><span class="m-icon">[?]</span> Ejercicio mental: el oficinista literal</h4>
       <p>Imagina que tienes a un pasante (la IA) que lee a la velocidad de la luz, pero carece absolutamente de sentido común. Tienes 1,000 páginas de contratos públicos en PDF desordenados. Necesitas que extraiga solo los contratos que mencionan un "Sobrecosto" mayor a $50 millones.</p>
       <p>Si le dices a la IA: <em>"Extrae los sobrecostos altos"</em>, el modelo te dará basura porque "alto" es subjetivo. <strong>Redacta mentalmente los 4 pasos lógicos (condicionales If/Then) a prueba de tontos para que el pasante logre la tarea sin equivocarse.</strong></p>
@@ -826,6 +802,46 @@ Solo nos interesan los datos que cumplan:
             <li><strong>Paso 4:</strong> Copia la fecha y el monto en una fila de la tabla final.</li>
           </ul>
         </details>
+      </div>
+    </div>
+
+    <!-- GUÍA MARKDOWN (.md) -->
+    <h3 style="font-family: var(--ff-d); font-size: var(--tl); color: var(--text); margin: 4rem 0 1rem 0;">El "idioma nativo" de la IA: archivos Markdown (.md)</h3>
+    <p class="sdesc">Para que un agente (Gem u Opal) entienda el contexto de tu proyecto, no puedes depender de que "recuerde" un chat. Debes inyectarle la memoria a través de archivos Markdown.</p>
+
+    <div class="power-grid" style="margin-bottom: 3rem;">
+      <div class="power-card" style="grid-template-columns: 1fr; background: var(--surface-2); border-color: var(--primary);">
+        <span class="power-tag" style="background: var(--primary); color: #fff; border: none;">Estructura de datos</span>
+        <div class="power-info">
+          <h3><span class="m-icon large" style="color: var(--primary);">📝</span> ¿Por qué usar .md y no Word o PDF?</h3>
+          <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 15px;">Markdown es un lenguaje de marcado ligero. Los LLMs "respiran" Markdown porque gran parte de su entrenamiento proviene de foros, GitHub y wikis. Un archivo de Word o PDF está lleno de metadatos y código oculto de formato que la IA debe procesar, consumiendo valiosos <strong>tokens</strong> y "distrayéndola". Un `.md` es texto puro con jerarquía lógica explícita (usando numerales y asteriscos).</p>
+          
+          <div class="grid-2">
+            <div class="info-box" style="border-left-color: var(--matrix); margin-top: 0;">
+              <h4><span class="m-icon">>_</span> ¿Cómo estructurarlo?</h4>
+              <ul>
+                <li>Usa <code>#</code> para el título principal (Contexto global).</li>
+                <li>Usa <code>##</code> para secciones (Glosario, Reglas).</li>
+                <li>Usa <code>-</code> para listas y <code>**negritas**</code> para destacar variables clave.</li>
+                <li>Escríbelo en el Bloc de Notas (Windows) o TextEdit (Mac) y guárdalo añadiendo <code>.md</code> al final del nombre.</li>
+              </ul>
+            </div>
+
+            <div class="info-box" style="border-left-color: var(--purple); margin-top: 0;">
+              <h4>Plantilla: Diccionario de variables (.md)</h4>
+              <p style="margin-bottom: 10px;">Sube esto a tu Gem para que sepa cómo leer tu CSV:</p>
+              <pre style="font-family: monospace; font-size: 0.8rem; color: var(--text); white-space: pre-wrap; background: var(--bg); padding: 10px; border-radius: 4px; border: 1px solid var(--border);"># Contexto: Reportaje Movilidad Medellín
+## Glosario de variables del CSV
+- **ID_Contrato:** Código único alfanumérico.
+- **Monto_COP:** Valor en pesos. NO tiene decimales.
+- **Contratista:** Razón social de la empresa.
+
+## Reglas de limpieza obligatorias
+1. Ignorar cualquier fila donde `Monto_COP` sea 0.
+2. Si `Contratista` dice "N/A", márcalo "Anónimo".</pre>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
