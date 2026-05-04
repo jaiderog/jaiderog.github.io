@@ -168,7 +168,7 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .power-info h3 { font-family: var(--ff-d); font-size: var(--txl); margin-bottom: 12px; color: var(--text); display: flex; align-items: center; gap: 10px;}
 .power-info p { font-size: var(--tb); color: var(--text-muted); margin-bottom: 15px; line-height: 1.6;}
 
-/* EXPLANATION BOXES (Concepts / Low code) */
+/* EXPLANATION BOXES */
 .info-box { background: var(--surface-off); padding: 20px; border-radius: var(--radius-md); border-left: 4px solid var(--matrix); margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); height: 100%;}
 .info-box h4 { margin: 0 0 10px 0; color: var(--text); font-size: var(--tb); font-weight: 600; letter-spacing: 0.02em;}
 .info-box p, .info-box ol, .info-box ul { margin: 0 0 10px 0; padding-left: 20px; color: var(--text-muted); font-size: var(--ts); line-height: 1.6;}
@@ -178,15 +178,44 @@ nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;}
 .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 2rem;}
 
-/* NODE VISUALIZATION */
-.node-flow { display: flex; align-items: center; justify-content: space-between; margin: 20px 0; padding: 20px; background: var(--bg); border-radius: 8px; border: 1px dashed var(--divider); flex-wrap: wrap; gap: 10px;}
-.node-box { background: var(--surface); border: 1px solid var(--border); padding: 15px; border-radius: 6px; text-align: center; flex: 1; min-width: 120px; position: relative;}
-.node-box h5 { margin: 0 0 5px 0; color: var(--text); font-size: var(--ts); font-family: monospace;}
-.node-box p { margin: 0; color: var(--text-muted); font-size: var(--tx);}
-.node-box.blue { border-color: var(--blue); }
-.node-box.purple { border-color: var(--purple); }
-.node-box.matrix { border-color: var(--matrix); }
-.node-arrow { color: var(--matrix); font-size: 1.5rem; font-weight: bold;}
+/* UI MOCKUPS (GEMS & OPAL) */
+.ui-mockup { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; margin-top: 1rem; font-family: var(--ff-b); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+.ui-header { background: var(--surface-3); padding: 10px 15px; font-size: 0.75rem; color: var(--text-muted); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; font-family: monospace; letter-spacing: 0.05em; }
+.ui-dots { display: flex; gap: 5px; }
+.ui-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+.ui-dot:nth-child(1) { background: #ff5f56; }
+.ui-dot:nth-child(2) { background: #ffbd2e; }
+.ui-dot:nth-child(3) { background: #27c93f; }
+.ui-body { display: flex; flex-wrap: wrap; }
+.ui-panel { padding: 20px; flex: 1; min-width: 250px; }
+.ui-panel.left { border-right: 1px solid var(--border); background: var(--surface-off); }
+.ui-panel.right { background: var(--bg); }
+.ui-label { font-size: 0.75rem; text-transform: uppercase; color: var(--matrix); letter-spacing: 1px; font-weight: bold; margin-bottom: 15px; display: block; font-family: monospace; }
+.ui-chat { display: flex; flex-direction: column; gap: 12px; }
+.ui-msg { padding: 12px 15px; border-radius: 8px; font-size: 0.85rem; line-height: 1.5; max-width: 90%; }
+.ui-msg.user { background: var(--surface-3); color: var(--text); align-self: flex-end; border-bottom-right-radius: 0; border: 1px solid var(--divider); }
+.ui-msg.ai { background: var(--matrix-dim); color: var(--matrix); border: 1px solid var(--matrix); align-self: flex-start; border-bottom-left-radius: 0; font-family: monospace; }
+
+/* OPAL CANVAS */
+.opal-canvas { background: #0a0a0a; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 3rem 1.5rem; position: relative; display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; overflow-x: auto; background-image: radial-gradient(var(--surface-3) 1px, transparent 1px); background-size: 20px 20px; gap: 10px;}
+.o-node { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; width: 140px; flex-shrink: 0; position: relative; z-index: 2; box-shadow: 0 4px 10px rgba(0,0,0,0.4); display: flex; flex-direction: column; }
+.o-node-head { padding: 8px 10px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid var(--border); border-top-left-radius: 8px; border-top-right-radius: 8px; display: flex; align-items: center; gap: 6px; letter-spacing: 0.05em; font-family: monospace;}
+.o-node-body { padding: 12px 10px; font-size: 0.8rem; color: var(--text-muted); text-align: center; line-height: 1.4; flex-grow: 1; display: flex; align-items: center; justify-content: center;}
+.o-node.input .o-node-head { background: rgba(107,163,208,0.15); color: var(--blue); border-color: var(--blue); }
+.o-node.input { border-color: var(--blue); }
+.o-node.llm .o-node-head { background: rgba(168,126,216,0.15); color: var(--purple); border-color: var(--purple); }
+.o-node.llm { border-color: var(--purple); }
+.o-node.condition .o-node-head { background: rgba(240,160,80,0.15); color: var(--orange); border-color: var(--orange); }
+.o-node.condition { border-color: var(--orange); }
+.o-node.output .o-node-head { background: var(--matrix-dim); color: var(--matrix); border-color: var(--matrix); }
+.o-node.output { border-color: var(--matrix); }
+.o-wire { flex-grow: 1; height: 2px; background: var(--border); position: relative; z-index: 1; min-width: 25px; }
+.o-wire::after { content: '▶'; position: absolute; right: -5px; top: -10px; color: var(--border); font-size: 1.1rem; }
+.o-wire.active { background: var(--matrix); box-shadow: 0 0 5px var(--matrix); }
+.o-wire.active::after { color: var(--matrix); text-shadow: 0 0 5px var(--matrix); }
+.o-socket { width: 8px; height: 8px; background: var(--bg); border: 2px solid var(--border); border-radius: 50%; position: absolute; top: 50%; transform: translateY(-50%); }
+.o-socket.left { left: -5px; }
+.o-socket.right { right: -5px; }
 
 /* AUTHOR SECTION */
 .author-box { background: var(--surface-2); border: 1px solid var(--matrix); border-radius: var(--radius-xl); padding: 3rem; display: flex; flex-direction: column; gap: 1.5rem; max-width: 900px; margin: 0 auto; box-shadow: 0 0 20px var(--matrix-dim); }
@@ -843,27 +872,40 @@ Tengo este dataset: [DATOS]
         <span class="power-tag alt">Gemini Gems / OpenAI GPTs</span>
         <div class="power-info">
           <h3><span class="m-icon large">🤖</span> Arquitectura de agentes (Gems)</h3>
-          <p>Para que un Gem funcione como un agente sistémico y no como un simple chat, debes programar su <strong>System Prompt</strong> utilizando capas lógicas y variables.</p>
+          <p>Para que un Gem funcione como un agente sistémico y no como un simple chat, debes programar su <strong>System Prompt</strong> (código base) utilizando capas lógicas y variables.</p>
           
-          <div class="info-box" style="border-left-color: var(--purple);">
-            <h4>Framework de desarrollo de agentes (Copiar y adaptar)</h4>
-            <pre style="font-family: monospace; font-size: var(--ts); color: var(--text); white-space: pre-wrap; margin-top: 10px;"><span class="pk">[IDENTIDAD]</span>
+          <div class="ui-mockup">
+            <div class="ui-header">
+              <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
+              <span>Gemini / Editor de Agentes</span>
+            </div>
+            <div class="ui-body">
+              <div class="ui-panel left">
+                <span class="ui-label">Instrucciones del Sistema (Backend)</span>
+                <pre style="font-family: monospace; font-size: 0.75rem; color: var(--text); white-space: pre-wrap; line-height: 1.5;">
+<span class="pk">[IDENTIDAD]</span>
 Eres un Analista de Datos especializado en periodismo investigativo. Tu función es procesar inputs crudos y devolver análisis estructurados.
 
 <span class="pk">[INPUT ESPERADO]</span>
-El usuario (yo) te proporcionará datos en formato CSV o transcripciones de texto. 
+El usuario te proporcionará datos en formato CSV o transcripciones de texto. 
 
 <span class="pk">[PROCESAMIENTO LÓGICO]</span>
 Cuando recibas el INPUT, ejecuta silenciosamente este algoritmo:
-1. Extrae las variables principales (fechas, montos, nombres).
+1. Extrae la {{variable_principal}} y crúzala con {{variable_secundaria}}.
 2. Cruza los datos buscando anomalías matemáticas.
 3. Formula un titular periodístico basado en la mayor anomalía.
 
-<span class="pk">[HERRAMIENTAS]</span>
-Usa Python (Advanced Data Analysis) obligatoriamente si el input contiene números financieros para evitar alucinaciones.
-
 <span class="pk">[OUTPUT REQUERIDO]</span>
-No saludes ni expliques tu proceso. Imprime directamente el resultado en formato JSON estricto con las llaves: {titular, hallazgo_clave, codigo_html_grafico}.</pre>
+No saludes. Imprime el resultado en formato Markdown estricto con las llaves: {titular, hallazgo_clave, tabla_limpia}.</pre>
+              </div>
+              <div class="ui-panel right">
+                <span class="ui-label">Vista previa (Frontend / Chat)</span>
+                <div class="ui-chat">
+                  <div class="ui-msg user">Aquí está la base de datos de contratos 2026.csv</div>
+                  <div class="ui-msg ai"><strong>Titular:</strong> El 40% de los contratos de La Alpujarra se concentraron en 3 empresas en 2026.<br><br><strong>Anomalía:</strong> Las 3 empresas se registraron la misma semana.<br><br><strong>Tabla:</strong><br>| Empresa | Monto | Fecha |</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -873,31 +915,40 @@ No saludes ni expliques tu proceso. Imprime directamente el resultado en formato
         <span class="power-tag" style="background: var(--blue); border-color: var(--blue);">Google Labs: Opal</span>
         <div class="power-info">
           <h3><span class="m-icon large">🧩</span> Google Opal: arquitectura de nodos</h3>
-          <p>Opal es una herramienta "no-code" que permite construir aplicaciones conectando bloques visuales. Funciona bajo el paradigma de programación orientada a flujos de datos.</p>
+          <p>Opal es una herramienta "no-code" que permite construir aplicaciones web conectando bloques visuales. Funciona bajo el paradigma de programación orientada a flujos de datos (*Dataflow programming*).</p>
           
-          <div class="info-box" style="border-left-color: var(--blue);">
-            <h4>El flujo de datos (Pipeline)</h4>
-            <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 15px;">En Opal, tú construyes la "tubería" por donde viaja la información de tus lectores.</p>
-            
-            <div class="node-flow">
-              <div class="node-box blue">
-                <h5>Input Node</h5>
-                <p>Caja donde el usuario sube un PDF (Ej: Contrato).</p>
-              </div>
-              <div class="node-arrow">→</div>
-              <div class="node-box purple">
-                <h5>LLM Node (Prompt)</h5>
-                <p>"Extrae solo la cláusula penal del documento anterior".</p>
-              </div>
-              <div class="node-arrow">→</div>
-              <div class="node-box matrix">
-                <h5>Output Node</h5>
-                <p>Renderiza el texto extraído en una tarjeta limpia web.</p>
-              </div>
+          <div class="opal-canvas">
+            <!-- Node 1 -->
+            <div class="o-node input">
+              <div class="o-node-head"><span class="m-icon" style="font-size: 1em;">📄</span> Input</div>
+              <div class="o-node-body">PDF del contrato público</div>
+              <div class="o-socket right"></div>
             </div>
-            
-            <p style="font-size: var(--ts); color: var(--text); font-weight: 600; margin-top: 15px;">Al terminar de conectar los nodos, Opal genera un enlace web (App) que puedes enviar a tu equipo de investigación para que la utilicen masivamente.</p>
+            <div class="o-wire active"></div>
+            <!-- Node 2 -->
+            <div class="o-node llm">
+              <div class="o-socket left"></div>
+              <div class="o-node-head"><span class="m-icon" style="font-size: 1em; color: var(--purple);">🧠</span> LLM Node</div>
+              <div class="o-node-body">Prompt: "Extrae cláusula penal y monto"</div>
+              <div class="o-socket right"></div>
+            </div>
+            <div class="o-wire"></div>
+            <!-- Node 3 -->
+            <div class="o-node condition">
+              <div class="o-socket left"></div>
+              <div class="o-node-head"><span class="m-icon" style="font-size: 1em; color: var(--orange);">⚡</span> Logic</div>
+              <div class="o-node-body">¿Monto > 50M?</div>
+              <div class="o-socket right"></div>
+            </div>
+            <div class="o-wire"></div>
+            <!-- Node 4 -->
+            <div class="o-node output">
+              <div class="o-socket left"></div>
+              <div class="o-node-head"><span class="m-icon" style="font-size: 1em; color: var(--matrix);">🖥️</span> Output App</div>
+              <div class="o-node-body">Renderizar alerta en rojo en la interfaz</div>
+            </div>
           </div>
+          <p style="font-size: var(--ts); color: var(--text-muted); margin-top: 15px;">Al terminar de conectar los nodos, Opal compila el flujo y genera una URL pública. Tu equipo de investigación puede entrar a esa web, subir cualquier contrato, y la aplicación ejecutará todo el análisis algorítmico diseñado en los nodos centrales.</p>
         </div>
       </div>
     </div>
@@ -918,21 +969,22 @@ No saludes ni expliques tu proceso. Imprime directamente el resultado en formato
       <ol>
         <li>Ve a <a href="https://gemini.google.com" target="_blank" style="color: var(--purple); font-weight: 600;">Google Gemini</a> y abre la sección <strong>"Gems"</strong> en el panel izquierdo.</li>
         <li>Haz clic en <strong>Crear un nuevo Gem</strong> y ponle un nombre relacionado con tu investigación (Ej: "Analista de Movilidad UdeA").</li>
-        <li>Adapta la plantilla maestra de abajo reemplazando las variables en corchetes [ ] con los detalles específicos de tu reportaje.</li>
-        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos real (CSV) o las notas de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente.</li>
+        <li>Adapta la plantilla maestra de abajo reemplazando los corchetes [ ] con los detalles específicos de tu reportaje.</li>
+        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos real (CSV) o las transcripciones de entrevistas de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente.</li>
       </ol>
 
       <div class="prompt-block" style="border-color: var(--purple);">
         <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar código del Gem</button>
         <pre><span class="pk">[IDENTIDAD]</span> 
-Eres el "Analista Investigativo Principal", experto en periodismo de datos. Tu única función es analizar críticamente bases de datos sobre [ESCRIBE EL TEMA EXACTO DE TU PROYECTO].
+Eres el "Analista Investigativo Principal", experto en periodismo de datos. Tu única función es analizar críticamente mis notas y bases de datos sobre [ESCRIBE EL TEMA EXACTO DE TU PROYECTO].
 
-<span class="pk">[REGLAS LÓGICAS INQUEBRANTABLES]</span>
-1. CERO ALUCINACIONES: Si no hay información suficiente en el INPUT que te entregue, tu única respuesta debe ser "Faltan datos". Nunca inventes cifras.
-2. EXPLICABILIDAD (XAI): Siempre que calcules un porcentaje o tendencia, muestra la operación matemática exacta debajo del resultado.
+<span class="pk">[REGLAS INQUEBRANTABLES (SKILLS LÓGICOS)]</span>
+1. CERO ALUCINACIONES: Si no hay información suficiente en los datos que te entregue, tu única respuesta debe ser "Faltan datos". Nunca inventes cifras ni nombres.
+2. EXPLICABILIDAD (XAI): Siempre que calcules un porcentaje o extraigas una tendencia, debes mostrar la operación matemática exacta debajo del resultado.
+3. ENFOQUE NARRATIVO: Los datos deben servir a una historia periodística, no ser un simple informe estadístico seco.
 
-<span class="pk">[OUTPUT PIPELINE (Markdown)]</span>
-Cada vez que recibas datos, procésalos y responde SIEMPRE con esta estructura exacta:
+<span class="pk">[OUTPUT PIPELINE]</span>
+Cada vez que recibas datos de mi parte, debes procesarlos y responder SIEMPRE con esta estructura exacta en Markdown:
 
 ### 1. 🕵️ El ángulo periodístico
 (Dime en un párrafo corto cuál es el titular más impactante que esconden estos datos respecto a [ESCRIBE EL OBJETIVO DE TU INVESTIGACIÓN]).
@@ -944,7 +996,7 @@ Cada vez que recibas datos, procésalos y responde SIEMPRE con esta estructura e
 (Convierte la información clave del hallazgo en una tabla Markdown limpia).
 
 ### 4. 📊 Código de visualización
-(Analiza qué tipo de gráfico explicaría mejor esta historia. Luego, escribe el código HTML y JS usando la librería Chart.js para visualizar el hallazgo principal. El código debe ser 'responsive' y 100% funcional para probar en navegador).</pre>
+(Analiza qué tipo de gráfico explicaría mejor esta historia específica. Luego, escribe el código HTML y JS usando la librería Chart.js para visualizar el hallazgo principal. El código debe ser 'responsive' y 100% funcional para probar directamente en el navegador).</pre>
       </div>
     </div>
   </div>
