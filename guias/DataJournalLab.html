@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica de IA y periodismo de datos · UdeA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="dark"]{
+  --bg:#0e0d0c;--surface:#141311;--surface-2:#1a1916;--surface-3:#201f1c;
+  --surface-off:#242320;--border:rgba(255,255,255,.08);--divider:rgba(255,255,255,.05);
+  --text:#e8e6e1;--text-muted:#8a8880;--text-faint:#4a4845;
+  --primary:#4fa89b;--primary-h:#3d9187;--primary-dim:rgba(79,168,155,.15);
+  --orange:#f0a050;--gold:#e8b840;--blue:#6ba3d0;--purple:#a87ed8;
+  --green:#72b855;--red:#d06060;--pink:#d87eb0;
+  --matrix:#00ff41; --matrix-dim:rgba(0,255,65,.1);
+  --warning-bg:rgba(240, 160, 80, 0.1); --warning-border:#f0a050; --warning-text:#f0a050;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.4);--shadow-md:0 4px 16px rgba(0,0,0,.5);
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;--radius-xl:1rem;--radius-full:9999px;
+  --ease:cubic-bezier(.16,1,.3,1);--t:180ms;
+  --ff-d:'Instrument Serif',Georgia,serif;--ff-b:'DM Sans','Helvetica Neue',sans-serif;
+  --tx:clamp(.75rem,.7rem+.25vw,.875rem);--ts:clamp(.875rem,.8rem+.35vw,1rem);
+  --tb:clamp(1rem,.95rem+.25vw,1.125rem);--tl:clamp(1.125rem,1rem+.75vw,1.5rem);
+  --txl:clamp(1.5rem,1.2rem+1.25vw,2.25rem);--t2xl:clamp(2rem,1.2rem+2.5vw,3.5rem);
+}
+[data-theme="light"]{
+  --bg:#f6f5f1;--surface:#f9f8f5;--surface-2:#fbfaf8;--surface-3:#fdfcfa;
+  --surface-off:#eeece7;--border:rgba(0,0,0,.1);--divider:rgba(0,0,0,.06);
+  --text:#1e1c18;--text-muted:#706e69;--text-faint:#b0aea9;
+  --primary:#006633;--primary-h:#004d26;--primary-dim:rgba(0,102,51,.12);
+  --orange:#c56200;--gold:#b07a00;--blue:#006494;--purple:#6a2faa;
+  --green:#3a7010;--red:#a52020;--pink:#a0306a;
+  --matrix:#009926; --matrix-dim:rgba(0,153,38,.1);
+  --warning-bg:#fffbeb; --warning-border:#f59e0b; --warning-text:#b45309;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.07);--shadow-md:0 4px 16px rgba(0,0,0,.09);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;scroll-padding-top:4.5rem}
+body{min-height:100dvh;font-family:var(--ff-b);font-size:var(--tb);color:var(--text);background:var(--bg);line-height:1.65;transition:background .25s,color .25s}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+::selection{background:var(--primary-dim);color:var(--text)}
+:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:var(--radius-sm)}
+
+/* ESTILO MATRIX PARA ICONOS */
+.m-icon {
+  color: var(--matrix);
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 800;
+  text-shadow: 0 0 5px var(--matrix-dim);
+  margin-right: 6px;
+  font-size: 1.1em;
+  letter-spacing: -1px;
+}
+.m-icon.large { font-size: 1.8rem; display: block; margin-bottom: 10px; }
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-i{display:flex;align-items:center;justify-content:space-between;padding:12px clamp(1rem,4vw,2rem);max-width:1140px;margin:0 auto; flex-wrap: wrap; gap: 10px;}
+.nav-brand{font-family:var(--ff-d);font-size:var(--tl);text-decoration:none;color:var(--text)}
+.nav-sub{font-size:var(--tx);color:var(--text-muted);margin-top:1px}
+.nav-links{display:flex;gap:4px; flex-wrap: wrap;}
+.nav-link{font-size:var(--tx);color:var(--text-muted);text-decoration:none;padding:6px 10px;border-radius:var(--radius-sm);transition:all var(--t) var(--ease); display: flex; align-items: center;}
+.nav-link:hover,.nav-link.active{color:var(--text);background:var(--surface-off); border-bottom: 2px solid var(--matrix);}
+#ttoggle{display:grid;place-items:center;width:32px;height:32px;border-radius:var(--radius-full);border:1px solid var(--border);color:var(--text-muted);transition:all var(--t) var(--ease);margin-left:8px}
+#ttoggle:hover{background:var(--surface-off);color:var(--text)}
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--matrix);z-index:200;width:0%;transition:width .1s; box-shadow: 0 0 8px var(--matrix);}
+
+/* WRAP & HERO */
+.wrap{max-width:1140px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+.hero{padding:clamp(3rem,8vw,6rem) 0;position:relative;overflow:hidden}
+.hero-glow{position:absolute;pointer-events:none;border-radius:50%;filter:blur(80px);opacity:.15}
+.hero-glow:nth-child(1){width:480px;height:480px;background:var(--primary);top:-120px;right:-80px}
+.hero-glow:nth-child(2){width:260px;height:260px;background:var(--matrix);bottom:0;left:5%}
+.hero-inner{position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:var(--matrix-dim);color:var(--matrix);border:1px solid var(--matrix);border-radius:var(--radius-full);font-size:var(--tx);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:20px; font-family: monospace;}
+.hero h1{font-family:var(--ff-d);font-size:var(--t2xl);font-weight:400;letter-spacing:-.02em;margin-bottom:20px;max-width:820px}
+.hero h1 em{font-style:italic;color:var(--primary)}
+.hero-desc{font-size:var(--tl);color:var(--text-muted);max-width:65ch;margin-bottom:32px;line-height:1.55}
+
+/* SECTION */
+.section{padding:clamp(2.5rem,6vw,5rem) 0}
+.section--alt{background:var(--surface)}
+.stag{font-size:var(--tx);font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--primary);margin-bottom:10px; display: block;}
+.stitle{font-family:var(--ff-d);font-size:var(--txl);font-weight:400;letter-spacing:-.01em;margin-bottom:12px; color: var(--text);}
+.sdesc{font-size:var(--tb);color:var(--text-muted);max-width:65ch;margin-bottom:36px}
+
+/* INDEX/WELCOME SECTION */
+.welcome-box { background: var(--surface); border: 1px solid var(--matrix); border-radius: var(--radius-lg); padding: 3rem; box-shadow: 0 0 15px var(--matrix-dim); display: flex; flex-direction: column; gap: 1.5rem; }
+.welcome-box h2 { font-family: var(--ff-d); font-size: var(--txl); color: var(--text); margin: 0; }
+.welcome-box p { font-size: var(--tb); color: var(--text-muted); line-height: 1.6; margin: 0; }
+.index-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+.index-item { background: var(--surface-2); padding: 1.5rem; border-radius: var(--radius-md); border-left: 3px solid var(--matrix); }
+.index-item h4 { margin: 0 0 10px 0; color: var(--text); font-size: var(--tb); display: flex; align-items: center;}
+.index-item p { margin: 0; color: var(--text-muted); font-size: var(--ts); }
+
+/* ALERT/CHALLENGE BOX */
+.challenge-box { background: var(--warning-bg); border-left: 5px solid var(--warning-border); padding: 2.5rem; border-radius: var(--radius-lg); margin: 2rem 0; }
+.challenge-box.final-challenge { background: rgba(168, 126, 216, 0.1); border-left-color: var(--purple); }
+.challenge-box h4 { color: var(--warning-text); font-size: var(--tl); margin-bottom: 1rem; font-family: var(--ff-d); letter-spacing: 0.02em;}
+.challenge-box.final-challenge h4 { color: var(--purple); }
+.challenge-box p, .challenge-box ol { color: var(--text); font-size: var(--tb); margin-bottom: 1rem; }
+.challenge-box ol { padding-left: 1.5rem; }
+.challenge-box li { margin-bottom: 0.5rem; }
+.raw-text-box { background: var(--surface); border: 1px dashed var(--border); padding: 1.5rem; border-radius: var(--radius-sm); font-family: monospace; font-size: var(--ts); color: var(--text-muted); margin: 1.5rem 0; line-height: 1.6; position: relative;}
+
+/* EVALUATION GRID */
+.eval-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2rem;}
+.eval-card { background: var(--surface); border: 1px solid var(--border); padding: 1.5rem; border-radius: var(--radius-md); box-shadow: 0 2px 10px rgba(0,0,0,0.05);}
+.eval-card h4 { margin: 0 0 10px 0; color: var(--text); font-size: var(--tb);}
+.eval-card p { margin: 0; color: var(--text-muted); font-size: var(--ts); line-height: 1.5;}
+
+/* ANATOMY CARDS */
+.anatomy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.a-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;cursor:pointer;transition:all var(--t) var(--ease);position:relative;overflow:hidden; box-shadow: var(--shadow-sm);}
+.a-card:hover,.a-card.sel{border-color:var(--matrix);box-shadow:0 0 15px var(--matrix-dim); transform: translateY(-3px);}
+.a-icon{font-size:1.8rem;margin-bottom:12px;display:block;}
+.a-label{font-size:var(--tx);font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.a-card:hover .a-label, .a-card.sel .a-label { color: var(--matrix); }
+.a-card h3{font-size:var(--tb);font-weight:600;margin-bottom:8px;color:var(--text);}
+.a-card p{font-size:var(--ts);color:var(--text-muted);line-height:1.55;}
+.a-detail{display:none;font-size:var(--ts);color:var(--text-muted);margin-top:15px;padding-top:15px;border-top:1px dashed var(--divider);}
+.a-card.sel .a-detail{display:block; animation: fadeIn 0.3s ease;}
+.a-example{background:var(--surface-off);border:1px solid var(--border);border-left: 3px solid var(--matrix); border-radius:var(--radius-sm);padding:12px;font-family:'Courier New',monospace;font-size:var(--tx);margin-top:12px;color:var(--text); line-height: 1.5;}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* TABS (Técnicas) */
+.tabs-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden}
+.tabs-nav{display:flex;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border);background:var(--surface-2)}
+.tabs-nav::-webkit-scrollbar{display:none}
+.tab-btn{flex-shrink:0;padding:12px 18px;font-size:var(--ts);font-weight:500;color:var(--text-muted);border-bottom:2px solid transparent;transition:all var(--t) var(--ease);white-space:nowrap}
+.tab-btn:hover{color:var(--text);background:var(--surface-off)}
+.tab-btn.active{color:var(--primary);border-bottom-color:var(--matrix);background:var(--surface); color: var(--text);}
+.tabs-body{padding:28px 28px}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+.tp-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.tp-name{font-family:var(--ff-d);font-size:var(--txl);margin-bottom:6px}
+.tp-desc{font-size:var(--ts);color:var(--text-muted);max-width:52ch;line-height:1.6}
+.tp-badge{padding:4px 12px;border-radius:var(--radius-full);font-size:var(--tx);font-weight:700}
+.lvl-0{background:rgba(114,184,85,.12);color:var(--green)}
+.lvl-1{background:rgba(107,163,208,.12);color:var(--blue)}
+.lvl-2{background:rgba(168,126,216,.12);color:var(--purple)}
+.lvl-3{background:rgba(240,160,80,.12);color:var(--orange)}
+.tp-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:680px){.tp-cols{grid-template-columns:1fr}}
+.tp-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px}
+.tp-box-label{font-size:var(--tx);font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px}
+.tp-box h4{font-size:var(--ts);font-weight:600;margin-bottom:6px;color:var(--text)}
+.tp-box p,.tp-box li{font-size:var(--ts);color:var(--text-muted);line-height:1.65}
+.tp-box ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.tp-box ul li::before{content:"→ ";color:var(--matrix)}
+
+/* PROMPT BLOCKS */
+.prompt-block{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px;margin-top:16px;position:relative}
+.prompt-block pre{font-family:'Courier New',monospace;font-size:var(--tx);line-height:1.8;white-space:pre-wrap;color:var(--text); margin: 0;}
+.prompt-block .pv{color:var(--orange);font-weight:600}
+.prompt-block .pk{color:var(--matrix)}
+.copy-btn{position:absolute;top:10px;right:10px;display:flex;align-items:center;gap:6px;font-size:var(--tx);color:var(--text-muted);padding:4px 10px;border:1px solid var(--border);border-radius:var(--radius-full);transition:all var(--t) var(--ease);background:var(--surface); z-index: 10; font-family: monospace;}
+.copy-btn:hover{border-color:var(--matrix);color:var(--matrix)}
+
+/* POWER USER GRID */
+.power-grid { display: flex; flex-direction: column; gap: 30px;}
+.power-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 30px; position: relative; transition: all var(--t) var(--ease); display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; align-items: start;}
+@media(max-width:900px){.power-card{grid-template-columns: 1fr;}}
+.power-card:hover { border-color: var(--matrix); box-shadow: var(--shadow-md); }
+.power-tag { position: absolute; top: -12px; left: 30px; background: var(--matrix-dim); color: var(--matrix); font-family: monospace; border: 1px solid var(--matrix); font-size: var(--tx); font-weight: 700; padding: 4px 12px; border-radius: var(--radius-full); box-shadow: 0 2px 5px rgba(0,0,0,0.2);}
+.power-info h3 { font-family: var(--ff-d); font-size: var(--txl); margin-bottom: 12px; color: var(--text); display: flex; align-items: center; gap: 10px;}
+.power-info p { font-size: var(--tb); color: var(--text-muted); margin-bottom: 15px; line-height: 1.6;}
+
+/* EXPLANATION BOXES (Low code / Gems) */
+.info-box { background: var(--surface-off); padding: 20px; border-radius: var(--radius-md); border-left: 4px solid var(--matrix); margin-top: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+.info-box h4 { margin: 0 0 10px 0; color: var(--text); font-size: var(--tb); font-weight: 600; letter-spacing: 0.02em;}
+.info-box p, .info-box ol, .info-box ul { margin: 0 0 10px 0; padding-left: 20px; color: var(--text-muted); font-size: var(--ts); line-height: 1.6;}
+.info-box li { margin-bottom: 8px; }
+.info-box p:last-child, .info-box ul:last-child, .info-box ol:last-child { margin-bottom: 0;}
+
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;}
+
+/* AUTHOR SECTION */
+.author-box { background: var(--surface-2); border: 1px solid var(--matrix); border-radius: var(--radius-xl); padding: 3rem; display: flex; flex-direction: column; gap: 1.5rem; max-width: 900px; margin: 0 auto; box-shadow: 0 0 20px var(--matrix-dim); }
+.author-header { display: flex; align-items: center; gap: 1rem; border-bottom: 1px solid var(--divider); padding-bottom: 1.5rem; margin-bottom: 0.5rem; }
+.author-header h2 { margin: 0; color: var(--text); font-family: var(--ff-d); font-size: var(--t2xl); line-height: 1.1; }
+.author-content { display: flex; flex-direction: column; gap: 1rem; }
+.author-content p { font-size: var(--tb); color: var(--text-muted); line-height: 1.7; margin: 0; }
+.author-content strong { color: var(--text); font-weight: 600; }
+.author-btn { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1px solid var(--matrix); color: var(--matrix); text-decoration: none; padding: 10px 24px; border-radius: var(--radius-full); font-weight: 600; font-size: var(--ts); transition: background var(--t); margin-top: 1rem; width: fit-content; font-family: monospace;}
+.author-btn:hover { background: var(--matrix-dim); }
+
+/* FOOTER */
+footer{padding:3rem 0;border-top:1px solid var(--divider); margin-top: 2rem;}
+.footer-i{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-brand{font-family:var(--ff-d);font-size:var(--tl)}
+.footer-txt{font-size:var(--tx);color:var(--text-faint); font-family: monospace;}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-i">
+    <div>
+      <a href="#" class="nav-brand"><span class="m-icon">~/</span>Periodismo de datos</a>
+      <div class="nav-sub">Universidad de Antioquia · 2026</div>
+    </div>
+    <div class="nav-links" id="nav-links">
+      <a class="nav-link" href="#index"><span class="m-icon">[~]</span> Index</a>
+      <a class="nav-link" href="#diagnostico"><span class="m-icon">>_</span> Reto 1</a>
+      <a class="nav-link" href="#anatomia"><span class="m-icon">{ }</span> Prompts</a>
+      <a class="nav-link" href="#power-user"><span class="m-icon">/&gt;</span> Power user</a>
+      <a class="nav-link" href="#low-code"><span class="m-icon">&lt;/&gt;</span> Low-code</a>
+      <a class="nav-link" href="#agentes"><span class="m-icon">[*]</span> Opal y Gems</a>
+      <a class="nav-link" href="#reto-final"><span class="m-icon">[!]</span> Reto final</a>
+      <a class="nav-link" href="#autor"><span class="m-icon">@_</span> Profesor</a>
+    </div>
+    <div style="display:flex;align-items:center">
+      <button id="ttoggle" aria-label="Cambiar modo">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
+      <button class="ham" id="ham" aria-label="Menú"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <div class="hero-glow"></div><div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="badge">
+        &gt;_ System.Init()
+      </div>
+      <h1>La sala de redacción <em>asistida por IA</em></h1>
+      <p class="hero-desc">Desarrolla interactivos complejos, audita datos y programa visualizaciones para tu trabajo final sin escribir una sola línea de código.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INDEX Y BIENVENIDA -->
+<section class="section" id="index" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="welcome-box">
+      <h2><span class="m-icon">~/</span> Index y bienvenida</h2>
+      <p>Este laboratorio interactivo fue creado y es facilitado por <strong>Jaider Ochoa Gutiérrez</strong> para el curso de Producción y Géneros Periodísticos III. El periodismo de datos ha dejado de ser un oficio exclusivo de programadores; hoy, la Inteligencia Artificial Generativa actúa como el puente entre tu investigación cualitativa y el código informático.</p>
+      <p>Aprenderás a usar la IA no como un buscador, sino como un <strong>"copiloto de código"</strong> para crear aplicaciones web, análisis estadísticos y visualizaciones que potenciarán tus reportajes.</p>
+      
+      <div class="index-grid">
+        <div class="index-item">
+          <h4><span class="m-icon">>_</span> 1. Diagnóstico</h4>
+          <p>Un reto contrarreloj de fact-checking.</p>
+        </div>
+        <div class="index-item">
+          <h4><span class="m-icon">{ }</span> 2. Guía de prompts</h4>
+          <p>El estándar RCIO y técnicas estructuradas.</p>
+        </div>
+        <div class="index-item">
+          <h4><span class="m-icon">/&gt;</span> 3. Entornos power user</h4>
+          <p>Ejecución nativa de código Python e interfaces.</p>
+        </div>
+        <div class="index-item">
+          <h4><span class="m-icon">&lt;/&gt;</span> 4. Programación low-code</h4>
+          <p>Agentes permanentes y Google Opal.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RETO DIAGNÓSTICO -->
+<section class="section section--alt" id="diagnostico">
+  <div class="wrap">
+    <p class="stag">Sandbox inicial: cero fricciones</p>
+    <h2 class="stitle">Reto 1: el dato viral (fact-checking visual)</h2>
+    <p class="sdesc">Tienes 10 minutos para usar la IA generativa de tu preferencia. Extrae, verifica y grafica la siguiente información que acaba de llegar a la sala de redacción.</p>
+    
+    <div class="challenge-box">
+      <h4><span class="m-icon">[!]</span> Alerta de redacción</h4>
+      <p>Un precandidato acaba de publicar el siguiente comunicado celebrando el auge turístico en Medellín. Los datos suenan convincentes y cita organizaciones internacionales de peso. El editor te pide validar la información de urgencia y generar un gráfico para contrastar su declaración.</p>
+      
+      <div class="raw-text-box">
+        <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar texto</button>
+        <pre style="white-space: pre-wrap; font-family: inherit; margin: 0; color: var(--text);">"Medellín celebra cifras históricas que desmienten los mitos sobre la gentrificación. Durante el primer trimestre de 2026, la ciudad recibió 1.8 millones de visitantes extranjeros, generando un impacto sin precedentes. Según el reciente 'Índice de Saturación Turística y Desarrollo 2026' publicado por el Foro Económico Mundial (WEF) en colaboración con ONU Turismo, la ocupación de renta corta (tipo Airbnb) en las comunas 11 (Laureles) y 14 (El Poblado) representa apenas el 3.5% del parque habitacional total, refutando contundentemente la supuesta crisis de vivienda. Además, el documento asegura que de los $1,200 millones de dólares en derrama económica, el 55% fue transferido de manera directa a la base comunitaria (estratos 1, 2 y 3) mediante emprendimientos locales, 30% a grandes cadenas hoteleras y plataformas digitales, y el 15% restante al sector transporte. 'Estos números confirman que nuestro modelo es el más equitativo de América Latina', afirmó el vocero de la coalición."</pre>
+      </div>
+
+      <p style="font-weight: 600; margin-top: 1.5rem;">Tu misión (solo usando IA generativa):</p>
+      <ol>
+        <li>Verifica la veracidad de la declaración y la existencia real del informe citado.</li>
+        <li>Estructura los datos económicos mencionados.</li>
+        <li>Genera un producto visual interactivo (gráfico o tabla web) que permita comprender la distribución del dinero.</li>
+      </ol>
+    </div>
+
+    <h3 style="font-family: var(--ff-d); font-size: var(--tl); color: var(--text); margin: 3rem 0 1.5rem 0;">Autoevaluación: ¿pasaste la prueba?</h3>
+    <p style="color: var(--text-muted); font-size: var(--tb); margin-bottom: 2rem;">El periodismo de datos no es copiar y pegar. Verifica cómo interactuaste con la máquina durante este ejercicio.</p>
+    
+    <div class="eval-grid">
+      <div class="eval-card">
+        <span class="m-icon large">🌐</span>
+        <h4>1. Elección de la app</h4>
+        <p>¿Usaste un modelo base sin conexión a internet? <strong>Fallaste.</strong> Para verificar fuentes necesitas motores con acceso web (Perplexity, Copilot, o Gemini).</p>
+      </div>
+      <div class="eval-card">
+        <span class="m-icon large">🏗️</span>
+        <h4>2. Estructura del prompt</h4>
+        <p>¿Tiraste todo el texto pidiendo "Verifica y grafica esto"? La IA suele confundirse. El éxito está en el <strong>Prompt Chaining</strong>: Paso 1 verifica, Paso 2 extrae, Paso 3 grafica.</p>
+      </div>
+      <div class="eval-card">
+        <span class="m-icon large">🕵️</span>
+        <h4>3. Verificación de fuentes</h4>
+        <p>¿Le diste clic a los enlaces que te dio la IA para validar el reporte del WEF? Si no lo hiciste, cuidado: los LLMs suelen <strong>alucinar URLs (Error 404)</strong>.</p>
+      </div>
+      <div class="eval-card" style="border-color: var(--warning-border);">
+        <span class="m-icon large" style="color: var(--warning-border);">⚖️</span>
+        <h4 style="color: var(--warning-border);">4. Producto digital (ética)</h4>
+        <p>Si la IA descubrió que el informe es falso, ¿graficaste la afirmación como si fuera un hecho? El prompt correcto debió pedir un gráfico titulado <em>"Lo que afirma el vocero vs. Realidad"</em>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUÍA DE PROMPT ENGINEERING -->
+<section class="section" id="anatomia">
+  <div class="wrap">
+    <p class="stag">Bloque 1</p>
+    <h2 class="stitle">Anatomía del prompt perfecto</h2>
+    <p class="sdesc">Haz clic en cada tarjeta para ver cómo estructurar instrucciones que no fallen.</p>
+    
+    <div class="anatomy-grid" id="anatomy-grid">
+      <div class="a-card" data-c="tarea" onclick="toggleCard(this)">
+        <div class="a-icon"><span class="m-icon">🎯</span></div><div class="a-label">Tarea</div>
+        <h3>¿Qué quieres que haga?</h3><p>El verbo de acción. La instrucción central.</p>
+        <div class="a-detail"><p>Usa verbos precisos: <strong>resume, analiza, compara, clasifica, codifica</strong>.</p><div class="a-example">"Genera el código HTML y JS para mapear estas coordenadas."</div></div>
+      </div>
+      <div class="a-card" data-c="rol" onclick="toggleCard(this)">
+        <div class="a-icon"><span class="m-icon">🎭</span></div><div class="a-label">Rol</div>
+        <h3>¿Quién debe ser la IA?</h3><p>Asignarle un perfil experto.</p>
+        <div class="a-detail"><p>El rol activa el "modo" de conocimiento adecuado del modelo.</p><div class="a-example">"Actúa como desarrollador frontend experto en periodismo de datos."</div></div>
+      </div>
+      <div class="a-card" data-c="contexto" onclick="toggleCard(this)">
+        <div class="a-icon"><span class="m-icon">📚</span></div><div class="a-label">Contexto</div>
+        <h3>¿Por qué y para quién?</h3><p>Reduce la ambigüedad.</p>
+        <div class="a-detail"><p>Incluye la etapa del proyecto y tu audiencia periodística/académica.</p><div class="a-example">"Esto es para mi trabajo de grado sobre turismo y plataformas de renta."</div></div>
+      </div>
+      <div class="a-card" data-c="ejemplos" onclick="toggleCard(this)">
+        <div class="a-icon"><span class="m-icon">💡</span></div><div class="a-label">Ejemplos</div>
+        <h3>¿Cómo se ve el resultado?</h3><p>Calibrar formato (Few-shot).</p>
+        <div class="a-detail"><p>Ideal para formatear bases de datos sucias a tu gusto.</p><div class="a-example">"Devuelve los datos en este JSON: [{'barrio': 'El Poblado', 'tasa': '4%'}]"</div></div>
+      </div>
+      <div class="a-card" data-c="formato" onclick="toggleCard(this)">
+        <div class="a-icon"><span class="m-icon">📐</span></div><div class="a-label">Formato</div>
+        <h3>¿Cómo debe verse la salida?</h3><p>Estructura técnica.</p>
+        <div class="a-detail"><p>Especifica si necesitas código puro, Markdown, JSON, o tablas.</p><div class="a-example">"Entrégame un solo bloque de código HTML y CSS combinados."</div></div>
+      </div>
+      <div class="a-card" data-c="restricciones" onclick="toggleCard(this)">
+        <div class="a-icon"><span class="m-icon">🚧</span></div><div class="a-label">Restricciones</div>
+        <h3>¿Qué debe evitar?</h3><p>Prevenir alucinaciones de la IA.</p>
+        <div class="a-detail"><p>Dile explícitamente qué NO hacer para mantener el rigor ético.</p><div class="a-example">"Si una celda está vacía en el CSV, NO inventes el dato ni lo promedies."</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TÉCNICAS -->
+<section class="section section--alt" id="tecnicas">
+  <div class="wrap">
+    <p class="stag">Bloque 2</p>
+    <h2 class="stitle">Las 7 técnicas esenciales</h2>
+    <div class="tabs-wrap">
+      <div class="tabs-nav" role="tablist" id="tabs-nav">
+        <button class="tab-btn active" role="tab" data-tab="t0">Zero-Shot</button>
+        <button class="tab-btn" role="tab" data-tab="t1">Few-Shot</button>
+        <button class="tab-btn" role="tab" data-tab="t2">Chain of Thought</button>
+        <button class="tab-btn" role="tab" data-tab="t3">Role Prompting</button>
+        <button class="tab-btn" role="tab" data-tab="t4">Meta-Prompting</button>
+        <button class="tab-btn" role="tab" data-tab="t5">Prompt Chaining</button>
+        <button class="tab-btn" role="tab" data-tab="t6">RAG</button>
+      </div>
+      <div class="tabs-body">
+        <div class="tab-pane active" id="t0" role="tabpanel">
+           <div class="tp-header">
+            <div class="tp-meta">
+              <div class="tp-name">Zero-Shot Prompting</div>
+              <p class="tp-desc">Le pides algo directamente a la IA <strong>sin darle ningún ejemplo</strong>. Útil para tareas de formato obvias, pero pobre para programación.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="t1" role="tabpanel">
+          <div class="tp-header">
+            <div class="tp-meta">
+              <div class="tp-name">Few-Shot Prompting</div>
+              <p class="tp-desc">Le das a la IA <strong>2 a 5 ejemplos</strong> de lo que esperas. Excelente para estructurar notas de reportería y forzar un formato exacto (JSON, CSV).</p>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="t2" role="tabpanel">
+          <div class="tp-header">
+            <div class="tp-meta">
+              <div class="tp-name">Chain of Thought (CoT)</div>
+              <p class="tp-desc">Obliga a la IA a "pensar en voz alta" para evitar que alucine resultados matemáticos o lógicos al analizar tus datos.</p>
+            </div>
+          </div>
+          <div class="prompt-block">
+            <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar</button>
+            <pre>Te comparto esta tabla de presupuestos asignados por comuna:
+[PEGAR DATOS AQUÍ]
+
+<span class="pk">Antes de darme los hallazgos, razona paso a paso:</span>
+1. Muestra tu cálculo matemático de cómo varía el presupuesto.
+2. Identifica si hay alguna comuna atípica (outlier).
+3. ¿Qué datos adicionales faltarían para un análisis riguroso?</pre>
+          </div>
+        </div>
+        <div class="tab-pane" id="t3" role="tabpanel">
+          <div class="tp-header">
+            <div class="tp-meta">
+              <div class="tp-name">Role Prompting</div>
+              <p class="tp-desc">Asignas un <strong>perfil de experto específico</strong> para que adopte su vocabulario y criterios de evaluación técnica.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="t4" role="tabpanel">
+          <div class="tp-header">
+            <div class="tp-meta">
+              <div class="tp-name">Meta-Prompting</div>
+              <p class="tp-desc">Le pides a la IA que <strong>diseñe o mejore el prompt</strong> que le vas a dar.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="t5" role="tabpanel">
+          <div class="tp-header">
+            <div class="tp-meta">
+              <div class="tp-name">Prompt Chaining</div>
+              <p class="tp-desc">Divides una tarea compleja en <strong>pasos secuenciales</strong>. Obligatorio para programar (Ej: 1. Limpia datos. 2. Genera HTML. 3. Aplica CSS/JS).</p>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="t6" role="tabpanel">
+          <div class="tp-header">
+            <div class="tp-meta">
+              <div class="tp-name">RAG (Retrieval-Augmented Generation)</div>
+              <p class="tp-desc">Le proporcionas a la IA <strong>tus propios documentos o datos</strong> como fuente de referencia. Fundamental para no inventar información.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POWER USER 2026 -->
+<section class="section" id="power-user">
+  <div class="wrap">
+    <p class="stag">Nivel experto ⚡</p>
+    <h2 class="stitle">Entornos y metodologías power user</h2>
+    <p class="sdesc">Dejemos de interactuar con la IA como si fuera un chat. Estas herramientas diferencian a un periodista novato de uno altamente técnico.</p>
+    
+    <div class="power-grid">
+      <!-- Claude Artifacts -->
+      <div class="power-card">
+        <span class="power-tag">Claude 4.7 / Canvas</span>
+        <div class="power-info">
+          <h3><span class="m-icon large">🖥️</span> Visualización frontend (Artifacts)</h3>
+          <p>La IA divide tu pantalla: a la izquierda chateas, a la derecha <strong>renderiza en tiempo real</strong> el mapa interactivo (Leaflet) o gráfico (D3.js, React) que acaba de programar para ti.</p>
+        </div>
+        <div class="prompt-block" style="margin-top: 0;">
+          <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar prompt</button>
+          <pre><span class="pk">Rol:</span> Desarrollador interactivo de NYT.
+Tengo este dataset: [DATOS]
+
+<span class="pk">Instrucción:</span> Genera un dashboard interactivo usando Recharts.
+- Añade un filtro dinámico.
+- <span class="pk">Usa Artifacts para renderizar el panel directamente aquí.</span></pre>
+        </div>
+      </div>
+
+      <!-- Advanced Data Analysis -->
+      <div class="power-card">
+        <span class="power-tag">GPT-5.5 / Advanced Data</span>
+        <div class="power-info">
+          <h3><span class="m-icon large">📊</span> Análisis de datos nativo</h3>
+          <p>Al subir un archivo CSV, el entorno <strong>escribe un script en Python en segundo plano</strong> y lo ejecuta. Las matemáticas las hace el código, no la probabilidad del lenguaje, evitando alucinaciones estadísticas.</p>
+        </div>
+        <div class="prompt-block" style="margin-top: 0;">
+          <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar prompt</button>
+          <pre><span class="pk">Instrucción (Ejecuta Python):</span>
+1. Limpia los valores nulos de la columna "Monto".
+2. Ejecuta un análisis estadístico para hallar outliers.
+3. Genera un boxplot y devuélveme el CSV limpio.</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOW CODE FUNDAMENTALS (NUEVA SECCIÓN) -->
+<section class="section section--alt" id="low-code">
+  <div class="wrap">
+    <p class="stag">Transición al desarrollo</p>
+    <h2 class="stitle">Fundamentos para programar low-code</h2>
+    <p class="sdesc">Programar asistido por IA (low-code / no-code) no significa decirle "hazme una app" y sentarse a esperar. Significa que tú diseñas la lógica en lenguaje natural y la IA escribe la sintaxis (el código duro).</p>
+
+    <div class="grid-3">
+      <div class="info-box">
+        <h4><span class="m-icon">&lt;/&gt;</span> Glosario de supervivencia</h4>
+        <ul>
+          <li><strong>HTML:</strong> El esqueleto de tu visualización (los huesos).</li>
+          <li><strong>CSS:</strong> El diseño, colores y tipografía (la piel y ropa).</li>
+          <li><strong>JavaScript (JS):</strong> La interactividad (los músculos).</li>
+          <li><strong>JSON / CSV:</strong> El formato de tus datos limpios.</li>
+          <li><strong>Librerías web:</strong> Herramientas pre-hechas (Chart.js para gráficos, Leaflet para mapas).</li>
+        </ul>
+      </div>
+
+      <div class="info-box" style="border-left-color: var(--blue);">
+        <h4><span class="m-icon">_></span> El pipeline paso a paso</h4>
+        <ol>
+          <li><strong>Data prep:</strong> Limpia tu CSV y pídele a la IA que lo convierta a JSON.</li>
+          <li><strong>Lógica base:</strong> <em>"Genera la estructura HTML de un dashboard"</em>.</li>
+          <li><strong>Inyección:</strong> <em>"Integra el JSON de mis datos a este HTML"</em>.</li>
+          <li><strong>Visualización:</strong> <em>"Aplica Chart.js para renderizar los datos"</em>.</li>
+        </ol>
+      </div>
+
+      <div class="info-box" style="border-left-color: var(--orange);">
+        <h4><span class="m-icon">[!]</span> Reglas de iteración y debugging</h4>
+        <ul>
+          <li><strong>Modularidad:</strong> Nunca le pidas a la IA que haga la limpieza de datos y la visualización 3D en un mismo prompt. Su memoria colapsará.</li>
+          <li><strong>Debugging asistido:</strong> Si la visualización queda en blanco, copia el error de la consola (F12) y dile a la IA: <em>"La consola arrojó este error: [ERROR]. Corrige el script"</em>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENTES Y OPAL (NUEVA SECCIÓN) -->
+<section class="section" id="agentes">
+  <div class="wrap">
+    <p class="stag">Agentes y apps</p>
+    <h2 class="stitle">Programación visual (Google Opal y Gems)</h2>
+    <p class="sdesc">Construye ecosistemas completos utilizando instrucciones de sistema permanentes y creadores visuales basados en nodos.</p>
+
+    <div class="power-grid">
+      <!-- Explicación de Gems -->
+      <div class="power-card" style="grid-template-columns: 1fr;">
+        <span class="power-tag alt">Gemini Gems / OpenAI GPTs</span>
+        <div class="power-info">
+          <h3><span class="m-icon large">🤖</span> Asistentes permanentes (Gems)</h3>
+          <p>Un chat normal olvida tus instrucciones al cerrarse. Un <strong>Gem</strong> es una versión clonada de la IA a la que le inyectas instrucciones directamente en su "código base" (System Instructions). El Gem obedece esas reglas de forma permanente.</p>
+          
+          <div class="info-box" style="border-left-color: var(--purple);">
+            <h4>Plantilla genérica para tu Gem</h4>
+            <pre style="font-family: monospace; font-size: var(--ts); color: var(--text); white-space: pre-wrap; margin-top: 10px;"><span class="pk">Rol:</span> Eres un asistente técnico especializado en [TEMA DEL PROYECTO].
+<span class="pk">Objetivo:</span> Analizar y estructurar datos provenientes de [TIPO DE FUENTE].
+<span class="pk">Instrucciones obligatorias:</span>
+1. Identifica siempre [VARIABLE 1] y [VARIABLE 2].
+2. Cero alucinaciones: si no encuentras el dato, di "Dato no disponible".
+<span class="pk">Formato de salida:</span> Genera siempre una tabla Markdown con las columnas [COL 1, COL 2] y un análisis de anomalías.</pre>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Google Opal -->
+      <div class="power-card" style="grid-template-columns: 1fr;">
+        <span class="power-tag" style="background: var(--blue);">Google Labs: Opal</span>
+        <div class="power-info">
+          <h3><span class="m-icon large">🧩</span> Google Opal: programación basada en nodos</h3>
+          <p>Opal es una herramienta "no-code" integrada en el ecosistema Gemini. Te permite construir aplicaciones visuales arrastrando bloques (nodos) y conectándolos, ideal para automatizar flujos periodísticos pesados.</p>
+          
+          <div class="info-box" style="border-left-color: var(--blue);">
+            <h4>¿Cómo funciona la lógica de nodos en Opal?</h4>
+            <p style="font-size: var(--ts); color: var(--text-muted); margin-bottom: 10px;">Creas una "tubería" de información visualmente:</p>
+            <ul>
+              <li><strong>Nodo de entrada (Input):</strong> Una caja de texto donde el lector pegará un PDF.</li>
+              <li><strong>Nodo de LLM (Prompt):</strong> La IA recibe el PDF y extrae las cifras clave usando tus reglas.</li>
+              <li><strong>Nodo de salida (Output):</strong> Conectas el LLM a un visualizador que muestra los datos en una tabla limpia.</li>
+            </ul>
+            <p style="font-size: var(--ts); color: var(--text); font-weight: 600; margin-top: 10px;">El resultado final es una mini-app interactiva con un enlace que puedes compartir públicamente.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RETO FINAL -->
+<section class="section section--alt" id="reto-final">
+  <div class="wrap">
+    <p class="stag">Integración del semestre</p>
+    <h2 class="stitle">Reto final: automatiza tu propio proyecto</h2>
+    <p class="sdesc">Es hora de aplicar todo a los datos reales que ya tienen recolectados para su trabajo final. Construirán un Gem que analice y programe visualizaciones de sus propios hallazgos.</p>
+    
+    <div class="challenge-box final-challenge">
+      <h4><span class="m-icon">💎</span> Misión: tu "oráculo de datos" en Gemini</h4>
+      
+      <p style="font-weight: 600; margin-top: 1rem;">Instrucciones (Hazlo con tu equipo):</p>
+      <ol>
+        <li>Ve a <a href="https://gemini.google.com" target="_blank" style="color: var(--purple); font-weight: 600;">Google Gemini</a> y abre la sección <strong>"Gems"</strong> en el panel izquierdo.</li>
+        <li>Haz clic en <strong>Crear un nuevo Gem</strong> y ponle el nombre de tu investigación (Ej: "Analista de Movilidad UdeA").</li>
+        <li>Adapta la plantilla maestra de abajo con los detalles específicos de tu reportaje.</li>
+        <li><strong>Prueba de fuego:</strong> Tírale a tu nuevo Gem la base de datos o transcripciones de tu grupo y verifica si genera el análisis y el código HTML/Chart.js correctamente.</li>
+      </ol>
+
+      <div class="prompt-block" style="border-color: var(--purple);">
+        <button class="copy-btn" onclick="copyBlock(this)"><span class="m-icon">[]</span>Copiar base del Gem</button>
+        <pre><span class="pk">ROL Y OBJETIVO:</span> 
+Eres el "Analista Investigativo UdeA", experto en periodismo de datos. Tu función es analizar críticamente mis notas y bases de datos sobre [TEMA DE TU PROYECTO].
+
+<span class="pk">REGLAS INQUEBRANTABLES (SKILLS):</span>
+1. CERO ALUCINACIONES: Si no hay información suficiente en los datos, di explícitamente "Faltan datos". Nunca inventes cifras, nombres ni fechas.
+2. EXPLICABILIDAD: Siempre que calcules un porcentaje o total, muestra la operación matemática exacta en un renglón.
+3. ENFOQUE NARRATIVO: Los datos deben servir a una historia periodística, no ser un simple informe estadístico seco.
+
+<span class="pk">FORMATO DE SALIDA (Markdown):</span>
+Cada vez que te envíe datos, responde SIEMPRE con esta estructura exacta:
+
+### 1. 🕵️ El ángulo periodístico
+(Dime en un párrafo cuál es el titular más impactante que esconden estos datos respecto a [OBJETIVO DE TU INVESTIGACIÓN]).
+
+### 2. ⚠️ Anomalías y patrones
+(Lista las contradicciones, "red flags" o conexiones extrañas en los datos).
+
+### 3. 🗄️ Estructuración 
+(Convierte la información clave en una tabla Markdown limpia).
+
+### 4. 📊 Código de visualización
+(Escribe el código HTML y JS usando Chart.js para visualizar el hallazgo principal. El código debe ser 'responsive', usar colores sobrios, y estar 100% funcional para pegar en el navegador).</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE EL PROFESOR -->
+<section class="section" id="autor">
+  <div class="wrap">
+    <div class="author-box">
+      <div class="author-header">
+        <h2 style="font-family: var(--ff-d); font-size: var(--t2xl); color: var(--text); display: flex; align-items: center;"><span class="m-icon" style="font-size: 0.8em; margin-right: 15px;">@_</span> Jaider Ochoa Gutiérrez</h2>
+      </div>
+      <div class="author-content">
+        <p>
+          <strong>Bibliotecólogo, magíster en gestión de ciencia, tecnología e innovación y doctorando en ingeniería con énfasis en inteligencia artificial.</strong> Profesor e investigador en ciencia de la información y gestión de datos en la Escuela Interamericana de Bibliotecología de la Universidad de Antioquia. 
+        </p>
+        <p>
+          Su trabajo investigativo y profesional se centra en el diseño de sistemas de información y el desarrollo de soluciones computacionales basadas en IA y NLP para la gestión, análisis y transferencia del conocimiento científico y tecnológico. Desde allí ha desarrollado una perspectiva crítica y aplicada sobre el papel de la inteligencia artificial en los procesos de comunicación y evaluación científica.
+        </p>
+        <a href="https://flow.page/jaiderog" target="_blank" class="author-btn">
+          <span class="m-icon" style="color: var(--matrix); text-shadow: none; margin-right: 8px;">//</span> Conoce más en mi perfil
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-i">
+      <div>
+        <div class="footer-brand">Periodismo de datos asistido por IA</div>
+        <div class="footer-txt" style="margin-top:4px">Universidad de Antioquia · Producción y Géneros Periodísticos III</div>
+      </div>
+      <div class="footer-txt">System_Version: 2026.05 · Status: Online</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const btn=document.getElementById('ttoggle'),html=document.documentElement;
+  let th='dark';
+  function upIcon(){btn.innerHTML=th==='dark'?'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>':'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';}
+  upIcon();
+  btn.addEventListener('click',()=>{th=th==='dark'?'light':'dark';html.setAttribute('data-theme',th);upIcon();});
+})();
+
+document.getElementById('ham').addEventListener('click',function(){
+  const l=document.getElementById('nav-links');
+  const open=l.classList.toggle('open');
+  this.setAttribute('aria-expanded',String(open));
+});
+
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  document.getElementById('progress-bar').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+
+const secs=document.querySelectorAll('section[id]');
+const nLinks=document.querySelectorAll('.nav-link');
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)nLinks.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id));});
+},{threshold:.25});
+secs.forEach(s=>io.observe(s));
+
+function toggleCard(card){
+  const wasOpen=card.classList.contains('sel');
+  document.querySelectorAll('.a-card').forEach(c=>c.classList.remove('sel'));
+  if(!wasOpen)card.classList.add('sel');
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    const tabId=this.getAttribute('data-tab');
+    document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false');});
+    document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+    this.classList.add('active');
+    this.setAttribute('aria-selected','true');
+    const pane=document.getElementById(tabId);
+    if(pane)pane.classList.add('active');
+  });
+});
+
+function copyBlock(btn){
+  const pre=btn.nextElementSibling;
+  navigator.clipboard.writeText(pre.innerText).then(()=>{
+    btn.innerHTML='<span class="m-icon">[]</span>Copiado';
+    setTimeout(()=>btn.innerHTML='<span class="m-icon">[]</span>Copiar',2000);
+  }).catch(()=>{
+    const r=document.createRange();r.selectNode(pre);
+    window.getSelection().removeAllRanges();window.getSelection().addRange(r);
+    document.execCommand('copy');window.getSelection().removeAllRanges();
+    btn.innerHTML='<span class="m-icon">[]</span>Copiado';
+    setTimeout(()=>btn.innerHTML='<span class="m-icon">[]</span>Copiar',2000);
+  });
+}
+</script>
+</body>
+</html>
