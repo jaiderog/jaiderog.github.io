@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHAROS AI — Cómo funciona</title>
+<style>
+  :root {
+    --color-background-primary: #ffffff;
+    --color-background-secondary: #f5f4f0;
+    --color-text-primary: #1a1a18;
+    --color-text-secondary: #5f5e5a;
+    --color-text-tertiary: #9c9a92;
+    --color-text-info: #0c447c;
+    --color-border-tertiary: rgba(0,0,0,0.12);
+    --color-border-secondary: rgba(0,0,0,0.22);
+    --color-background-info: #e6f1fb;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-background-secondary);
+    color: var(--color-text-primary);
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  .page-header { text-align: center; margin-bottom: 2.5rem; }
+  .page-header h1 { font-size: 26px; font-weight: 500; margin-bottom: .75rem; }
+  .page-header p { font-size: 15px; color: var(--color-text-secondary); line-height: 1.7; max-width: 600px; margin: 0 auto; }
+  .logo { font-size: 13px; font-weight: 500; color: var(--color-text-tertiary); letter-spacing: .06em; margin-bottom: 1rem; }
+
+  .step { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 2rem; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; background: var(--color-background-primary); }
+  .step-left { padding: 1.75rem; display: flex; flex-direction: column; justify-content: center; }
+  .step-right { padding: 1.75rem; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--color-background-secondary); }
+  .step-num { font-size: 11px; font-weight: 500; letter-spacing: .08em; color: var(--color-text-tertiary); margin-bottom: .5rem; text-transform: uppercase; }
+  .step-title { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-bottom: .85rem; line-height: 1.3; }
+  .step-body { font-size: 14px; color: var(--color-text-secondary); line-height: 1.75; margin-bottom: 1rem; }
+  .analogy { background: var(--color-background-info); border-radius: var(--border-radius-md); padding: .85rem 1rem; font-size: 13px; color: #185fa5; line-height: 1.6; margin-bottom: 1rem; }
+  .analogy strong { color: #0c447c; }
+
+  .pills-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: .5rem; }
+  .pill { display: inline-block; padding: .3rem .75rem; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .pill-p { background: #EEEDFE; color: #3C3489; }
+  .pill-i { background: #E1F5EE; color: #085041; }
+  .pill-c { background: #FAEEDA; color: #633806; }
+  .pill-o { background: #FAECE7; color: #712B13; }
+
+  .badges-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: .75rem; }
+  .badge { display: inline-flex; align-items: center; padding: .3rem .75rem; border-radius: 999px; font-size: 12px; font-weight: 500; }
+  .badge-in { background: #E1F5EE; color: #085041; }
+  .badge-ex { background: #FAECE7; color: #712B13; }
+  .badge-hu { background: #FAEEDA; color: #633806; }
+
+  .result-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: .85rem 1rem; margin-bottom: .6rem; width: 100%; }
+  .result-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: .3rem; }
+  .result-sub { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; margin-bottom: .5rem; }
+  .bar-label { font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 4px; }
+  .bar-track { height: 8px; background: var(--color-border-tertiary); border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+
+  .arrow-down { text-align: center; font-size: 24px; color: var(--color-text-tertiary); margin: -.5rem 0 1rem; }
+
+  .final-box { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 2rem; text-align: center; }
+  .final-box h2 { font-size: 17px; font-weight: 500; margin-bottom: .6rem; }
+  .final-box p { font-size: 14px; color: var(--color-text-secondary); line-height: 1.7; max-width: 520px; margin: 0 auto .85rem; }
+
+  .footer { text-align: center; margin-top: 2.5rem; font-size: 12px; color: var(--color-text-tertiary); }
+
+  svg.ill { display: block; width: 100%; max-width: 220px; margin: 0 auto; }
+
+  @media (max-width: 620px) {
+    .step { grid-template-columns: 1fr; }
+    .step-right { border-top: 0.5px solid var(--color-border-tertiary); }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-background-primary: #1e1e1c;
+      --color-background-secondary: #161614;
+      --color-text-primary: #e8e6de;
+      --color-text-secondary: #9c9a92;
+      --color-text-tertiary: #6b6963;
+      --color-text-info: #85b7eb;
+      --color-border-tertiary: rgba(255,255,255,0.1);
+      --color-border-secondary: rgba(255,255,255,0.18);
+      --color-background-info: #042c53;
+    }
+    .pill-p { background: #26215C; color: #CECBF6; }
+    .pill-i { background: #04342C; color: #9FE1CB; }
+    .pill-c { background: #412402; color: #FAC775; }
+    .pill-o { background: #4A1B0C; color: #F5C4B3; }
+    .badge-in { background: #04342C; color: #9FE1CB; }
+    .badge-ex { background: #4A1B0C; color: #F5C4B3; }
+    .badge-hu { background: #412402; color: #FAC775; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="page-header">
+    <div class="logo">PHAROS AI · Universidad EIA · Boston Scientific</div>
+    <h1>¿Cómo encuentra y evalúa PHAROS la evidencia científica?</h1>
+    <p>Imagina que necesitas encontrar toda la investigación existente sobre un tratamiento médico. Normalmente eso toma semanas de trabajo manual. PHAROS lo hace en minutos — con la misma rigurosidad de un equipo experto.</p>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="step">
+    <div class="step-left">
+      <div class="step-num">Paso 1 de 4</div>
+      <div class="step-title">El especialista hace su pregunta</div>
+      <div class="step-body">El médico o evaluador escribe la pregunta clínica que quiere responder. PHAROS la convierte automáticamente en cuatro componentes — como rellenar un formulario estructurado — para que la búsqueda sea precisa y no pierda estudios relevantes.</div>
+      <div class="analogy"><strong>Analogía:</strong> Es como cuando llamas a una farmacia y en lugar de decir "algo para el dolor", describes exactamente: quién lo toma, qué medicamento se evalúa, con qué se compara y qué resultado se espera. Así la respuesta es mucho más precisa.</div>
+      <div class="pills-row">
+        <span class="pill pill-p">P — ¿Quién tiene la enfermedad?</span>
+        <span class="pill pill-i">I — ¿Qué tratamiento se evalúa?</span>
+        <span class="pill pill-c">C — ¿Con qué se compara?</span>
+        <span class="pill pill-o">O — ¿Qué resultado esperamos?</span>
+      </div>
+    </div>
+    <div class="step-right">
+      <svg class="ill" viewBox="0 0 220 200">
+        <rect x="10" y="10" width="200" height="180" rx="12" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+        <text x="110" y="36" text-anchor="middle" font-size="12" font-weight="500" fill="#3C3489" font-family="sans-serif">Pregunta del especialista</text>
+        <rect x="24" y="50" width="172" height="30" rx="6" fill="#CECBF6" stroke="#AFA9EC" stroke-width="0.5"/>
+        <text x="110" y="70" text-anchor="middle" font-size="11" fill="#26215C" font-family="sans-serif">Pacientes con fibrilación auricular</text>
+        <rect x="24" y="88" width="172" height="30" rx="6" fill="#CECBF6" stroke="#AFA9EC" stroke-width="0.5"/>
+        <text x="110" y="108" text-anchor="middle" font-size="11" fill="#26215C" font-family="sans-serif">Ablación de campo pulsado</text>
+        <rect x="24" y="126" width="172" height="30" rx="6" fill="#CECBF6" stroke="#AFA9EC" stroke-width="0.5"/>
+        <text x="110" y="146" text-anchor="middle" font-size="11" fill="#26215C" font-family="sans-serif">vs. ablación térmica</text>
+        <rect x="24" y="164" width="172" height="22" rx="6" fill="#CECBF6" stroke="#AFA9EC" stroke-width="0.5"/>
+        <text x="110" y="179" text-anchor="middle" font-size="11" fill="#26215C" font-family="sans-serif">Recurrencia de arritmia</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="arrow-down">↓</div>
+
+  <!-- PASO 2 -->
+  <div class="step">
+    <div class="step-left">
+      <div class="step-num">Paso 2 de 4</div>
+      <div class="step-title">El sistema busca en tres grandes bibliotecas a la vez</div>
+      <div class="step-body">PHAROS traduce la pregunta a términos médicos oficiales y busca simultáneamente en las tres mayores bases de datos científicas del mundo. Luego combina y ordena los resultados, eliminando artículos repetidos.</div>
+      <div class="analogy"><strong>Analogía:</strong> Imagina pedir a tres bibliotecarios expertos en medicina que busquen al mismo tiempo en sus catálogos. Uno encuentra 200 libros, otro 150, otro 90. Luego comparan y te entregan solo los únicos, ordenados por relevancia. Eso es RAG Fusion — buscar en tres fuentes y combinar los mejores resultados.</div>
+    </div>
+    <div class="step-right">
+      <svg class="ill" viewBox="0 0 220 220">
+        <defs><marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+        <rect x="10" y="10" width="58" height="64" rx="8" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.5"/>
+        <text x="39" y="34" text-anchor="middle" font-size="10" font-weight="500" fill="#085041" font-family="sans-serif">PubMed</text>
+        <text x="39" y="50" text-anchor="middle" font-size="9" fill="#0F6E56" font-family="sans-serif">36 millones</text>
+        <text x="39" y="64" text-anchor="middle" font-size="9" fill="#0F6E56" font-family="sans-serif">de artículos</text>
+        <rect x="81" y="10" width="58" height="64" rx="8" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.5"/>
+        <text x="110" y="34" text-anchor="middle" font-size="10" font-weight="500" fill="#085041" font-family="sans-serif">OpenAlex</text>
+        <text x="110" y="50" text-anchor="middle" font-size="9" fill="#0F6E56" font-family="sans-serif">250 millones</text>
+        <text x="110" y="64" text-anchor="middle" font-size="9" fill="#0F6E56" font-family="sans-serif">de trabajos</text>
+        <rect x="152" y="10" width="58" height="64" rx="8" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.5"/>
+        <text x="181" y="34" text-anchor="middle" font-size="10" font-weight="500" fill="#085041" font-family="sans-serif">Scholar</text>
+        <text x="181" y="50" text-anchor="middle" font-size="9" fill="#0F6E56" font-family="sans-serif">Alta</text>
+        <text x="181" y="64" text-anchor="middle" font-size="9" fill="#0F6E56" font-family="sans-serif">precisión</text>
+        <line x1="39" y1="74" x2="100" y2="112" stroke="#1D9E75" stroke-width="1" fill="none"/>
+        <line x1="110" y1="74" x2="110" y2="112" stroke="#1D9E75" stroke-width="1" fill="none"/>
+        <line x1="181" y1="74" x2="120" y2="112" stroke="#1D9E75" stroke-width="1" fill="none"/>
+        <rect x="58" y="112" width="104" height="44" rx="8" fill="#1D9E75" stroke="#0F6E56" stroke-width="0.5"/>
+        <text x="110" y="130" text-anchor="middle" font-size="11" font-weight="500" fill="#E1F5EE" font-family="sans-serif">RAG Fusion</text>
+        <text x="110" y="148" text-anchor="middle" font-size="10" fill="#9FE1CB" font-family="sans-serif">combina y elimina</text>
+        <line x1="110" y1="156" x2="110" y2="176" stroke="#1D9E75" stroke-width="1.2" fill="none" marker-end="url(#a2)"/>
+        <rect x="58" y="176" width="104" height="34" rx="8" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.5"/>
+        <text x="110" y="189" text-anchor="middle" font-size="10" font-weight="500" fill="#085041" font-family="sans-serif">~300 artículos únicos</text>
+        <text x="110" y="203" text-anchor="middle" font-size="10" fill="#0F6E56" font-family="sans-serif">sin duplicados</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="arrow-down">↓</div>
+
+  <!-- PASO 3 -->
+  <div class="step">
+    <div class="step-left">
+      <div class="step-num">Paso 3 de 4</div>
+      <div class="step-title">Dos jueces independientes revisan cada artículo</div>
+      <div class="step-body">Cada artículo es evaluado dos veces de forma independiente. Solo pasa el que ambos aprueban. Si no coinciden, se marca para que un experto humano decida. Esto sigue el estándar internacional de revisiones sistemáticas (Cochrane).</div>
+      <div class="analogy"><strong>Analogía:</strong> Es como la revisión de un trabajo científico: un editor lo envía a dos árbitros sin que se conozcan. Si los dos dicen "sí", el artículo pasa. Si uno dice "sí" y otro "no", el editor decide. Esto evita que sesgos de un solo revisor distorsionen el resultado.</div>
+      <div class="badges-row">
+        <span class="badge badge-in">✓ Incluido — ambos aprobaron</span>
+        <span class="badge badge-ex">✗ Excluido — razón PRISMA 2020</span>
+        <span class="badge badge-hu">? Revisión humana — desacuerdo</span>
+      </div>
+    </div>
+    <div class="step-right">
+      <svg class="ill" viewBox="0 0 220 220">
+        <defs><marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round"/></marker></defs>
+        <rect x="72" y="10" width="76" height="36" rx="8" fill="#FAEEDA" stroke="#EF9F27" stroke-width="0.5"/>
+        <text x="110" y="24" text-anchor="middle" font-size="11" font-weight="500" fill="#412402" font-family="sans-serif">Artículo</text>
+        <text x="110" y="38" text-anchor="middle" font-size="10" fill="#633806" font-family="sans-serif">candidato</text>
+        <line x1="86" y1="46" x2="56" y2="76" stroke="#888780" stroke-width="1" fill="none" marker-end="url(#a3)"/>
+        <line x1="134" y1="46" x2="164" y2="76" stroke="#888780" stroke-width="1" fill="none" marker-end="url(#a3)"/>
+        <rect x="10" y="76" width="90" height="52" rx="8" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+        <text x="55" y="95" text-anchor="middle" font-size="10" font-weight="500" fill="#26215C" font-family="sans-serif">Juez A</text>
+        <text x="55" y="110" text-anchor="middle" font-size="9" fill="#534AB7" font-family="sans-serif">umbral estándar</text>
+        <text x="55" y="122" text-anchor="middle" font-size="9" fill="#534AB7" font-family="sans-serif">¿Es relevante?</text>
+        <rect x="120" y="76" width="90" height="52" rx="8" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="0.5"/>
+        <text x="165" y="95" text-anchor="middle" font-size="10" font-weight="500" fill="#26215C" font-family="sans-serif">Juez B</text>
+        <text x="165" y="110" text-anchor="middle" font-size="9" fill="#534AB7" font-family="sans-serif">umbral estricto</text>
+        <text x="165" y="122" text-anchor="middle" font-size="9" fill="#534AB7" font-family="sans-serif">¿Es claramente válido?</text>
+        <line x1="55" y1="128" x2="90" y2="152" stroke="#888780" stroke-width="1" fill="none" marker-end="url(#a3)"/>
+        <line x1="165" y1="128" x2="130" y2="152" stroke="#888780" stroke-width="1" fill="none" marker-end="url(#a3)"/>
+        <rect x="58" y="152" width="104" height="36" rx="8" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="0.5"/>
+        <text x="110" y="167" text-anchor="middle" font-size="10" font-weight="500" fill="#085041" font-family="sans-serif">Consenso</text>
+        <text x="110" y="181" text-anchor="middle" font-size="9" fill="#0F6E56" font-family="sans-serif">¿Coinciden? → decisión final</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="arrow-down">↓</div>
+
+  <!-- PASO 4 -->
+  <div class="step">
+    <div class="step-left">
+      <div class="step-num">Paso 4 de 4</div>
+      <div class="step-title">La IA evalúa la calidad de cada estudio</div>
+      <div class="step-body">No todos los estudios científicos tienen el mismo valor. PHAROS evalúa automáticamente la calidad de cada artículo usando cuatro técnicas complementarias — como cuatro expertos con distintas especialidades que votan juntos.</div>
+      <div class="analogy"><strong>Analogía:</strong> Imagina cuatro jueces en un concurso de cocina. El primero evalúa el sabor, el segundo la técnica, el tercero compara con recetas históricas, y el cuarto ajusta según el tipo de plato. El veredicto final combina las cuatro perspectivas.</div>
+    </div>
+    <div class="step-right" style="align-items:stretch">
+      <div class="result-card">
+        <div class="result-title">Lógica difusa</div>
+        <div class="result-sub">"El riesgo de sesgo no es solo alto o bajo — tiene grados. Como decir que una fruta está verde, madura o muy madura."</div>
+        <div class="bar-label">Confianza: alta</div>
+        <div class="bar-track"><div class="bar-fill" style="width:84%;background:#1D9E75"></div></div>
+      </div>
+      <div class="result-card">
+        <div class="result-title">Relaciones entre criterios</div>
+        <div class="result-sub">"Si el diseño del estudio es débil, los resultados son menos confiables — como una cadena que falla por el eslabón más flojo."</div>
+        <div class="bar-label">Ajuste bayesiano</div>
+        <div class="bar-track"><div class="bar-fill" style="width:62%;background:#534AB7"></div></div>
+      </div>
+      <div class="result-card">
+        <div class="result-title">Comparación con casos previos</div>
+        <div class="result-sub">"Este estudio se parece a otros que ya evaluamos. Aprendemos de la experiencia acumulada."</div>
+        <div class="bar-label">Similitud con casos conocidos</div>
+        <div class="bar-track"><div class="bar-fill" style="width:71%;background:#BA7517"></div></div>
+      </div>
+      <div class="result-card">
+        <div class="result-title">Pesos según el contexto</div>
+        <div class="result-sub">"En cardiología, el riesgo de sesgo por falta de cegamiento pesa más que en otras especialidades."</div>
+        <div class="bar-label">Ajuste por área terapéutica</div>
+        <div class="bar-track"><div class="bar-fill" style="width:78%;background:#D85A30"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-down">↓</div>
+
+  <!-- RESULTADO -->
+  <div class="final-box">
+    <h2>El resultado final</h2>
+    <p>Un informe estructurado con los estudios más relevantes, clasificados por calidad, con la razón de cada decisión y un diagrama de flujo PRISMA 2020 — listo para el equipo de evaluación de tecnologías sanitarias.</p>
+    <div class="badges-row" style="justify-content:center">
+      <span class="badge badge-in">Artículos incluidos con justificación</span>
+      <span class="badge badge-ex">Artículos excluidos con razón</span>
+      <span class="badge badge-hu">Casos para revisión del experto</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    PHAROS AI · Universidad EIA · Boston Scientific<br>
+    Sistema multiagente para evaluación de tecnologías sanitarias de dispositivos médicos
+  </div>
+
+</div>
+</body>
+</html>

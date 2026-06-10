@@ -1,0 +1,289 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+body{padding:1.5rem 0}
+.progress{display:flex;gap:6px;justify-content:center;margin-bottom:1.5rem}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--color-border-secondary);transition:background .3s}
+.dot.active{background:var(--color-text-primary)}
+.dot.done{background:var(--color-text-secondary)}
+.panel{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+.panel-label{font-size:11px;font-weight:500;letter-spacing:.07em;color:var(--color-text-tertiary);margin-bottom:.4rem;text-transform:uppercase}
+.panel-title{font-size:17px;font-weight:500;color:var(--color-text-primary);margin-bottom:.75rem;line-height:1.3}
+.panel-body{font-size:13px;color:var(--color-text-secondary);line-height:1.7;margin-bottom:1rem}
+.tag{display:inline-block;padding:.25rem .65rem;border-radius:999px;font-size:12px;font-weight:500;margin:.2rem}
+.tag-p{background:#EEEDFE;color:#3C3489}
+.tag-i{background:#E1F5EE;color:#085041}
+.tag-c{background:#FAEEDA;color:#633806}
+.tag-o{background:#FAECE7;color:#712B13}
+.tag-gray{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.term-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:.5rem 0}
+.arrow-tag{font-size:13px;color:var(--color-text-tertiary);padding:0 4px}
+.mesh-pill{display:inline-block;padding:.2rem .6rem;border-radius:6px;font-size:11px;font-weight:500;background:#E1F5EE;color:#085041;border:0.5px solid #5DCAA5;margin:.15rem}
+.umls-pill{display:inline-block;padding:.2rem .6rem;border-radius:6px;font-size:11px;background:#EEEDFE;color:#3C3489;border:0.5px solid #AFA9EC;margin:.15rem}
+.syn-pill{display:inline-block;padding:.2rem .6rem;border-radius:6px;font-size:11px;background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary);margin:.15rem}
+.layer-box{border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:.75rem 1rem;margin:.5rem 0}
+.layer-title{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:.3rem}
+.layer-body{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.eq-block{background:var(--color-background-secondary);border-radius:8px;padding:1rem;font-family:var(--font-mono,monospace);font-size:11px;color:var(--color-text-secondary);line-height:1.9;overflow-x:auto;margin:.5rem 0}
+.eq-p{color:#3C3489;font-weight:500}
+.eq-i{color:#085041;font-weight:500}
+.eq-c{color:#633806;font-weight:500}
+.eq-o{color:#712B13;font-weight:500}
+.eq-op{color:var(--color-text-secondary);font-weight:400}
+.eq-key{color:#185FA5;font-weight:500}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.25rem}
+.nav button{padding:.5rem 1.25rem;font-size:13px;border:0.5px solid var(--color-border-secondary);border-radius:8px;background:transparent;color:var(--color-text-primary);cursor:pointer}
+.nav button:hover{background:var(--color-background-secondary)}
+.nav button:disabled{opacity:.3;cursor:default}
+.step-counter{font-size:12px;color:var(--color-text-tertiary)}
+.highlight-box{border-left:3px solid #534AB7;border-radius:0 8px 8px 0;background:#EEEDFE;padding:.65rem 1rem;margin:.5rem 0;font-size:12px;color:#26215C;line-height:1.6}
+.highlight-box.teal{border-color:#0F6E56;background:#E1F5EE;color:#04342C}
+.highlight-box.amber{border-color:#854F0B;background:#FAEEDA;color:#412402}
+.highlight-box.coral{border-color:#993C1D;background:#FAECE7;color:#4A1B0C}
+.anim-in{animation:fadeSlide .35s ease both}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+
+<h2 class="sr-only">Cómo transforma PHAROS una pregunta PICO en una ecuación de búsqueda usando lógica neuro-simbólica — stepper interactivo con 6 pasos</h2>
+
+<div class="progress" id="prog"></div>
+
+<div id="panels"></div>
+
+<div class="nav">
+  <button id="prev" onclick="go(-1)" disabled>Anterior</button>
+  <span class="step-counter" id="counter"></span>
+  <button id="next" onclick="go(1)">Siguiente</button>
+</div>
+
+<script>
+const steps = [
+  {
+    label: "Punto de partida",
+    title: "El especialista escribe su pregunta clínica",
+    body: "El equipo de ETS de Boston Scientific necesita saber: ¿la ablación de campo pulsado es mejor que los métodos térmicos para tratar la fibrilación auricular? En lugar de buscar en Google, estructuran la pregunta en cuatro partes — el formato PICO.",
+    html: `
+      <div class="term-row">
+        <span class="tag tag-p">P — Pacientes con fibrilación auricular paroxística</span>
+      </div>
+      <div class="term-row">
+        <span class="tag tag-i">I — Ablación de campo pulsado (Pulsed Field Ablation)</span>
+      </div>
+      <div class="term-row">
+        <span class="tag tag-c">C — Ablación térmica (radiofrecuencia o crioablación)</span>
+      </div>
+      <div class="term-row">
+        <span class="tag tag-o">O — Recurrencia de arritmia, complicaciones, calidad de vida</span>
+      </div>
+      <div class="highlight-box" style="margin-top:.75rem">
+        El problema: si busco "ablación de campo pulsado" en PubMed tal cual, me pierdo todos los artículos que usan las siglas "PFA", el nombre del ensayo clínico "ADVENT", o el nombre del dispositivo "FARAPULSE". La búsqueda manual es incompleta por naturaleza.
+      </div>`
+  },
+  {
+    label: "Capa neural — extracción de entidades",
+    title: "La IA lee la pregunta y extrae los conceptos clave",
+    body: "La primera capa es la 'neuronal': un modelo de lenguaje analiza cada componente PICO y extrae la entidad médica central, ignorando palabras de relleno. Es como un médico experto que lee la pregunta y dice 'lo esencial aquí es: fibrilación auricular, ablación de campo pulsado, ablación térmica'.",
+    html: `
+      <div class="layer-box">
+        <div class="layer-title">Entrada — texto libre del especialista</div>
+        <div class="layer-body">"Pacientes con fibrilación auricular paroxística" → el LLM extrae: <strong style="color:var(--color-text-primary)">Atrial Fibrillation, Paroxysmal</strong></div>
+      </div>
+      <div class="layer-box">
+        <div class="layer-title">Entrada — intervención</div>
+        <div class="layer-body">"Ablación de campo pulsado (Pulsed Field Ablation)" → extrae: <strong style="color:var(--color-text-primary)">Pulsed Field Ablation</strong></div>
+      </div>
+      <div class="layer-box">
+        <div class="layer-title">Entrada — comparador</div>
+        <div class="layer-body">"Ablación térmica (radiofrecuencia o crioablación)" → extrae: <strong style="color:var(--color-text-primary)">Catheter Ablation</strong> + <strong style="color:var(--color-text-primary)">Cryoablation</strong></div>
+      </div>
+      <div class="layer-box">
+        <div class="layer-title">Entrada — desenlaces (atomización)</div>
+        <div class="layer-body">"Recurrencia de arritmia, complicaciones, calidad de vida" → se <em>atomiza</em> en tres conceptos separados, uno por búsqueda. Sin esto, la búsqueda mezcla criterios y pierde resultados.</div>
+      </div>
+      <div class="highlight-box">
+        Analogía: es como un intérprete que toma lo que dices en español coloquial y lo transforma al vocabulario médico internacional exacto. Sin este paso, el sistema buscaría palabras sueltas en lugar de conceptos.
+      </div>`
+  },
+  {
+    label: "Capa simbólica — validación UMLS",
+    title: "El sistema consulta el vocabulario médico oficial",
+    body: "Aquí entra la parte 'simbólica': PHAROS consulta UMLS (el diccionario médico más completo del mundo, con 4 millones de conceptos) para confirmar que los términos existen, encontrar sus códigos únicos (CUI), y descubrir todos los sinónimos y formas alternativas registradas.",
+    html: `
+      <div class="term-row">
+        <span style="font-size:12px;color:var(--color-text-secondary);min-width:160px">Pulsed Field Ablation</span>
+        <span class="arrow-tag">→</span>
+        <span class="umls-pill">CUI: C5399870</span>
+        <span class="mesh-pill">MeSH: no confirmado</span>
+        <span class="arrow-tag">→</span>
+        <span class="syn-pill">busca en NCI Thesaurus</span>
+      </div>
+      <div class="term-row">
+        <span style="font-size:12px;color:var(--color-text-secondary);min-width:160px">Atrial Fibrillation, Parox.</span>
+        <span class="arrow-tag">→</span>
+        <span class="umls-pill">CUI: D001281</span>
+        <span class="mesh-pill">MeSH: Atrial Fibrillation</span>
+        <span class="mesh-pill">+6 sinónimos</span>
+      </div>
+      <div class="term-row">
+        <span style="font-size:12px;color:var(--color-text-secondary);min-width:160px">Catheter Ablation</span>
+        <span class="arrow-tag">→</span>
+        <span class="umls-pill">CUI: C0162563</span>
+        <span class="mesh-pill">MeSH validado</span>
+        <span class="syn-pill">Radiofrequency Ablation</span>
+        <span class="syn-pill">Ablation Techniques</span>
+      </div>
+      <div class="highlight-box teal" style="margin-top:.75rem">
+        La búsqueda en cascada: primero intenta encontrar el término exacto. Si no lo encuentra, busca por aproximación. Si tampoco, consulta el Tesauro del NCI (National Cancer Institute), que tiene nombres de dispositivos y ensayos clínicos. Así "PFA" encuentra "Pulsed Field Ablation" y "FARAPULSE" encuentra el concepto de ablación.
+      </div>
+      <div class="highlight-box coral" style="margin-top:.5rem">
+        Validación semántica: si el sistema expandiera "eficacia" como "Vaccine Efficacy" (un error real detectado por HEMA Brasil), el validador contextual lo descarta automáticamente porque sabe que estamos en contexto cardíaco, no de vacunas.
+      </div>`
+  },
+  {
+    label: "Expansión terminológica",
+    title: "Se construye la red de sinónimos para máxima cobertura",
+    body: "Con el código UMLS en mano, el sistema expande hacia los lados: recupera todas las formas en que ese concepto puede aparecer en la literatura. Un estudio puede llamar al mismo procedimiento de cinco formas distintas — si no las incluimos todas, perdemos resultados.",
+    html: `
+      <div style="margin-bottom:.75rem">
+        <div class="layer-title" style="margin-bottom:.5rem">Fibrilación auricular paroxística — árbol de sinónimos</div>
+        <div class="term-row">
+          <span class="mesh-pill">Paroxysmal Atrial Fibrillation</span>
+          <span class="mesh-pill">Atrial Fibrillation, Paroxysmal</span>
+          <span class="syn-pill">PAF</span>
+          <span class="syn-pill">ATRIAL FIBRILLATION PAROXYSMAL</span>
+        </div>
+      </div>
+      <div style="margin-bottom:.75rem">
+        <div class="layer-title" style="margin-bottom:.5rem">Ablación de campo pulsado — expansión por relaciones UMLS</div>
+        <div class="term-row">
+          <span class="mesh-pill">Pulsed Field Ablation</span>
+          <span class="syn-pill">Irreversible Electroporation Cardiac</span>
+          <span class="syn-pill">PFA</span>
+          <span class="syn-pill">FARAPULSE</span>
+        </div>
+        <div class="term-row">
+          <span class="tag-gray tag" style="font-size:11px">ensayos clínicos asociados:</span>
+          <span class="syn-pill">ADVENT trial</span>
+          <span class="syn-pill">MANIFEST trial</span>
+          <span class="syn-pill">SINGLE-SHOT</span>
+          <span class="syn-pill">EU-PORIA</span>
+        </div>
+      </div>
+      <div style="margin-bottom:.75rem">
+        <div class="layer-title" style="margin-bottom:.5rem">Desenlace: recurrencia de arritmia — forma TIAB (título/abstract)</div>
+        <div class="term-row">
+          <span class="syn-pill">recurrence</span>
+          <span class="syn-pill">arrhythmia recurrence</span>
+          <span class="syn-pill">atrial fibrillation recurrence</span>
+          <span class="syn-pill">freedom from recurrence</span>
+        </div>
+        <div class="highlight-box amber" style="margin-top:.5rem">
+          Los desenlaces genéricos como "eficacia" o "calidad de vida" no tienen un código MeSH específico para este contexto. El sistema los envía como búsqueda libre en título y abstract (TIAB) en lugar de como descriptor controlado — evitando así la contaminación semántica.
+        </div>
+      </div>`
+  },
+  {
+    label: "Construcción booleana — la lógica simbólica",
+    title: "Los sinónimos se ensamblan con lógica AND / OR",
+    body: "Con todos los términos validados y expandidos, el sistema construye la ecuación booleana. La lógica es simple: dentro de cada componente PICO se usa OR (cualquier sinónimo sirve), y entre componentes se usa AND (deben cumplirse todos). Es como hacer un filtro de café: OR amplía la malla, AND la cierra.",
+    html: `
+      <div class="layer-title" style="margin-bottom:.5rem">Ecuación PubMed — versión simplificada</div>
+      <div class="eq-block">
+<span class="eq-p">(<br>
+&nbsp;&nbsp;"Paroxysmal Atrial Fibrillation"[MeSH]<br>
+&nbsp;&nbsp;<span class="eq-op">OR</span> "Atrial Fibrillation, Paroxysmal"[MeSH]<br>
+&nbsp;&nbsp;<span class="eq-op">OR</span> "ATRIAL FIBRILLATION PAROXYSMAL"[TIAB]<br>
+)</span>
+<br>
+<span class="eq-op">AND</span>
+<br>
+<span class="eq-i">(<br>
+&nbsp;&nbsp;"Pulsed Field Ablation"[TIAB]<br>
+&nbsp;&nbsp;<span class="eq-op">OR</span> "Irreversible Electroporation"[TIAB]<br>
+&nbsp;&nbsp;<span class="eq-op">OR</span> "ADVENT"[TIAB]<br>
+&nbsp;&nbsp;<span class="eq-op">OR</span> "FARAPULSE"[TIAB]<br>
+)</span>
+<br>
+<span class="eq-op">AND</span>
+<br>
+<span class="eq-c">(<br>
+&nbsp;&nbsp;"Catheter Ablation"[MeSH]<br>
+&nbsp;&nbsp;<span class="eq-op">OR</span> "Radiofrequency Ablation"[TIAB]<br>
+&nbsp;&nbsp;<span class="eq-op">OR</span> "Cryoablation"[MeSH]<br>
+)</span>
+<br>
+<span class="eq-op">AND</span>
+<br>
+<span class="eq-o">(<br>
+&nbsp;&nbsp;"recurrence"[TIAB]<br>
+&nbsp;&nbsp;<span class="eq-op">OR</span> "arrhythmia recurrence"[TIAB]<br>
+&nbsp;&nbsp;<span class="eq-op">OR</span> "freedom from recurrence"[TIAB]<br>
+)</span>
+<br>
+<span class="eq-op">AND</span> <span class="eq-key">2019:2025[dp]</span>
+      </div>
+      <div class="highlight-box">
+        Analogía: imagine que busca en un catálogo de biblioteca. OR le dice "tráeme libros sobre fibrilación auricular paroxística O sobre PAF O sobre ATRIAL FIBRILLATION PAROXYSMAL — me sirve cualquier nombre". AND le dice "pero ese libro también debe hablar de ablación de campo pulsado". El resultado es preciso porque ningún criterio se omite.
+      </div>`
+  },
+  {
+    label: "Resultado — la ecuación lista",
+    title: "Tres ecuaciones adaptadas, una por base de datos",
+    body: "La misma lógica produce tres formatos distintos: uno booleano estructurado para PubMed, uno semántico para OpenAlex, y uno simplificado para Semantic Scholar. Las tres búsquedas corren al mismo tiempo y los resultados se fusionan — eso es RAG Fusion.",
+    html: `
+      <div class="layer-box">
+        <div class="layer-title">PubMed — booleano con descriptores MeSH</div>
+        <div class="layer-body">Usa los términos controlados del catálogo oficial de la Biblioteca Nacional de Medicina de EE. UU. Máxima precisión para artículos clínicos indexados.</div>
+      </div>
+      <div class="layer-box">
+        <div class="layer-title">OpenAlex — búsqueda semántica</div>
+        <div class="layer-body">Usa los conceptos UMLS directamente, sin sintaxis booleana. Captura artículos recientes, preprints y literatura en idiomas distintos al inglés.</div>
+      </div>
+      <div class="layer-box">
+        <div class="layer-title">Semantic Scholar — términos Harpoon de alta precisión</div>
+        <div class="layer-body">Usa solo el término más específico y distintivo por componente. Prioriza exactitud sobre cobertura — busca lo que nadie más encontraría.</div>
+      </div>
+      <div class="highlight-box teal" style="margin-top:.75rem">
+        El resultado combinado: ~300 artículos únicos sin duplicados, en menos de 60 segundos. Una revisión manual del mismo alcance tomaría entre 2 y 4 semanas de trabajo del equipo de ETS.
+      </div>
+      <button style="margin-top:.75rem;width:100%;padding:.6rem;font-size:13px;border:0.5px solid var(--color-border-secondary);border-radius:8px;background:transparent;color:var(--color-text-primary);cursor:pointer" onclick="sendPrompt('¿Cómo valida PHAROS que la ecuación de búsqueda no pierde estudios importantes como ADVENT o MANIFEST?')">Ver cómo se valida que no se pierden estudios clave ↗</button>`
+  }
+];
+
+let cur = 0;
+
+function render() {
+  const s = steps[cur];
+  document.getElementById('panels').innerHTML = `
+    <div class="panel anim-in">
+      <div class="panel-label">${s.label}</div>
+      <div class="panel-title">${s.title}</div>
+      <div class="panel-body">${s.body}</div>
+      ${s.html}
+    </div>`;
+  document.getElementById('prev').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === steps.length - 1;
+  document.getElementById('next').textContent = cur === steps.length - 1 ? 'Fin' : 'Siguiente';
+  document.getElementById('counter').textContent = `${cur + 1} de ${steps.length}`;
+  const dots = document.querySelectorAll('.dot');
+  dots.forEach((d, i) => {
+    d.className = 'dot' + (i === cur ? ' active' : i < cur ? ' done' : '');
+  });
+}
+
+function go(dir) {
+  cur = Math.max(0, Math.min(steps.length - 1, cur + dir));
+  render();
+}
+
+const prog = document.getElementById('prog');
+steps.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  d.onclick = () => { cur = i; render(); };
+  d.style.cursor = 'pointer';
+  prog.appendChild(d);
+});
+
+render();
+</script>
