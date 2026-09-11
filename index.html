@@ -112,53 +112,50 @@
         .hero-shell::before {
             content: "";
             position: absolute;
-            inset: 28px 7% auto;
-            height: 290px;
+            inset: 18px 4% auto;
+            height: 320px;
             border-radius: 9999px;
-            background: radial-gradient(circle, rgba(125, 211, 252, 0.22) 0%, rgba(153, 246, 228, 0.08) 40%, rgba(125, 211, 252, 0) 74%);
+            background: radial-gradient(circle, rgba(125, 211, 252, 0.24) 0%, rgba(153, 246, 228, 0.12) 36%, rgba(125, 211, 252, 0) 76%);
             pointer-events: none;
         }
-        .swarm-canvas {
-            position: relative;
-            z-index: 1;
-            margin: 26px auto 0;
-            max-width: 920px;
-            height: 170px;
-            border: 1px solid rgba(125, 211, 252, 0.28);
-            border-radius: 14px;
-            background: linear-gradient(120deg, rgba(7, 21, 47, 0.42) 0%, rgba(20, 43, 99, 0.34) 100%);
-            overflow: hidden;
-        }
-        .swarm-canvas::before {
-            content: "";
+        .entropy-field {
             position: absolute;
             inset: 0;
-            background-image: linear-gradient(rgba(125, 211, 252, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(125, 211, 252, 0.09) 1px, transparent 1px);
-            background-size: 34px 34px;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
         }
-        .swarm-node {
+        .entropy-flow {
+            position: absolute;
+            border: 1px solid rgba(125, 211, 252, 0.28);
+            border-radius: 9999px;
+            filter: blur(0.2px);
+        }
+        .entropy-flow.f1 { width: 78%; height: 240px; top: 18%; left: -14%; transform: rotate(-13deg); }
+        .entropy-flow.f2 { width: 74%; height: 220px; top: 35%; right: -18%; transform: rotate(11deg); border-color: rgba(153, 246, 228, 0.24); }
+        .entropy-flow.f3 { width: 56%; height: 180px; top: 54%; left: 22%; transform: rotate(-8deg); border-color: rgba(96, 165, 250, 0.24); }
+        .entropy-cloud {
             position: absolute;
             border-radius: 9999px;
-            border: 1px solid rgba(153, 246, 228, 0.55);
-            background: rgba(125, 211, 252, 0.2);
-            box-shadow: 0 0 0 8px rgba(125, 211, 252, 0.08);
+            background: radial-gradient(circle, rgba(125, 211, 252, 0.2) 0%, rgba(125, 211, 252, 0) 72%);
         }
-        .swarm-node.n1 { width: 16px; height: 16px; top: 30px; left: 10%; }
-        .swarm-node.n2 { width: 20px; height: 20px; top: 88px; left: 24%; }
-        .swarm-node.n3 { width: 14px; height: 14px; top: 44px; left: 38%; }
-        .swarm-node.n4 { width: 22px; height: 22px; top: 98px; left: 52%; }
-        .swarm-node.n5 { width: 15px; height: 15px; top: 48px; left: 68%; }
-        .swarm-node.n6 { width: 18px; height: 18px; top: 106px; left: 82%; }
-        .swarm-link {
+        .entropy-cloud.c1 { width: 340px; height: 340px; top: -80px; left: -70px; }
+        .entropy-cloud.c2 { width: 300px; height: 300px; top: 16%; right: -90px; background: radial-gradient(circle, rgba(153, 246, 228, 0.16) 0%, rgba(153, 246, 228, 0) 72%); }
+        .entropy-cloud.c3 { width: 260px; height: 260px; bottom: -90px; left: 30%; background: radial-gradient(circle, rgba(96, 165, 250, 0.17) 0%, rgba(96, 165, 250, 0) 74%); }
+        .entropy-node {
             position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(125, 211, 252, 0.2) 0%, rgba(153, 246, 228, 0.68) 50%, rgba(125, 211, 252, 0.2) 100%);
-            transform-origin: left center;
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background: rgba(186, 230, 253, 0.82);
+            box-shadow: 0 0 0 6px rgba(125, 211, 252, 0.1);
         }
-        .swarm-link.l1 { width: 145px; top: 38px; left: 12%; transform: rotate(24deg); }
-        .swarm-link.l2 { width: 130px; top: 94px; left: 26%; transform: rotate(-18deg); }
-        .swarm-link.l3 { width: 138px; top: 58px; left: 41%; transform: rotate(20deg); }
-        .swarm-link.l4 { width: 120px; top: 101px; left: 56%; transform: rotate(-22deg); }
+        .entropy-node.n1 { top: 28%; left: 14%; }
+        .entropy-node.n2 { top: 46%; left: 24%; }
+        .entropy-node.n3 { top: 38%; left: 47%; }
+        .entropy-node.n4 { top: 62%; left: 58%; }
+        .entropy-node.n5 { top: 34%; left: 74%; }
+        .entropy-node.n6 { top: 52%; left: 86%; }
         .hero-copy {
             position: relative;
             z-index: 2;
@@ -196,17 +193,13 @@
             .hero-shell {
                 padding: 120px 24px 48px;
             }
-            .swarm-canvas {
-                height: 150px;
-            }
+            .entropy-flow.f1 { width: 110%; left: -30%; }
+            .entropy-flow.f2 { width: 108%; right: -34%; }
         }
         @media (max-width: 640px) {
-            .swarm-canvas {
-                height: 132px;
-            }
-            .swarm-link {
-                opacity: 0.65;
-            }
+            .entropy-cloud.c1 { width: 250px; height: 250px; }
+            .entropy-cloud.c2 { width: 210px; height: 210px; }
+            .entropy-flow { opacity: 0.72; }
             .insight-grid {
                 grid-template-columns: 1fr;
                 gap: 10px;
@@ -267,17 +260,19 @@
                     </a>
                 </div>
             </div>
-            <div class="swarm-canvas" aria-hidden="true">
-                <span class="swarm-link l1"></span>
-                <span class="swarm-link l2"></span>
-                <span class="swarm-link l3"></span>
-                <span class="swarm-link l4"></span>
-                <span class="swarm-node n1"></span>
-                <span class="swarm-node n2"></span>
-                <span class="swarm-node n3"></span>
-                <span class="swarm-node n4"></span>
-                <span class="swarm-node n5"></span>
-                <span class="swarm-node n6"></span>
+            <div class="entropy-field" aria-hidden="true">
+                <span class="entropy-flow f1"></span>
+                <span class="entropy-flow f2"></span>
+                <span class="entropy-flow f3"></span>
+                <span class="entropy-cloud c1"></span>
+                <span class="entropy-cloud c2"></span>
+                <span class="entropy-cloud c3"></span>
+                <span class="entropy-node n1"></span>
+                <span class="entropy-node n2"></span>
+                <span class="entropy-node n3"></span>
+                <span class="entropy-node n4"></span>
+                <span class="entropy-node n5"></span>
+                <span class="entropy-node n6"></span>
             </div>
             <div class="insight-card">
                 <p class="kicker text-blue-200 text-xs mb-2">Capacidad aplicada</p>
