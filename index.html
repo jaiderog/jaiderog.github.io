@@ -13,59 +13,98 @@
     <!-- Google Fonts - Inter para una tipografía moderna y legible -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --blue-900: #0f172a;
-            --blue-800: #1e3a8a;
+            --navy-950: #07152f;
+            --navy-900: #0d1b3e;
+            --navy-800: #142b63;
             --blue-700: #1d4ed8;
-            --blue-600: #2563eb;
-            --blue-100: #dbeafe;
-            --slate-700: #334155;
-            --slate-600: #475569;
-            --surface-border: rgba(148, 163, 184, 0.25);
-            --surface-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+            --blue-500: #3b82f6;
+            --sky-300: #7dd3fc;
+            --mint-300: #99f6e4;
+            --ink: #0f172a;
+            --muted: #475569;
+            --paper: #ffffff;
+            --line: #d7deea;
+            --surface-shadow: 0 20px 42px rgba(8, 24, 59, 0.1);
         }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
         html {
             scroll-behavior: smooth;
         }
         .page-bg {
-            background: radial-gradient(circle at top left, #eff6ff 0%, #f8fafc 45%, #e0e7ff 100%);
-            color: var(--blue-900);
+            background: linear-gradient(180deg, #eef3ff 0%, #f7faff 24%, #ffffff 100%);
+            color: var(--ink);
         }
         .glass-nav {
-            background: rgba(255, 255, 255, 0.82);
-            border-bottom: 1px solid var(--surface-border);
-            backdrop-filter: blur(14px);
+            background: rgba(238, 243, 255, 0.9);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(16px);
+        }
+        .brand-mark {
+            letter-spacing: -0.03em;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 100%;
+            height: 2px;
+            background: var(--sky-300);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .2s ease;
+        }
+        .nav-link:hover::after {
+            transform: scaleX(1);
         }
         .hero-refined {
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #e0e7ff 100%);
+            background: linear-gradient(115deg, var(--navy-950) 0%, var(--navy-900) 48%, var(--navy-800) 100%);
+            color: #f8fbff;
+        }
+        .kicker {
+            letter-spacing: .14em;
+            text-transform: uppercase;
         }
         .surface-card {
-            background: rgba(255, 255, 255, 0.88);
-            border: 1px solid var(--surface-border);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--line);
             box-shadow: var(--surface-shadow);
         }
+        .service-band {
+            border-top: 1px solid rgba(125, 211, 252, 0.28);
+            border-bottom: 1px solid rgba(125, 211, 252, 0.28);
+            background: linear-gradient(90deg, rgba(7, 21, 47, 0.92) 0%, rgba(13, 27, 62, 0.88) 100%);
+        }
         .project-card {
-            background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-            border: 1px solid rgba(37, 99, 235, 0.18);
-            transition: transform .25s ease, box-shadow .25s ease;
+            background: linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%);
+            border: 1px solid #d4e2ff;
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
         }
         .project-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 14px 32px rgba(30, 64, 175, 0.15);
+            border-color: var(--blue-500);
+            box-shadow: 0 16px 32px rgba(29, 78, 216, 0.16);
+        }
+        .project-card a {
+            border-radius: 8px;
         }
         .btn-primary {
-            background: linear-gradient(90deg, var(--blue-600) 0%, var(--blue-700) 100%);
+            background: linear-gradient(90deg, var(--blue-700) 0%, var(--blue-500) 100%);
         }
         .btn-primary:hover {
-            background: linear-gradient(90deg, var(--blue-700) 0%, var(--blue-800) 100%);
+            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
         }
         .footer-refined {
-            background: #0f172a;
+            background: var(--navy-950);
+            border-top: 1px solid rgba(125, 211, 252, 0.25);
         }
     </style>
 </head>
@@ -77,15 +116,14 @@
     <nav class="fixed top-0 left-0 right-0 glass-nav shadow-sm z-50 py-4 px-4 md:px-8">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <!-- Nombre de la marca principal -->
-            <a href="#inicio" class="text-2xl font-bold text-blue-700 hover:text-blue-800 transition-colors duration-300">Enjambre de Datos</a>
+            <a href="#inicio" class="brand-mark text-2xl font-extrabold text-blue-900 hover:text-blue-700 transition-colors duration-300">Enjambre de Datos</a>
             <!-- Enlaces de navegación -->
             <div class="space-x-4 md:space-x-6">
-                <a href="#proyectos" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300">Proyectos</a>
-                <a href="#guias" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300">Guías</a>
-                <a href="#clases" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300">Clases</a>
-                <a href="#quien-soy" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300">Quién soy</a>
-                <!-- Puedes añadir un enlace de contacto si lo deseas -->
-                <a href="mailto:tu-email@example.com" class="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300">Contacto</a>
+                <a href="#proyectos" class="nav-link text-slate-700 hover:text-blue-700 font-semibold transition-colors duration-300">Proyectos</a>
+                <a href="#guias" class="nav-link text-slate-700 hover:text-blue-700 font-semibold transition-colors duration-300">Guías</a>
+                <a href="#clases" class="nav-link text-slate-700 hover:text-blue-700 font-semibold transition-colors duration-300">Clases</a>
+                <a href="#quien-soy" class="nav-link text-slate-700 hover:text-blue-700 font-semibold transition-colors duration-300">Quién soy</a>
+                <a href="mailto:tu-email@example.com" class="nav-link text-slate-700 hover:text-blue-700 font-semibold transition-colors duration-300">Contacto</a>
             </div>
         </div>
     </nav>
@@ -93,20 +131,35 @@
     <!-- Sección de Inicio/Hero - Muy Minimalista -->
     <!-- Centrado, con un mensaje clave y un espacio para la marca -->
     <section id="inicio" class="hero-refined flex items-center justify-center min-h-screen text-center py-20 px-4 md:px-8">
-        <div class="max-w-3xl mx-auto">
-            <span class="inline-flex items-center bg-white text-blue-700 text-sm font-semibold px-4 py-2 rounded-full border border-blue-100 shadow-sm mb-6">
-                Inteligencia de datos aplicada
+        <div class="max-w-4xl mx-auto">
+            <span class="kicker inline-flex items-center text-sky-200 text-xs font-extrabold mb-6">
+                Inteligencia de datos para decisiones reales
             </span>
-            <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 leading-tight mb-6 tracking-tight">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
                 Enjambre de Datos
             </h1>
-            <p class="text-xl md:text-2xl text-slate-600 mb-8 max-w-2xl mx-auto">
-                Transformando información en conocimiento para entornos digitales.
+            <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                Transformamos evidencia, análisis y contexto en estrategias accionables para innovación, investigación y gestión digital.
             </p>
-            <a href="#proyectos" class="btn-primary inline-block text-white text-lg px-8 py-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
+            <a href="#proyectos" class="btn-primary inline-block text-white text-lg px-8 py-3 rounded-md shadow-lg transition-all duration-300 transform hover:scale-105">
                 Explorar Contenido <i class="fas fa-arrow-down ml-2"></i>
             </a>
         </div>
+    </section>
+
+    <section class="service-band grid grid-cols-1 md:grid-cols-3">
+        <a href="#proyectos" class="text-left px-6 py-6 border-b md:border-b-0 md:border-r border-blue-200 hover:bg-blue-900 transition-colors duration-300">
+            <span class="block text-xs font-bold tracking-widest text-blue-200 mb-2">01</span>
+            <span class="text-white font-semibold">Proyectos y soluciones basadas en datos</span>
+        </a>
+        <a href="#guias" class="text-left px-6 py-6 border-b md:border-b-0 md:border-r border-blue-200 hover:bg-blue-900 transition-colors duration-300">
+            <span class="block text-xs font-bold tracking-widest text-blue-200 mb-2">02</span>
+            <span class="text-white font-semibold">Guías aplicadas para adopción tecnológica</span>
+        </a>
+        <a href="#clases" class="text-left px-6 py-6 hover:bg-blue-900 transition-colors duration-300">
+            <span class="block text-xs font-bold tracking-widest text-blue-200 mb-2">03</span>
+            <span class="text-white font-semibold">Clases y formación para equipos</span>
+        </a>
     </section>
 
     <!-- Contenido Principal de la Página -->
@@ -245,7 +298,7 @@
     </main>
 
     <!-- Pie de Página -->
-    <footer class="footer-refined text-white py-10 px-4 md:px-8 text-center rounded-t-[2rem]">
+    <footer class="footer-refined text-white py-10 px-4 md:px-8 text-center rounded-t-3xl">
         <div class="max-w-4xl mx-auto">
             <p class="text-lg mb-2">&copy; <span id="current-year"></span> Enjambre de Datos. Desarrollado por Jaider Ochoa.</p>
             <p class="text-sm">Conectando datos, generando conocimiento.</p>
