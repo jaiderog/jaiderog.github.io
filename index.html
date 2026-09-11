@@ -15,22 +15,66 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Aplicar la fuente Inter a todo el cuerpo del documento */
+        :root {
+            --blue-900: #0f172a;
+            --blue-800: #1e3a8a;
+            --blue-700: #1d4ed8;
+            --blue-600: #2563eb;
+            --blue-100: #dbeafe;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --surface-border: rgba(148, 163, 184, 0.25);
+            --surface-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+        }
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Estilo para el desplazamiento suave entre secciones */
         html {
             scroll-behavior: smooth;
+        }
+        .page-bg {
+            background: radial-gradient(circle at top left, #eff6ff 0%, #f8fafc 45%, #e0e7ff 100%);
+            color: var(--blue-900);
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.82);
+            border-bottom: 1px solid var(--surface-border);
+            backdrop-filter: blur(14px);
+        }
+        .hero-refined {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #e0e7ff 100%);
+        }
+        .surface-card {
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid var(--surface-border);
+            box-shadow: var(--surface-shadow);
+        }
+        .project-card {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+            border: 1px solid rgba(37, 99, 235, 0.18);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 32px rgba(30, 64, 175, 0.15);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, var(--blue-600) 0%, var(--blue-700) 100%);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, var(--blue-700) 0%, var(--blue-800) 100%);
+        }
+        .footer-refined {
+            background: #0f172a;
         }
     </style>
 </head>
 <!-- El cuerpo usa un fondo gris claro, texto oscuro y suavizado de fuentes (antialiased) -->
-<body class="bg-gray-50 text-gray-800 antialiased">
+<body class="page-bg antialiased">
 
     <!-- Navegación Principal -->
     <!-- Barra de navegación fija en la parte superior, con fondo blanco y sombra sutil -->
-    <nav class="fixed top-0 left-0 right-0 bg-white shadow-md z-50 py-4 px-4 md:px-8 rounded-b-lg">
+    <nav class="fixed top-0 left-0 right-0 glass-nav shadow-sm z-50 py-4 px-4 md:px-8">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <!-- Nombre de la marca principal -->
             <a href="#inicio" class="text-2xl font-bold text-blue-700 hover:text-blue-800 transition-colors duration-300">Enjambre de Datos</a>
@@ -48,61 +92,63 @@
 
     <!-- Sección de Inicio/Hero - Muy Minimalista -->
     <!-- Centrado, con un mensaje clave y un espacio para la marca -->
-    <section id="inicio" class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 text-center py-20 px-4 md:px-8">
+    <section id="inicio" class="hero-refined flex items-center justify-center min-h-screen text-center py-20 px-4 md:px-8">
         <div class="max-w-3xl mx-auto">
-            <h1 class="text-5xl md:text-7xl font-extrabold text-blue-800 leading-tight mb-6">
+            <span class="inline-flex items-center bg-white text-blue-700 text-sm font-semibold px-4 py-2 rounded-full border border-blue-100 shadow-sm mb-6">
+                Inteligencia de datos aplicada
+            </span>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 leading-tight mb-6 tracking-tight">
                 Enjambre de Datos
             </h1>
-            <p class="text-xl md:text-2xl text-gray-700 mb-8 max-w-2xl mx-auto">
+            <p class="text-xl md:text-2xl text-slate-600 mb-8 max-w-2xl mx-auto">
                 Transformando información en conocimiento para entornos digitales.
             </p>
-            <!-- Botón para explorar contenido -->
-            <a href="#proyectos" class="inline-block bg-blue-600 text-white text-lg px-8 py-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105">
+            <a href="#proyectos" class="btn-primary inline-block text-white text-lg px-8 py-3 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
                 Explorar Contenido <i class="fas fa-arrow-down ml-2"></i>
             </a>
         </div>
     </section>
 
     <!-- Contenido Principal de la Página -->
-    <main class="py-12 px-4 md:px-8">
+    <main class="py-16 px-4 md:px-8">
 
         <!-- Sección de Proyectos Destacados -->
-        <section id="proyectos" class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg mb-12">
+        <section id="proyectos" class="surface-card max-w-5xl mx-auto p-8 md:p-10 rounded-2xl mb-12">
             <h2 class="text-3xl font-bold text-blue-700 mb-8 text-center">Proyectos</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Tarjeta de Proyecto 1: Gobernanza de Datos (General y de Investigación) -->
-                <article class="bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-3">Gobernanza de Datos e Investigación</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Diseño e implementación de marcos de gobernanza de datos, tanto a nivel general como específicamente aplicados a la gestión de datos de investigación, asegurando calidad y cumplimiento.</p>
-                    <a href="#" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-colors duration-300 text-xs font-medium">Ver Proyecto</a>
+                <article class="project-card p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-3">Gobernanza de Datos e Investigación</h3>
+                    <p class="text-slate-600 mb-4 text-sm">Diseño e implementación de marcos de gobernanza de datos, tanto a nivel general como específicamente aplicados a la gestión de datos de investigación, asegurando calidad y cumplimiento.</p>
+                    <a href="#" class="btn-primary inline-block text-white px-4 py-2 rounded-full transition-colors duration-300 text-xs font-medium">Ver Proyecto</a>
                 </article>
 
                 <!-- Tarjeta de Proyecto 2: IA en Recuperación de Información -->
-                <article class="bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-3">IA para Recuperación de Información Científica</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Desarrollo de modelos de inteligencia artificial para optimizar la búsqueda y recuperación de información relevante en grandes volúmenes de datos científicos y académicos.</p>
-                    <a href="#" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-colors duration-300 text-xs font-medium">Ver Proyecto</a>
+                <article class="project-card p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-3">IA para Recuperación de Información Científica</h3>
+                    <p class="text-slate-600 mb-4 text-sm">Desarrollo de modelos de inteligencia artificial para optimizar la búsqueda y recuperación de información relevante en grandes volúmenes de datos científicos y académicos.</p>
+                    <a href="#" class="btn-primary inline-block text-white px-4 py-2 rounded-full transition-colors duration-300 text-xs font-medium">Ver Proyecto</a>
                 </article>
 
                 <!-- Tarjeta de Proyecto 3: Automatización de ETESA -->
-                <article class="bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-3">Automatización de Evaluación de Tecnologías en Salud (ETESA)</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Creación de herramientas y procesos automatizados para agilizar y estandarizar la evaluación de tecnologías sanitarias, mejorando la eficiencia y la consistencia.</p>
-                    <a href="#" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-colors duration-300 text-xs font-medium">Ver Proyecto</a>
+                <article class="project-card p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-3">Automatización de Evaluación de Tecnologías en Salud (ETESA)</h3>
+                    <p class="text-slate-600 mb-4 text-sm">Creación de herramientas y procesos automatizados para agilizar y estandarizar la evaluación de tecnologías sanitarias, mejorando la eficiencia y la consistencia.</p>
+                    <a href="#" class="btn-primary inline-block text-white px-4 py-2 rounded-full transition-colors duration-300 text-xs font-medium">Ver Proyecto</a>
                 </article>
 
                 <!-- Tarjeta de Proyecto 4: Inteligencia Estratégica -->
-                <article class="bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-3">Inteligencia Estratégica y Análisis de Datos</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Desarrollo de metodologías y herramientas para la recopilación, análisis y presentación de información clave para la toma de decisiones estratégicas en diversos sectores.</p>
-                    <a href="#" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-colors duration-300 text-xs font-medium">Ver Proyecto</a>
+                <article class="project-card p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-3">Inteligencia Estratégica y Análisis de Datos</h3>
+                    <p class="text-slate-600 mb-4 text-sm">Desarrollo de metodologías y herramientas para la recopilación, análisis y presentación de información clave para la toma de decisiones estratégicas en diversos sectores.</p>
+                    <a href="#" class="btn-primary inline-block text-white px-4 py-2 rounded-full transition-colors duration-300 text-xs font-medium">Ver Proyecto</a>
                 </article>
                 <!-- Añade más tarjetas de proyectos según sea necesario -->
             </div>
         </section>
 
         <!-- Sección de Guías y Documentos -->
-        <section id="guias" class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg mb-12">
+        <section id="guias" class="surface-card max-w-5xl mx-auto p-8 md:p-10 rounded-2xl mb-12">
             <h2 class="text-3xl font-bold text-blue-700 mb-8 text-center">Guías y Documentos</h2>
             <ul class="space-y-4 text-lg text-gray-700">
                 <li class="flex items-start">
@@ -131,7 +177,7 @@
         </section>
 
         <!-- Sección de Clases -->
-        <section id="clases" class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg mb-12">
+        <section id="clases" class="surface-card max-w-5xl mx-auto p-8 md:p-10 rounded-2xl mb-12">
             <h2 class="text-3xl font-bold text-blue-700 mb-8 text-center">Clases y Cursos</h2>
             <ul class="space-y-4 text-lg text-gray-700">
                 <li class="flex items-start">
@@ -153,7 +199,7 @@
         </section>
 
         <!-- Sección "Quién soy" - Información personal de Jaider Ochoa -->
-        <section id="quien-soy" class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg mb-12">
+        <section id="quien-soy" class="surface-card max-w-5xl mx-auto p-8 md:p-10 rounded-2xl mb-12">
             <h2 class="text-3xl font-bold text-blue-700 mb-6 text-center">Quién soy</h2>
             <div class="flex flex-col md:flex-row items-center md:items-start md:space-x-8">
                 <!-- Imagen de perfil más grande para esta sección -->
@@ -199,7 +245,7 @@
     </main>
 
     <!-- Pie de Página -->
-    <footer class="bg-gray-800 text-white py-8 px-4 md:px-8 text-center rounded-t-3xl shadow-inner">
+    <footer class="footer-refined text-white py-10 px-4 md:px-8 text-center rounded-t-[2rem]">
         <div class="max-w-4xl mx-auto">
             <p class="text-lg mb-2">&copy; <span id="current-year"></span> Enjambre de Datos. Desarrollado por Jaider Ochoa.</p>
             <p class="text-sm">Conectando datos, generando conocimiento.</p>
