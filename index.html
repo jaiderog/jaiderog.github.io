@@ -16,15 +16,16 @@
       --surface: #fafafa;
       --surface-2: #f4f4f5;
       --accent: #0b6bcb;
-      --panel: #0b1220;
       --panel-fg: #f8fafc;
       --teal: #2dd4bf;
       --progress: #0a0a0a;
       --max: 880px;
-      --nav-h: 56px;
+      --side-w: 220px;
+      --nav-h: 52px;
       --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", system-ui, sans-serif;
       --radius: 10px;
       --shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      --ease: 0.28s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     @media (prefers-color-scheme: dark) {
@@ -66,6 +67,8 @@
       text-rendering: optimizeLegibility;
     }
 
+    body.nav-open { overflow: hidden; }
+
     a {
       color: var(--accent);
       text-decoration: none;
@@ -79,11 +82,11 @@
       height: 2px;
       width: 0%;
       background: var(--progress);
-      z-index: 120;
+      z-index: 200;
       pointer-events: none;
     }
 
-    /* Sticky utility bar — agentskills-like top chrome */
+    /* Minimal sticky: brand + tools only (no section link menu) */
     .topbar {
       position: sticky;
       top: 0;
@@ -99,12 +102,13 @@
 
     .topbar-inner {
       width: 100%;
-      max-width: calc(var(--max) + 6rem);
+      max-width: calc(var(--max) + var(--side-w) + 6rem);
       margin: 0 auto;
       padding: 0 1.25rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      justify-content: space-between;
+      gap: 0.75rem;
     }
 
     .brand-mark {
@@ -118,54 +122,42 @@
 
     .brand-mark:hover { text-decoration: none; opacity: 0.75; }
 
-    .top-nav {
+    .top-tools {
       display: flex;
-      flex: 1;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 0.15rem;
-      min-width: 0;
-      overflow-x: auto;
-    }
-
-    .top-nav a {
-      color: var(--muted);
-      font-size: 0.9rem;
-      font-weight: 450;
-      padding: 0.4rem 0.65rem;
-      border-radius: 6px;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .top-nav a:hover {
-      color: var(--fg);
-      background: var(--surface-2);
-      text-decoration: none;
-    }
-
-    .nav-cmd {
-      appearance: none;
-      margin-left: 0.35rem;
-      display: inline-flex;
       align-items: center;
       gap: 0.4rem;
+    }
+
+    .icon-btn,
+    .nav-cmd {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
       border: 1px solid var(--line);
       background: var(--surface);
-      color: var(--faint);
+      color: var(--muted);
       font-family: var(--font);
       font-size: 0.8rem;
       font-weight: 500;
-      padding: 0.35rem 0.65rem;
+      padding: 0.35rem 0.6rem;
       border-radius: 8px;
       cursor: pointer;
       box-shadow: var(--shadow);
-      white-space: nowrap;
+      line-height: 1;
     }
 
+    .icon-btn:hover,
     .nav-cmd:hover {
       color: var(--fg);
       border-color: color-mix(in srgb, var(--fg) 18%, var(--line));
+    }
+
+    .icon-btn svg {
+      width: 16px;
+      height: 16px;
+      display: block;
     }
 
     .nav-cmd kbd {
@@ -173,7 +165,7 @@
       font-size: 0.75rem;
     }
 
-    /* Refined full-bleed brand banner */
+    /* Brand banner */
     .brand-banner {
       position: relative;
       width: 100%;
@@ -229,53 +221,106 @@
       text-align: center;
     }
 
+    /* Shell: content expands when side nav collapsed */
     .shell {
-      max-width: calc(var(--max) + 6rem);
+      --side-gap: 2.5rem;
+      max-width: calc(var(--max) + var(--side-w) + 6rem);
       margin: 0 auto;
       padding: 0 1.25rem 4.5rem;
       display: grid;
-      grid-template-columns: 200px minmax(0, 1fr);
-      gap: 2.5rem;
+      grid-template-columns: var(--side-w) minmax(0, 1fr);
+      gap: var(--side-gap);
       align-items: start;
+      transition: grid-template-columns var(--ease), gap var(--ease);
+    }
+
+    body.nav-collapsed .shell {
+      grid-template-columns: 0fr minmax(0, 1fr);
+      gap: 0;
+    }
+
+    .side-slot {
+      min-width: 0;
+      overflow: hidden;
+      transition: opacity var(--ease);
+    }
+
+    body.nav-collapsed .side-slot {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .side-nav {
       position: sticky;
-      top: calc(var(--nav-h) + 1.25rem);
-      padding-top: 2rem;
+      top: calc(var(--nav-h) + 1.1rem);
+      padding-top: 1.75rem;
+      width: var(--side-w);
     }
 
-    .side-nav p {
-      margin: 0 0 0.75rem;
-      font-size: 0.72rem;
+    .side-nav-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 0.85rem 0.75rem 0.9rem;
+    }
+
+    .side-nav-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+      padding: 0 0.25rem;
+    }
+
+    .side-brand {
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      text-decoration: none;
+      line-height: 1.3;
+    }
+
+    .side-brand:hover { text-decoration: none; opacity: 0.75; }
+
+    .side-nav .label {
+      margin: 0 0 0.55rem;
+      padding: 0 0.25rem;
+      font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--faint);
     }
 
-    .side-nav a {
+    .side-nav a.section-link {
       display: block;
       color: var(--muted);
       font-size: 0.9rem;
-      padding: 0.4rem 0.55rem;
+      padding: 0.42rem 0.55rem;
       margin: 0 0 0.1rem;
       border-radius: 6px;
       text-decoration: none;
       border-left: 2px solid transparent;
     }
 
-    .side-nav a:hover,
-    .side-nav a.is-active {
+    .side-nav a.section-link:hover,
+    .side-nav a.section-link.is-active {
       color: var(--fg);
       background: var(--surface-2);
       text-decoration: none;
       border-left-color: var(--accent);
     }
 
+    .side-backdrop {
+      display: none;
+    }
+
     .content {
       min-width: 0;
       padding-top: 2rem;
+      transition: max-width var(--ease);
     }
 
     .page-intro {
@@ -364,14 +409,11 @@
 
     .more {
       display: inline-flex;
-      align-items: center;
       margin-top: 0.65rem;
       font-size: 0.9rem;
       font-weight: 550;
       color: var(--accent);
     }
-
-    .more:hover { text-decoration: underline; }
 
     .meta {
       display: block;
@@ -545,52 +587,116 @@
     .cmd li .tag { color: var(--faint); font-size: 0.8rem; }
     .cmd .empty { padding: 1rem; color: var(--faint); font-size: 0.9rem; }
 
-    @media (max-width: 860px) {
+    /* Mobile / tablet: drawer overlay */
+    @media (max-width: 900px) {
       .shell {
-        grid-template-columns: 1fr;
-        gap: 0;
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+        max-width: var(--max);
       }
 
-      .side-nav { display: none; }
-
-      .top-nav a:not(.keep-mobile) {
-        /* keep all, allow scroll */
+      .side-slot {
+        position: fixed;
+        inset: 0;
+        z-index: 140;
+        width: auto;
+        overflow: visible;
+        opacity: 1 !important;
+        pointer-events: none;
       }
 
-      .perfil-card {
-        grid-template-columns: 1fr;
+      .side-backdrop {
+        display: block;
+        position: absolute;
+        inset: 0;
+        background: rgba(9, 9, 11, 0.4);
+        opacity: 0;
+        transition: opacity var(--ease);
+        pointer-events: none;
       }
+
+      .side-nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: min(300px, 86vw);
+        padding: 0;
+        background: var(--bg);
+        border-right: 1px solid var(--line);
+        box-shadow: 8px 0 28px rgba(0, 0, 0, 0.12);
+        transform: translateX(-105%);
+        transition: transform var(--ease);
+        overflow-y: auto;
+        pointer-events: auto;
+      }
+
+      .side-nav-card {
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        padding: 1.1rem 1rem 1.5rem;
+        min-height: 100%;
+      }
+
+      body.nav-open .side-slot { pointer-events: auto; }
+      body.nav-open .side-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      body.nav-open .side-nav { transform: translateX(0); }
+
+      /* On small screens, collapsed class shouldn't hide drawer machinery */
+      body.nav-collapsed .side-slot {
+        opacity: 1;
+        pointer-events: none;
+      }
+
+      body.nav-collapsed.nav-open .side-slot { pointer-events: auto; }
+
+      .perfil-card { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 560px) {
-      .topbar-inner { gap: 0.5rem; }
-      .top-nav a { padding: 0.35rem 0.5rem; font-size: 0.82rem; }
       .nav-cmd span.hide-sm { display: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .swarm .pulse { animation: none; }
-      .item { transition: none; }
+      .item,
+      .shell,
+      .side-slot,
+      .side-nav,
+      .side-backdrop { transition: none; }
     }
   </style>
 </head>
-<body>
+<body class="nav-collapsed">
   <div id="progress" role="presentation" aria-hidden="true"></div>
 
   <div class="topbar">
     <div class="topbar-inner">
       <a class="brand-mark" href="#inicio">Enjambre de Datos</a>
-      <nav class="top-nav" aria-label="Principal">
-        <a href="#proyectos">Proyectos y recursos</a>
-        <a href="#blog">Blog</a>
-        <a href="#perfil">Perfil</a>
-        <a href="#contacto">Contacto</a>
+      <div class="top-tools">
+        <button
+          type="button"
+          class="icon-btn"
+          id="nav-toggle"
+          aria-controls="side-nav"
+          aria-expanded="false"
+          aria-label="Mostrar menú de página"
+          title="Menú"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h10" stroke-linecap="round"/>
+          </svg>
+        </button>
         <button type="button" class="nav-cmd" id="nav-cmd" aria-label="Abrir paleta de comandos">
           <span class="hide-sm">Buscar</span>
           <kbd id="nav-cmd-label">⌘K</kbd>
         </button>
-      </nav>
+      </div>
     </div>
   </div>
 
@@ -628,13 +734,32 @@
   </header>
 
   <div class="shell">
-    <aside class="side-nav" aria-label="En esta página">
-      <p>En esta página</p>
-      <a href="#proyectos" data-section="proyectos">Proyectos y recursos</a>
-      <a href="#blog" data-section="blog">Blog</a>
-      <a href="#perfil" data-section="perfil">Perfil</a>
-      <a href="#contacto" data-section="contacto">Contacto</a>
-    </aside>
+    <div class="side-slot" id="side-slot">
+      <div class="side-backdrop" id="side-backdrop" hidden></div>
+      <nav class="side-nav" id="side-nav" aria-label="En esta página">
+        <div class="side-nav-card">
+          <div class="side-nav-head">
+            <a class="side-brand" href="#inicio">Enjambre de Datos</a>
+            <button
+              type="button"
+              class="icon-btn"
+              id="nav-close"
+              aria-label="Ocultar menú de página"
+              title="Ocultar"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+          <p class="label">En esta página</p>
+          <a class="section-link" href="#proyectos" data-section="proyectos">Proyectos y recursos</a>
+          <a class="section-link" href="#blog" data-section="blog">Blog</a>
+          <a class="section-link" href="#perfil" data-section="perfil">Perfil</a>
+          <a class="section-link" href="#contacto" data-section="contacto">Contacto</a>
+        </div>
+      </nav>
+    </div>
 
     <div class="content">
       <div class="page-intro">
@@ -862,6 +987,69 @@
       document.getElementById("mod-key").textContent = isMac ? "Cmd" : "Ctrl";
       document.getElementById("nav-cmd-label").textContent = isMac ? "⌘K" : "Ctrl+K";
 
+      var mqMobile = window.matchMedia("(max-width: 900px)");
+      var toggleBtn = document.getElementById("nav-toggle");
+      var closeBtn = document.getElementById("nav-close");
+      var sideBackdrop = document.getElementById("side-backdrop");
+
+      function isMobileNav() {
+        return mqMobile.matches;
+      }
+
+      function setExpanded(open) {
+        toggleBtn.setAttribute("aria-expanded", open ? "true" : "false");
+        toggleBtn.setAttribute(
+          "aria-label",
+          open ? "Ocultar menú de página" : "Mostrar menú de página"
+        );
+        sideBackdrop.hidden = !open;
+      }
+
+      function openNav() {
+        if (isMobileNav()) {
+          document.body.classList.add("nav-open");
+          document.body.classList.remove("nav-collapsed");
+          setExpanded(true);
+        } else {
+          document.body.classList.remove("nav-collapsed");
+          document.body.classList.remove("nav-open");
+          setExpanded(true);
+        }
+      }
+
+      function closeNav() {
+        if (isMobileNav()) {
+          document.body.classList.remove("nav-open");
+          document.body.classList.add("nav-collapsed");
+          setExpanded(false);
+        } else {
+          document.body.classList.add("nav-collapsed");
+          document.body.classList.remove("nav-open");
+          setExpanded(false);
+        }
+      }
+
+      function toggleNav() {
+        if (isMobileNav()) {
+          if (document.body.classList.contains("nav-open")) closeNav();
+          else openNav();
+        } else {
+          if (document.body.classList.contains("nav-collapsed")) openNav();
+          else closeNav();
+        }
+      }
+
+      toggleBtn.addEventListener("click", toggleNav);
+      closeBtn.addEventListener("click", closeNav);
+      sideBackdrop.addEventListener("click", closeNav);
+
+      /* Desktop starts collapsed; mobile starts closed drawer */
+      closeNav();
+
+      mqMobile.addEventListener("change", function () {
+        closeNav();
+      });
+
       var progress = document.getElementById("progress");
       function updateProgress() {
         var doc = document.documentElement;
@@ -873,7 +1061,6 @@
       window.addEventListener("resize", updateProgress);
       updateProgress();
 
-      /* Side-nav active section */
       var sideLinks = document.querySelectorAll(".side-nav a[data-section]");
       var sections = ["proyectos", "blog", "perfil", "contacto"].map(function (id) {
         return document.getElementById(id);
@@ -892,6 +1079,12 @@
       }
       window.addEventListener("scroll", updateSideActive, { passive: true });
       updateSideActive();
+
+      sideLinks.forEach(function (link) {
+        link.addEventListener("click", function () {
+          if (isMobileNav()) closeNav();
+        });
+      });
 
       var commands = [
         { label: "Proyectos y recursos", tag: "Sección", href: "#proyectos" },
@@ -942,6 +1135,7 @@
       }
 
       function openCmd() {
+        if (isMobileNav()) closeNav();
         backdrop.hidden = false;
         backdrop.classList.add("is-open");
         input.value = "";
@@ -987,11 +1181,21 @@
           else openCmd();
           return;
         }
-        if (!backdrop.classList.contains("is-open")) return;
         if (e.key === "Escape") {
-          e.preventDefault();
-          closeCmd();
-        } else if (e.key === "ArrowDown") {
+          if (backdrop.classList.contains("is-open")) {
+            e.preventDefault();
+            closeCmd();
+            return;
+          }
+          if (document.body.classList.contains("nav-open") ||
+              (!isMobileNav() && !document.body.classList.contains("nav-collapsed"))) {
+            e.preventDefault();
+            closeNav();
+          }
+          return;
+        }
+        if (!backdrop.classList.contains("is-open")) return;
+        if (e.key === "ArrowDown") {
           e.preventDefault();
           if (!filtered.length) return;
           selected = (selected + 1) % filtered.length;
