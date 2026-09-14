@@ -235,7 +235,7 @@
     }
 
     body.nav-collapsed .shell {
-      grid-template-columns: 0fr minmax(0, 1fr);
+      grid-template-columns: 0px minmax(0, 1fr);
       gap: 0;
     }
 
@@ -672,7 +672,7 @@
     }
   </style>
 </head>
-<body class="nav-collapsed">
+<body>
   <div id="progress" role="presentation" aria-hidden="true"></div>
 
   <div class="topbar">
@@ -1043,12 +1043,13 @@
       closeBtn.addEventListener("click", closeNav);
       sideBackdrop.addEventListener("click", closeNav);
 
-      /* Desktop starts collapsed; mobile starts closed drawer */
-      closeNav();
-
-      mqMobile.addEventListener("change", function () {
-        closeNav();
-      });
+      /* Desktop starts open; mobile starts closed drawer */
+      function syncNavToViewport() {
+        if (isMobileNav()) closeNav();
+        else openNav();
+      }
+      syncNavToViewport();
+      mqMobile.addEventListener("change", syncNavToViewport);
 
       var progress = document.getElementById("progress");
       function updateProgress() {
