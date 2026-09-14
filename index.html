@@ -170,61 +170,61 @@
     .wrap {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 2rem 1.25rem 8rem;
+      padding: 2.5rem 1.25rem 5rem;
     }
 
-    /* Identity strip under banner */
-    .identity {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 1.1rem 1.25rem;
-      align-items: start;
-      margin-bottom: 2.75rem;
-      padding-top: 0.25rem;
+    /* Minimal top menu under banner */
+    .site-nav {
+      width: 100%;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
     }
 
-    .portrait {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid var(--line);
-      background: #ddd;
+    .site-nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0.7rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem 0.35rem;
     }
 
-    .identity .signature {
-      margin: 0 0 0.2rem;
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: -0.015em;
-    }
-
-    .identity .intro {
-      margin: 0 0 0.65rem;
-      font-size: 1.02rem;
+    .site-nav a,
+    .site-nav button {
+      appearance: none;
+      border: 0;
+      background: transparent;
       color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .identity .lede {
-      margin: 0 0 0.75rem;
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .hint {
-      margin: 0;
-      font-size: 0.82rem;
-      color: var(--faint);
-    }
-
-    .hint kbd {
       font-family: var(--font);
-      font-size: 0.8em;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      padding: 0.05em 0.4em;
+      font-size: 0.92rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      line-height: 1.3;
+    }
+
+    .site-nav a:hover,
+    .site-nav button:hover {
+      color: var(--fg);
+      opacity: 1;
+      background: transparent;
+    }
+
+    .site-nav .nav-cmd {
+      color: var(--faint);
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin-left: 0.25rem;
+    }
+
+    .site-nav .nav-cmd:hover {
+      color: var(--muted);
     }
 
     section {
@@ -380,52 +380,17 @@
       margin: 0 0 0.25rem;
     }
 
-    .dock {
-      position: fixed;
-      left: 50%;
-      bottom: 1.25rem;
-      transform: translateX(-50%) translateY(0);
-      display: flex;
-      gap: 0.1rem;
-      padding: 0.4rem 0.5rem;
-      background: var(--overlay);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 90;
-      transition: transform 0.28s ease, opacity 0.28s ease;
-      opacity: 1;
-      max-width: calc(100% - 1.5rem);
-      overflow-x: auto;
+    footer .hint {
+      margin-top: 0.65rem;
+      font-size: 0.8rem;
     }
 
-    .dock.is-hidden {
-      transform: translateX(-50%) translateY(calc(100% + 2rem));
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .dock a,
-    .dock button {
-      appearance: none;
-      border: 0;
-      background: transparent;
-      color: var(--fg);
+    footer kbd {
       font-family: var(--font);
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 0.45rem 0.65rem;
-      border-radius: 999px;
-      cursor: pointer;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .dock a:hover,
-    .dock button:hover {
-      background: var(--line);
-      opacity: 1;
+      font-size: 0.85em;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 0.05em 0.35em;
     }
 
     .cmd-backdrop {
@@ -511,29 +476,26 @@
     }
 
     @media (max-width: 560px) {
-      .identity {
-        grid-template-columns: 1fr;
+      .site-nav-inner {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
       }
 
-      .portrait {
-        width: 64px;
-        height: 64px;
+      .site-nav a,
+      .site-nav button {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.55rem;
       }
 
       .perfil-grid {
         grid-template-columns: 1fr;
       }
-
-      .dock a,
-      .dock button {
-        padding: 0.4rem 0.5rem;
-        font-size: 0.72rem;
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .dock { transition: none; }
       .swarm .pulse { animation: none; }
     }
   </style>
@@ -574,25 +536,17 @@
     <h1>Enjambre de Datos</h1>
   </header>
 
-  <div class="wrap">
-    <div class="identity">
-      <img
-        class="portrait"
-        src="Perfil%20(Peque%C3%B1a).JPG"
-        width="72"
-        height="72"
-        alt="Retrato de Jaider Ochoa"
-      >
-      <div>
-        <p class="signature">Jaider Ochoa</p>
-        <p class="intro">Hacia la ciencia de la información computacional</p>
-        <p class="lede">
-          Convertimos ciencia de la información computacional, gobernanza de datos e inteligencia artificial en decisiones claras, trazables y con valor público.
-        </p>
-        <p class="hint">Presiona <kbd id="mod-key">Cmd</kbd>+<kbd>K</kbd> para navegar</p>
-      </div>
+  <nav class="site-nav" aria-label="Principal">
+    <div class="site-nav-inner">
+      <a href="#proyectos">Proyectos y recursos</a>
+      <a href="#blog">Blog</a>
+      <a href="#perfil">Perfil</a>
+      <a href="#contacto">Contacto</a>
+      <button type="button" class="nav-cmd" id="nav-cmd" aria-label="Abrir paleta de comandos">⌘K</button>
     </div>
+  </nav>
 
+  <div class="wrap">
     <main>
       <section id="proyectos" aria-labelledby="proyectos-title">
         <h2 id="proyectos-title">Proyectos y recursos</h2>
@@ -783,16 +737,9 @@
     <footer>
       <p>&copy; <span id="current-year"></span> Enjambre de Datos. Desarrollado por Jaider Ochoa.</p>
       <p>Conectando datos, generando conocimiento.</p>
+      <p class="hint">Navega con <kbd id="mod-key">Cmd</kbd>+<kbd>K</kbd></p>
     </footer>
   </div>
-
-  <nav class="dock" id="dock" aria-label="Navegación rápida">
-    <a href="#proyectos">Proyectos</a>
-    <a href="#blog">Blog</a>
-    <a href="#perfil">Perfil</a>
-    <a href="#contacto">Contacto</a>
-    <button type="button" id="dock-cmd" aria-label="Abrir paleta de comandos">⌘K</button>
-  </nav>
 
   <div class="cmd-backdrop" id="cmd-backdrop" role="dialog" aria-modal="true" aria-label="Paleta de comandos" hidden>
     <div class="cmd">
@@ -810,7 +757,7 @@
       var isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform) ||
         (navigator.userAgentData && navigator.userAgentData.platform === "macOS");
       document.getElementById("mod-key").textContent = isMac ? "Cmd" : "Ctrl";
-      document.getElementById("dock-cmd").textContent = isMac ? "⌘K" : "Ctrl+K";
+      document.getElementById("nav-cmd").textContent = isMac ? "⌘K" : "Ctrl+K";
 
       var progress = document.getElementById("progress");
       function updateProgress() {
@@ -822,30 +769,6 @@
       window.addEventListener("scroll", updateProgress, { passive: true });
       window.addEventListener("resize", updateProgress);
       updateProgress();
-
-      var dock = document.getElementById("dock");
-      var lastY = window.scrollY;
-      var ticking = false;
-
-      function onScrollDock() {
-        var y = window.scrollY;
-        if (y < 40) {
-          dock.classList.remove("is-hidden");
-        } else if (y > lastY + 4) {
-          dock.classList.add("is-hidden");
-        } else if (y < lastY - 4) {
-          dock.classList.remove("is-hidden");
-        }
-        lastY = y;
-        ticking = false;
-      }
-
-      window.addEventListener("scroll", function () {
-        if (!ticking) {
-          window.requestAnimationFrame(onScrollDock);
-          ticking = true;
-        }
-      }, { passive: true });
 
       var commands = [
         { label: "Proyectos y recursos", tag: "Sección", href: "#proyectos" },
@@ -971,7 +894,7 @@
         if (e.target === backdrop) closeCmd();
       });
 
-      document.getElementById("dock-cmd").addEventListener("click", openCmd);
+      document.getElementById("nav-cmd").addEventListener("click", openCmd);
     })();
   </script>
 </body>
