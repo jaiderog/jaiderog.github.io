@@ -1,485 +1,901 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Título principal del sitio, destacando la marca -->
-    <title>Enjambre de Datos | Jaider Ochoa</title>
-    <!-- Favicon para la pestaña del navegador -->
-    <link rel="icon" href="Avatar-Maker fondo.png" type="image/png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-    <!-- Font Awesome para iconos sociales y de contenido -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts - Inter para una tipografía moderna y legible -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --navy-950: #07152f;
-            --navy-900: #0d1b3e;
-            --navy-800: #142b63;
-            --blue-700: #1d4ed8;
-            --blue-500: #3b82f6;
-            --sky-300: #7dd3fc;
-            --mint-300: #99f6e4;
-            --ink: #0f172a;
-            --muted: #475569;
-            --paper: #ffffff;
-            --line: #d7deea;
-            --surface-shadow: 0 20px 42px rgba(8, 24, 59, 0.1);
-        }
-        body {
-            font-family: 'Montserrat', sans-serif;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
-        .page-bg {
-            background: linear-gradient(180deg, #eef3ff 0%, #f7faff 24%, #ffffff 100%);
-            color: var(--ink);
-        }
-        .glass-nav {
-            background: rgba(238, 243, 255, 0.9);
-            border-bottom: 1px solid var(--line);
-            backdrop-filter: blur(16px);
-        }
-        .brand-mark {
-            letter-spacing: -0.03em;
-        }
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -8px;
-            width: 100%;
-            height: 2px;
-            background: var(--sky-300);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform .2s ease;
-        }
-        .nav-link:hover::after {
-            transform: scaleX(1);
-        }
-        .hero-refined {
-            background: linear-gradient(115deg, var(--navy-950) 0%, var(--navy-900) 48%, var(--navy-800) 100%);
-            color: #f8fbff;
-        }
-        .kicker {
-            letter-spacing: .14em;
-            text-transform: uppercase;
-        }
-        .surface-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--line);
-            box-shadow: var(--surface-shadow);
-        }
-        .service-band {
-            border-top: 1px solid rgba(125, 211, 252, 0.28);
-            border-bottom: 1px solid rgba(125, 211, 252, 0.28);
-            background: linear-gradient(90deg, rgba(7, 21, 47, 0.92) 0%, rgba(13, 27, 62, 0.88) 100%);
-        }
-        .project-card {
-            background: linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%);
-            border: 1px solid #d4e2ff;
-            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--blue-500);
-            box-shadow: 0 16px 32px rgba(29, 78, 216, 0.16);
-        }
-        .project-card a {
-            border-radius: 8px;
-        }
-        .btn-primary {
-            background: linear-gradient(90deg, var(--blue-700) 0%, var(--blue-500) 100%);
-        }
-        .btn-primary:hover {
-            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
-        }
-        .hero-shell {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 120px 32px 64px;
-            text-align: center;
-            position: relative;
-        }
-        .hero-shell::before {
-            content: "";
-            position: absolute;
-            inset: 18px 4% auto;
-            height: 320px;
-            border-radius: 9999px;
-            background: radial-gradient(circle, rgba(125, 211, 252, 0.24) 0%, rgba(153, 246, 228, 0.12) 36%, rgba(125, 211, 252, 0) 76%);
-            pointer-events: none;
-        }
-        .entropy-field {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 1;
-        }
-        .entropy-flow {
-            position: absolute;
-            border: 1px solid rgba(125, 211, 252, 0.28);
-            border-radius: 9999px;
-            filter: blur(0.2px);
-        }
-        .entropy-flow.f1 { width: 78%; height: 240px; top: 18%; left: -14%; transform: rotate(-13deg); }
-        .entropy-flow.f2 { width: 74%; height: 220px; top: 35%; right: -18%; transform: rotate(11deg); border-color: rgba(153, 246, 228, 0.24); }
-        .entropy-flow.f3 { width: 56%; height: 180px; top: 54%; left: 22%; transform: rotate(-8deg); border-color: rgba(96, 165, 250, 0.24); }
-        .entropy-cloud {
-            position: absolute;
-            border-radius: 9999px;
-            background: radial-gradient(circle, rgba(125, 211, 252, 0.2) 0%, rgba(125, 211, 252, 0) 72%);
-        }
-        .entropy-cloud.c1 { width: 340px; height: 340px; top: -80px; left: -70px; }
-        .entropy-cloud.c2 { width: 300px; height: 300px; top: 16%; right: -90px; background: radial-gradient(circle, rgba(153, 246, 228, 0.16) 0%, rgba(153, 246, 228, 0) 72%); }
-        .entropy-cloud.c3 { width: 260px; height: 260px; bottom: -90px; left: 30%; background: radial-gradient(circle, rgba(96, 165, 250, 0.17) 0%, rgba(96, 165, 250, 0) 74%); }
-        .entropy-node {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-radius: 9999px;
-            background: rgba(186, 230, 253, 0.82);
-            box-shadow: 0 0 0 6px rgba(125, 211, 252, 0.1);
-        }
-        .entropy-node.n1 { top: 28%; left: 14%; }
-        .entropy-node.n2 { top: 46%; left: 24%; }
-        .entropy-node.n3 { top: 38%; left: 47%; }
-        .entropy-node.n4 { top: 62%; left: 58%; }
-        .entropy-node.n5 { top: 34%; left: 74%; }
-        .entropy-node.n6 { top: 52%; left: 86%; }
-        .hero-copy {
-            position: relative;
-            z-index: 2;
-        }
-        .insight-card {
-            position: relative;
-            z-index: 2;
-            max-width: 860px;
-            margin: 24px auto 0;
-            background: rgba(7, 21, 47, 0.72);
-            border: 1px solid rgba(125, 211, 252, 0.35);
-            border-radius: 14px;
-            padding: 22px;
-            backdrop-filter: blur(6px);
-            text-align: left;
-        }
-        .insight-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-            margin-top: 16px;
-        }
-        .insight-grid div {
-            border-left: 2px solid rgba(125, 211, 252, 0.45);
-            padding-left: 10px;
-        }
-        .btn-secondary {
-            border: 1px solid rgba(153, 246, 228, 0.55);
-            color: #dbeafe;
-        }
-        .btn-secondary:hover {
-            background: rgba(153, 246, 228, 0.14);
-        }
-        @media (max-width: 980px) {
-            .hero-shell {
-                padding: 120px 24px 48px;
-            }
-            .entropy-flow.f1 { width: 110%; left: -30%; }
-            .entropy-flow.f2 { width: 108%; right: -34%; }
-        }
-        @media (max-width: 640px) {
-            .entropy-cloud.c1 { width: 250px; height: 250px; }
-            .entropy-cloud.c2 { width: 210px; height: 210px; }
-            .entropy-flow { opacity: 0.72; }
-            .insight-grid {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-            .insight-grid div {
-                border-left: 0;
-                border-top: 1px solid rgba(125, 211, 252, 0.35);
-                padding-left: 0;
-                padding-top: 10px;
-            }
-        }
-        .footer-refined {
-            background: var(--navy-950);
-            border-top: 1px solid rgba(125, 211, 252, 0.25);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enjambre de Datos · Jaider Ochoa</title>
+  <meta name="description" content="Enjambre de Datos — ciencia de la información computacional, gobernanza de datos e IA. Marca de Jaider Ochoa Gutiérrez.">
+  <link rel="icon" href="Avatar-Maker fondo.png" type="image/png">
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --fg: #12151c;
+      --muted: #4b5563;
+      --faint: #7b8494;
+      --line: rgba(18, 21, 28, 0.1);
+      --panel: #0c1522;
+      --panel-fg: #f5f7fa;
+      --accent: #2dd4bf;
+      --surface: #ffffff;
+      --overlay: rgba(246, 247, 249, 0.92);
+      --progress: #0c1522;
+      --max: 720px;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #090c12;
+        --fg: #eef2f7;
+        --muted: #a8b3c4;
+        --faint: #7d8899;
+        --line: rgba(238, 242, 247, 0.12);
+        --surface: #111722;
+        --overlay: rgba(9, 12, 18, 0.92);
+        --progress: #2dd4bf;
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: clip;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: clip;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font);
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+    }
+
+    a:hover {
+      opacity: 0.75;
+    }
+
+    #progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--progress);
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    /* True full-viewport brand banner (outside .wrap) */
+    .brand-banner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 70% 80% at 80% 30%, rgba(45, 212, 191, 0.12), transparent 55%),
+        radial-gradient(ellipse 50% 60% at 12% 80%, rgba(56, 189, 248, 0.08), transparent 50%),
+        linear-gradient(160deg, #0a1320 0%, #101c2e 50%, #0c1726 100%);
+      color: var(--panel-fg);
+      min-height: clamp(168px, 26vw, 220px);
+    }
+
+    /* Safety full-bleed if banner is ever nested */
+    .wrap > .brand-banner,
+    .brand-banner.is-breakout {
+      width: 100vw;
+      max-width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+    }
+
+    .swarm {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.45;
+    }
+
+    .swarm .edge {
+      stroke: rgba(125, 211, 252, 0.22);
+      stroke-width: 1;
+    }
+
+    .swarm .node {
+      fill: var(--accent);
+    }
+
+    .swarm .node.soft {
+      fill: #7dd3fc;
+      opacity: 0.7;
+    }
+
+    .swarm .pulse {
+      fill: none;
+      stroke: rgba(45, 212, 191, 0.35);
+      stroke-width: 1;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: pulse 5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.15; transform: scale(0.75); }
+      50% { opacity: 0.5; transform: scale(1.25); }
+    }
+
+    .brand-banner h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      padding: 2.5rem 1.5rem;
+      font-family: var(--font);
+      font-size: clamp(2rem, 5.5vw, 3rem);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 5rem;
+    }
+
+    /* Minimal top menu under banner */
+    .site-nav {
+      width: 100%;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+    }
+
+    .site-nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0.7rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem 0.35rem;
+    }
+
+    .site-nav a,
+    .site-nav button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--font);
+      font-size: 0.92rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      line-height: 1.3;
+    }
+
+    .site-nav a:hover,
+    .site-nav button:hover {
+      color: var(--fg);
+      opacity: 1;
+      background: transparent;
+    }
+
+    .site-nav .nav-cmd {
+      color: var(--faint);
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin-left: 0.25rem;
+    }
+
+    .site-nav .nav-cmd:hover {
+      color: var(--muted);
+    }
+
+    section {
+      margin: 3rem 0;
+    }
+
+    section > h2 {
+      margin: 0 0 0.35rem;
+      font-family: var(--font);
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    section > .section-lead {
+      margin: 0 0 1.5rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .item {
+      padding: 1.15rem 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .item:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .item .eyebrow {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .item h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      line-height: 1.35;
+    }
+
+    .item h3 a {
+      text-decoration: none;
+    }
+
+    .item h3 a:hover {
+      text-decoration: underline;
+      opacity: 1;
+    }
+
+    .item p {
+      margin: 0 0 0.3rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .item .more {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--faint);
+      text-decoration: none;
+    }
+
+    .item .more:hover {
+      color: var(--fg);
+      opacity: 1;
+    }
+
+    .meta {
+      display: block;
+      margin-top: 0.2rem;
+      font-size: 0.9rem;
+      color: var(--faint);
+    }
+
+    .perfil-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.25rem 1.5rem;
+      align-items: start;
+    }
+
+    .perfil-photo {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--line);
+    }
+
+    .perfil-grid p {
+      margin: 0 0 0.9rem;
+    }
+
+    .perfil-grid p:last-child {
+      margin-bottom: 0;
+    }
+
+    .subblock {
+      margin-top: 1.75rem;
+    }
+
+    .subblock h3 {
+      margin: 0 0 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 1.25rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .links a:hover {
+      color: var(--fg);
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    .contact-box {
+      padding: 1.25rem 0 0;
+    }
+
+    footer {
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.9rem;
+      color: var(--faint);
+    }
+
+    footer p {
+      margin: 0 0 0.25rem;
+    }
+
+    footer .hint {
+      margin-top: 0.65rem;
+      font-size: 0.8rem;
+    }
+
+    footer kbd {
+      font-family: var(--font);
+      font-size: 0.85em;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 0.05em 0.35em;
+    }
+
+    .cmd-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 12, 20, 0.4);
+      z-index: 200;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 12vh 1rem 1rem;
+    }
+
+    .cmd-backdrop.is-open {
+      display: flex;
+    }
+
+    .cmd {
+      width: 100%;
+      max-width: 440px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .cmd input {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      background: transparent;
+      color: var(--fg);
+      font-family: var(--font);
+      font-size: 1rem;
+      padding: 0.9rem 1rem;
+      outline: none;
+    }
+
+    .cmd input::placeholder {
+      color: var(--faint);
+    }
+
+    .cmd ul {
+      list-style: none;
+      margin: 0;
+      padding: 0.35rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .cmd li button {
+      width: 100%;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--fg);
+      font-family: var(--font);
+      font-size: 0.95rem;
+      text-align: left;
+      padding: 0.65rem 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .cmd li button[aria-selected="true"],
+    .cmd li button:hover {
+      background: var(--line);
+    }
+
+    .cmd li .tag {
+      color: var(--faint);
+      font-size: 0.8rem;
+    }
+
+    .cmd .empty {
+      padding: 1rem;
+      color: var(--faint);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 560px) {
+      .site-nav-inner {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .site-nav a,
+      .site-nav button {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.55rem;
+      }
+
+      .perfil-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .swarm .pulse { animation: none; }
+    }
+  </style>
 </head>
-<!-- El cuerpo usa un fondo gris claro, texto oscuro y suavizado de fuentes (antialiased) -->
-<body class="page-bg antialiased">
+<body>
+  <div id="progress" role="presentation" aria-hidden="true"></div>
 
-    <!-- Navegación Principal -->
-    <!-- Barra de navegación fija en la parte superior, con fondo blanco y sombra sutil -->
-    <nav class="fixed top-0 left-0 right-0 glass-nav shadow-sm z-50 py-4 px-4 md:px-8">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <!-- Nombre de la marca principal -->
-            <a href="#inicio" class="brand-mark text-2xl font-extrabold text-blue-900 hover:text-blue-700 transition-colors duration-300">Enjambre de Datos</a>
-            <!-- Enlaces de navegación -->
-            <div class="space-x-4 md:space-x-6">
-                <a href="#proyectos" class="nav-link text-slate-700 hover:text-blue-700 font-semibold transition-colors duration-300">Proyectos</a>
-                <a href="#guias" class="nav-link text-slate-700 hover:text-blue-700 font-semibold transition-colors duration-300">Guías</a>
-                <a href="#clases" class="nav-link text-slate-700 hover:text-blue-700 font-semibold transition-colors duration-300">Clases</a>
-                <a href="#quien-soy" class="nav-link text-slate-700 hover:text-blue-700 font-semibold transition-colors duration-300">Enfoque</a>
-                <a href="mailto:tu-email@example.com" class="nav-link text-slate-700 hover:text-blue-700 font-semibold transition-colors duration-300">Contacto</a>
-            </div>
+  <header class="brand-banner" id="inicio">
+    <svg class="swarm" viewBox="0 0 1200 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g class="edges" fill="none">
+        <path class="edge" d="M40 90 L140 140 L260 70 L400 160 L560 95 L720 155 L880 80 L1040 150 L1160 110"/>
+        <path class="edge" d="M80 240 L200 190 L340 250 L480 180 L640 260 L800 200 L960 270 L1120 220"/>
+        <path class="edge" d="M140 140 L200 190 L340 250 L400 160 L480 180 L560 95"/>
+        <path class="edge" d="M720 155 L800 200 L640 260 L560 95"/>
+        <path class="edge" d="M260 70 L340 250"/>
+        <path class="edge" d="M880 80 L800 200 L1040 150"/>
+      </g>
+      <circle class="pulse" cx="400" cy="160" r="14"/>
+      <circle class="pulse" cx="720" cy="155" r="11" style="animation-delay:-1.8s"/>
+      <circle class="node soft" cx="40" cy="90" r="3"/>
+      <circle class="node" cx="140" cy="140" r="4"/>
+      <circle class="node soft" cx="260" cy="70" r="3"/>
+      <circle class="node" cx="400" cy="160" r="5"/>
+      <circle class="node soft" cx="560" cy="95" r="3.5"/>
+      <circle class="node" cx="720" cy="155" r="4.5"/>
+      <circle class="node soft" cx="880" cy="80" r="3"/>
+      <circle class="node" cx="1040" cy="150" r="4"/>
+      <circle class="node soft" cx="1160" cy="110" r="3"/>
+      <circle class="node soft" cx="80" cy="240" r="2.8"/>
+      <circle class="node" cx="200" cy="190" r="3.8"/>
+      <circle class="node soft" cx="340" cy="250" r="3.2"/>
+      <circle class="node" cx="480" cy="180" r="4"/>
+      <circle class="node soft" cx="640" cy="260" r="3"/>
+      <circle class="node" cx="800" cy="200" r="4.2"/>
+      <circle class="node soft" cx="960" cy="270" r="3"/>
+      <circle class="node" cx="1120" cy="220" r="3.5"/>
+    </svg>
+    <h1>Enjambre de Datos</h1>
+  </header>
+
+  <nav class="site-nav" aria-label="Principal">
+    <div class="site-nav-inner">
+      <a href="#proyectos">Proyectos y recursos</a>
+      <a href="#blog">Blog</a>
+      <a href="#perfil">Perfil</a>
+      <a href="#contacto">Contacto</a>
+      <button type="button" class="nav-cmd" id="nav-cmd" aria-label="Abrir paleta de comandos">⌘K</button>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <main>
+      <section id="proyectos" aria-labelledby="proyectos-title">
+        <h2 id="proyectos-title">Proyectos y recursos</h2>
+        <p class="section-lead">
+          Proyectos colaborativos y personales, junto con recursos compartibles construidos desde Enjambre de Datos.
+        </p>
+
+        <article class="item">
+          <span class="eyebrow">Proyecto · Colaborativo</span>
+          <h3>Gobernanza de Datos para Investigación Colaborativa</h3>
+          <p><strong>Reto:</strong> datos dispersos y criterios inconsistentes entre equipos de investigación.</p>
+          <p><strong>Método:</strong> diseño de gobierno del dato con roles, estándares de calidad y trazabilidad del ciclo de vida.</p>
+          <p><strong>Resultado:</strong> colaboración más fluida y evidencia utilizable para decisiones académicas e institucionales.</p>
+          <a class="more" href="#proyectos">Ver caso →</a>
+        </article>
+
+        <article class="item">
+          <span class="eyebrow">Proyecto · Aplicado</span>
+          <h3>IA para Recuperación de Evidencia Científica</h3>
+          <p><strong>Reto:</strong> sobrecarga documental y baja precisión en la búsqueda de evidencia relevante.</p>
+          <p><strong>Método:</strong> uso de NLP e IA para clasificación, filtrado semántico y priorización de fuentes.</p>
+          <p><strong>Resultado:</strong> menos tiempo de revisión, mayor pertinencia y mejor soporte para decisiones basadas en evidencia.</p>
+          <a class="more" href="#proyectos">Ver caso →</a>
+        </article>
+
+        <article class="item">
+          <span class="eyebrow">Proyecto · Aplicado</span>
+          <h3>ETESA Asistida por Analítica y Automatización</h3>
+          <p><strong>Reto:</strong> procesos ETESA fragmentados, lentos y con variabilidad metodológica.</p>
+          <p><strong>Método:</strong> automatización de flujos críticos con criterios comunes de evaluación y seguimiento.</p>
+          <p><strong>Resultado:</strong> mayor comparabilidad técnica, reducción de tiempos operativos y decisiones más consistentes.</p>
+          <a class="more" href="#proyectos">Ver caso →</a>
+        </article>
+
+        <article class="item">
+          <span class="eyebrow">Proyecto · Estratégico</span>
+          <h3>Inteligencia Estratégica para Decisión Pública y Académica</h3>
+          <p><strong>Reto:</strong> alta incertidumbre para priorizar decisiones en gestión académica y pública.</p>
+          <p><strong>Método:</strong> tableros de vigilancia y análisis multicriterio para leer señales del entorno en tiempo útil.</p>
+          <p><strong>Resultado:</strong> decisiones más oportunas, mejor asignación de esfuerzos y agendas de acción mejor fundamentadas.</p>
+          <a class="more" href="#proyectos">Ver caso →</a>
+        </article>
+
+        <article class="item">
+          <span class="eyebrow">Recurso</span>
+          <h3><a href="guias/DataJournalLab.html">Data Journal Lab</a></h3>
+          <p>Guía / laboratorio abierto para periodismo y análisis de datos.</p>
+          <a class="more" href="guias/DataJournalLab.html">Abrir recurso →</a>
+        </article>
+
+        <article class="item">
+          <span class="eyebrow">Recurso · PharosAI</span>
+          <h3><a href="pharosai/logic.html">Lógica y esquemas metodológicos PharosAI</a></h3>
+          <p>Materiales de lógica computacional y diagramas metodológicos del proyecto doctoral / multiagente.</p>
+          <a class="more" href="pharosai/neurosimb.html">Ver neurosimbólico →</a>
+        </article>
+
+        <article class="item">
+          <span class="eyebrow">Recurso</span>
+          <h3><a href="induccion_bibliotecologia.html">Inducción a la bibliotecología</a></h3>
+          <p>Recurso formativo de introducción al campo y sus prácticas de información.</p>
+          <a class="more" href="induccion_bibliotecologia.html">Abrir recurso →</a>
+        </article>
+      </section>
+
+      <section id="blog" aria-labelledby="blog-title">
+        <h2 id="blog-title">Blog</h2>
+        <p class="section-lead">
+          Escritura, artículos e investigaciones publicadas — entradas y referencias desde la agenda de Enjambre de Datos.
+        </p>
+
+        <article class="item">
+          <h3>
+            <a href="https://scholar.google.com/citations?user=GECEUhMAAAAJ&hl=es" target="_blank" rel="noopener noreferrer">
+              Panorama de la producción intelectual sobre humanidades digitales
+            </a>
+          </h3>
+          <span class="meta">Artículo · 2025 · Disponible en Google Scholar</span>
+        </article>
+
+        <article class="item">
+          <h3>
+            <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" rel="noopener noreferrer">
+              Situación del acceso abierto y pagos APC en Colombia
+            </a>
+          </h3>
+          <span class="meta">Investigación · 2022 · Referencias y producción en ORCID</span>
+        </article>
+
+        <article class="item">
+          <h3>
+            <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" rel="noopener noreferrer">
+              Visibilidad e impacto altmétrico de investigadores UdeA
+            </a>
+          </h3>
+          <span class="meta">Estudio aplicado · Producción indexada en ORCID</span>
+        </article>
+
+        <article class="item">
+          <h3>
+            <a href="https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001360461" target="_blank" rel="noopener noreferrer">
+              Producción académica y técnica consolidada
+            </a>
+          </h3>
+          <span class="meta">CVLAC · Proyectos, artículos, docencia y trayectoria</span>
+        </article>
+      </section>
+
+      <section id="perfil" aria-labelledby="perfil-title">
+        <h2 id="perfil-title">Perfil</h2>
+        <p class="section-lead">
+          Fundador de Enjambre de Datos — docencia, investigación y vinculación.
+        </p>
+
+        <div class="perfil-grid">
+          <img
+            class="perfil-photo"
+            src="Perfil%20(Peque%C3%B1a).JPG"
+            width="96"
+            height="96"
+            alt="Jaider Ochoa Gutiérrez"
+          >
+          <div>
+            <p>
+              Jaider Ochoa Gutiérrez, profesor-investigador de la Universidad de Antioquia y doctorando en Ingeniería, impulsa Enjambre de Datos como un espacio para convertir problemas complejos de información en decisiones implementables.
+            </p>
+            <p>
+              El trabajo se desarrolla con investigadores, docentes y equipos interdisciplinarios, definiendo en cada proyecto <strong>hipótesis, métricas y entregables</strong> que aseguren utilidad, trazabilidad y reproducibilidad.
+            </p>
+            <p>
+              La articulación entre <strong>docencia</strong>, <strong>investigación</strong> y <strong>vinculación</strong> se materializa en pilotos, recursos abiertos y transferencia de capacidades. Esta agenda se desarrolla con el grupo "Información, Conocimiento y Sociedad" y el Grupo de Experimentación en Gestión Estratégica de Datos e Información Digital.
+            </p>
+            <p>
+              <strong>Líneas de trabajo:</strong> Ciencia de la información computacional, gobernanza de datos, gobernanza de la información digital, ciencia de datos e inteligencia artificial (incluyendo NLP-LLM).
+            </p>
+            <p>
+              Del dato al criterio: marcos verificables de gobernanza e IA para anticipar escenarios, reducir incertidumbre y abrir oportunidades. Más de diez años de experiencia en NLP, automatización documental y analítica estratégica.
+            </p>
+          </div>
         </div>
-    </nav>
 
-    <!-- Sección de Inicio/Hero - Muy Minimalista -->
-    <!-- Centrado, con un mensaje clave y un espacio para la marca -->
-    <section id="inicio" class="hero-refined">
-        <div class="hero-shell">
-            <div class="hero-copy">
-                <span class="kicker inline-flex items-center text-sky-200 text-xs font-extrabold mb-6">
-                    Inteligencia de datos para decisiones reales
-                </span>
-                <h1 class="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
-                    Enjambre de Datos
-                </h1>
-                <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
-                    Convertimos ciencia de la información computacional, gobernanza de datos e inteligencia artificial en decisiones claras, trazables y con valor público.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#proyectos" class="btn-primary inline-block text-white text-lg px-8 py-3 rounded-md shadow-lg transition-all duration-300 transform hover:scale-105 text-center">
-                        Explorar Proyectos <i class="fas fa-arrow-down ml-2"></i>
-                    </a>
-                    <a href="#guias" class="btn-secondary inline-block text-lg px-8 py-3 rounded-md transition-all duration-300 text-center">
-                        Ver Guías
-                    </a>
-                </div>
-            </div>
-            <div class="entropy-field" aria-hidden="true">
-                <span class="entropy-flow f1"></span>
-                <span class="entropy-flow f2"></span>
-                <span class="entropy-flow f3"></span>
-                <span class="entropy-cloud c1"></span>
-                <span class="entropy-cloud c2"></span>
-                <span class="entropy-cloud c3"></span>
-                <span class="entropy-node n1"></span>
-                <span class="entropy-node n2"></span>
-                <span class="entropy-node n3"></span>
-                <span class="entropy-node n4"></span>
-                <span class="entropy-node n5"></span>
-                <span class="entropy-node n6"></span>
-            </div>
-            <div class="insight-card">
-                <p class="kicker text-blue-200 text-xs mb-2">Capacidad aplicada</p>
-                <p class="text-white text-lg font-semibold">Del dato al criterio: marcos verificables de gobernanza e IA para anticipar escenarios, reducir incertidumbre y abrir oportunidades.</p>
-                <div class="insight-grid">
-                    <div>
-                        <p class="text-2xl font-extrabold text-white">10+</p>
-                        <p class="text-blue-100 text-xs">Años de experiencia</p>
-                    </div>
-                    <div>
-                        <p class="text-2xl font-extrabold text-white">NLP</p>
-                        <p class="text-blue-100 text-xs">Automatización documental</p>
-                    </div>
-                    <div>
-                        <p class="text-2xl font-extrabold text-white">IA</p>
-                        <p class="text-blue-100 text-xs">Analítica estratégica</p>
-                    </div>
-                </div>
-            </div>
+        <div class="subblock">
+          <h3>Docencia y transferencia</h3>
+          <article class="item">
+            <h3>
+              <a href="https://github.com/jaiderog" target="_blank" rel="noopener noreferrer">
+                Lógica computacional aplicada a ciencias sociales y de la información
+              </a>
+            </h3>
+            <span class="meta">Docencia universitaria · Recursos y ejercicios en GitHub</span>
+          </article>
+          <article class="item">
+            <h3>
+              <a href="https://github.com/jaiderog" target="_blank" rel="noopener noreferrer">
+                Python para análisis de datos en investigación
+              </a>
+            </h3>
+            <span class="meta">Formación aplicada · Cuadernos y repositorios de apoyo</span>
+          </article>
+          <article class="item">
+            <h3>
+              <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" rel="noopener noreferrer">
+                Seminarios en gobernanza de datos, ciencia abierta e IA
+              </a>
+            </h3>
+            <span class="meta">Transferencia de capacidades para equipos académicos e institucionales</span>
+          </article>
         </div>
-    </section>
+      </section>
 
-    <section class="service-band grid grid-cols-1 md:grid-cols-3">
-        <a href="#proyectos" class="text-left px-6 py-6 border-b md:border-b-0 md:border-r border-blue-200 hover:bg-blue-900 transition-colors duration-300">
-            <span class="block text-xs font-bold tracking-widest text-blue-200 mb-2">01</span>
-            <span class="text-white font-semibold">Ciencia de la información computacional aplicada</span>
-        </a>
-        <a href="#guias" class="text-left px-6 py-6 border-b md:border-b-0 md:border-r border-blue-200 hover:bg-blue-900 transition-colors duration-300">
-            <span class="block text-xs font-bold tracking-widest text-blue-200 mb-2">02</span>
-            <span class="text-white font-semibold">Gobernanza de datos e información digital</span>
-        </a>
-        <a href="#clases" class="text-left px-6 py-6 hover:bg-blue-900 transition-colors duration-300">
-            <span class="block text-xs font-bold tracking-widest text-blue-200 mb-2">03</span>
-            <span class="text-white font-semibold">Ciencia de datos e inteligencia artificial</span>
-        </a>
-    </section>
-
-    <!-- Contenido Principal de la Página -->
-    <main class="py-16 px-4 md:px-8">
-
-        <!-- Sección de Proyectos Destacados -->
-        <section id="proyectos" class="surface-card max-w-5xl mx-auto p-8 md:p-10 rounded-2xl mb-12">
-            <h2 class="text-3xl font-bold text-blue-700 mb-8 text-center">Proyectos y valor generado</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Tarjeta de Proyecto 1: Gobernanza de Datos (General y de Investigación) -->
-                <article class="project-card p-6 rounded-xl shadow-sm">
-                    <h3 class="text-xl font-semibold text-blue-700 mb-3">Gobernanza de Datos para Investigación Colaborativa</h3>
-                    <div class="text-slate-600 mb-4 text-sm space-y-2">
-                        <p><strong>Reto:</strong> datos dispersos y criterios inconsistentes entre equipos de investigación.</p>
-                        <p><strong>Método:</strong> diseño de gobierno del dato con roles, estándares de calidad y trazabilidad del ciclo de vida.</p>
-                        <p><strong>Resultado:</strong> colaboración más fluida y evidencia utilizable para decisiones académicas e institucionales.</p>
-                    </div>
-                    <a href="#" class="btn-primary inline-block text-white px-4 py-2 rounded-full transition-colors duration-300 text-xs font-medium">Ver caso</a>
-                </article>
-
-                <!-- Tarjeta de Proyecto 2: IA en Recuperación de Información -->
-                <article class="project-card p-6 rounded-xl shadow-sm">
-                    <h3 class="text-xl font-semibold text-blue-700 mb-3">IA para Recuperación de Evidencia Científica</h3>
-                    <div class="text-slate-600 mb-4 text-sm space-y-2">
-                        <p><strong>Reto:</strong> sobrecarga documental y baja precisión en la búsqueda de evidencia relevante.</p>
-                        <p><strong>Método:</strong> uso de NLP e IA para clasificación, filtrado semántico y priorización de fuentes.</p>
-                        <p><strong>Resultado:</strong> menos tiempo de revisión, mayor pertinencia y mejor soporte para decisiones basadas en evidencia.</p>
-                    </div>
-                    <a href="#" class="btn-primary inline-block text-white px-4 py-2 rounded-full transition-colors duration-300 text-xs font-medium">Ver caso</a>
-                </article>
-
-                <!-- Tarjeta de Proyecto 3: Automatización de ETESA -->
-                <article class="project-card p-6 rounded-xl shadow-sm">
-                    <h3 class="text-xl font-semibold text-blue-700 mb-3">ETESA Asistida por Analítica y Automatización</h3>
-                    <div class="text-slate-600 mb-4 text-sm space-y-2">
-                        <p><strong>Reto:</strong> procesos ETESA fragmentados, lentos y con variabilidad metodológica.</p>
-                        <p><strong>Método:</strong> automatización de flujos críticos con criterios comunes de evaluación y seguimiento.</p>
-                        <p><strong>Resultado:</strong> mayor comparabilidad técnica, reducción de tiempos operativos y decisiones más consistentes.</p>
-                    </div>
-                    <a href="#" class="btn-primary inline-block text-white px-4 py-2 rounded-full transition-colors duration-300 text-xs font-medium">Ver caso</a>
-                </article>
-
-                <!-- Tarjeta de Proyecto 4: Inteligencia Estratégica -->
-                <article class="project-card p-6 rounded-xl shadow-sm">
-                    <h3 class="text-xl font-semibold text-blue-700 mb-3">Inteligencia Estratégica para Decisión Pública y Académica</h3>
-                    <div class="text-slate-600 mb-4 text-sm space-y-2">
-                        <p><strong>Reto:</strong> alta incertidumbre para priorizar decisiones en gestión académica y pública.</p>
-                        <p><strong>Método:</strong> tableros de vigilancia y análisis multicriterio para leer señales del entorno en tiempo útil.</p>
-                        <p><strong>Resultado:</strong> decisiones más oportunas, mejor asignación de esfuerzos y agendas de acción mejor fundamentadas.</p>
-                    </div>
-                    <a href="#" class="btn-primary inline-block text-white px-4 py-2 rounded-full transition-colors duration-300 text-xs font-medium">Ver caso</a>
-                </article>
-                <!-- Añade más tarjetas de proyectos según sea necesario -->
-            </div>
-        </section>
-
-        <!-- Sección de Guías y Documentos -->
-        <section id="guias" class="surface-card max-w-5xl mx-auto p-8 md:p-10 rounded-2xl mb-12">
-            <h2 class="text-3xl font-bold text-blue-700 mb-8 text-center">Publicaciones y recursos</h2>
-            <ul class="space-y-4 text-lg text-gray-700">
-                <li class="flex items-start">
-                    <i class="fas fa-book-open text-blue-500 mr-3 mt-1"></i>
-                    <div>
-                        <a href="https://scholar.google.com/citations?user=GECEUhMAAAAJ&hl=es" target="_blank" class="text-blue-600 hover:underline font-medium">Panorama de la producción intelectual sobre humanidades digitales</a>
-                        <span class="block text-gray-500 text-sm">Artículo · 2025 · Disponible en Google Scholar</span>
-                    </div>
-                </li>
-                <li class="flex items-start">
-                    <i class="fas fa-file-alt text-blue-500 mr-3 mt-1"></i>
-                    <div>
-                        <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" class="text-blue-600 hover:underline font-medium">Situación del acceso abierto y pagos APC en Colombia</a>
-                        <span class="block text-gray-500 text-sm">Investigación · 2022 · Referencias y producción en ORCID</span>
-                    </div>
-                </li>
-                <li class="flex items-start">
-                    <i class="fas fa-chart-line text-blue-500 mr-3 mt-1"></i>
-                    <div>
-                        <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" class="text-blue-600 hover:underline font-medium">Visibilidad e impacto altmétrico de investigadores UdeA</a>
-                        <span class="block text-gray-500 text-sm">Estudio aplicado · Producción indexada en ORCID</span>
-                    </div>
-                </li>
-                <li class="flex items-start">
-                    <i class="fas fa-database text-blue-500 mr-3 mt-1"></i>
-                    <div>
-                        <a href="https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001360461" target="_blank" class="text-blue-600 hover:underline font-medium">Producción académica y técnica consolidada</a>
-                        <span class="block text-gray-500 text-sm">CVLAC · Proyectos, artículos, docencia y trayectoria</span>
-                    </div>
-                </li>
-            </ul>
-        </section>
-
-        <!-- Sección de Clases -->
-        <section id="clases" class="surface-card max-w-5xl mx-auto p-8 md:p-10 rounded-2xl mb-12">
-            <h2 class="text-3xl font-bold text-blue-700 mb-8 text-center">Docencia y transferencia</h2>
-            <ul class="space-y-4 text-lg text-gray-700">
-                <li class="flex items-start">
-                    <i class="fas fa-chalkboard-teacher text-blue-500 mr-3 mt-1"></i>
-                    <div>
-                        <a href="https://github.com/jaiderog" target="_blank" class="text-blue-600 hover:underline font-medium">Lógica computacional aplicada a ciencias sociales y de la información</a>
-                        <span class="block text-gray-500 text-sm">Docencia universitaria · Recursos y ejercicios en GitHub</span>
-                    </div>
-                </li>
-                <li class="flex items-start">
-                    <i class="fas fa-chalkboard-teacher text-blue-500 mr-3 mt-1"></i>
-                    <div>
-                        <a href="https://github.com/jaiderog" target="_blank" class="text-blue-600 hover:underline font-medium">Python para análisis de datos en investigación</a>
-                        <span class="block text-gray-500 text-sm">Formación aplicada · Cuadernos y repositorios de apoyo</span>
-                    </div>
-                </li>
-                <li class="flex items-start">
-                    <i class="fas fa-chalkboard-teacher text-blue-500 mr-3 mt-1"></i>
-                    <div>
-                        <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" class="text-blue-600 hover:underline font-medium">Seminarios en gobernanza de datos, ciencia abierta e IA</a>
-                        <span class="block text-gray-500 text-sm">Transferencia de capacidades para equipos académicos e institucionales</span>
-                    </div>
-                </li>
-            </ul>
-        </section>
-
-        <!-- Sección de enfoque y vinculación -->
-        <section id="quien-soy" class="surface-card max-w-5xl mx-auto p-8 md:p-10 rounded-2xl mb-12">
-            <h2 class="text-3xl font-bold text-blue-700 mb-6 text-center">Enfoque y vinculación</h2>
-            <div class="flex flex-col md:flex-row items-center md:items-start md:space-x-8">
-                <img src="Perfil (Pequeña).JPG" alt="Jaider Ochoa" class="w-48 h-48 rounded-full border-4 border-blue-200 shadow-md mb-6 md:mb-0 object-cover">
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Rigor que produce valor, colaboración que escala impacto</h3>
-                    <p class="text-lg leading-relaxed text-gray-700 mb-4">
-                        Jaider Ochoa Gutiérrez, profesor-investigador de la Universidad de Antioquia y doctorando en Ingeniería, impulsa Enjambre de Datos como un espacio para convertir problemas complejos de información en decisiones implementables.
-                    </p>
-                    <p class="text-lg leading-relaxed text-gray-700 mb-4">
-                        El trabajo se desarrolla con investigadores, docentes y equipos interdisciplinarios, definiendo en cada proyecto <strong>hipótesis, métricas y entregables</strong> que aseguren utilidad, trazabilidad y reproducibilidad.
-                    </p>
-                    <p class="text-lg leading-relaxed text-gray-700 mb-4">
-                        La articulación entre <strong>docencia</strong>, <strong>investigación</strong> y <strong>vinculación</strong> se materializa en pilotos, recursos abiertos y transferencia de capacidades. Esta agenda se desarrolla con el grupo "Información, Conocimiento y Sociedad" y el Grupo de Experimentación en Gestión Estratégica de Datos e Información Digital.
-                    </p>
-                    <p class="text-lg leading-relaxed text-gray-700">
-                        <strong>Líneas de trabajo:</strong> Ciencia de la información computacional, gobernanza de datos, gobernanza de la información digital, ciencia de datos e inteligencia artificial (incluyendo NLP-LLM).
-                    </p>
-                    <!-- Enlaces sociales y académicos -->
-                    <nav class="flex flex-wrap gap-4 mt-4">
-                        <a href="https://www.linkedin.com/in/jaiderog" target="_blank" class="text-blue-600 hover:text-blue-800 transition-colors duration-300 transform hover:scale-105 flex items-center">
-                            <i class="fab fa-linkedin-in text-xl mr-2"></i> LinkedIn
-                        </a>
-                        <a href="https://github.com/jaiderog" target="_blank" class="text-blue-600 hover:text-blue-800 transition-colors duration-300 transform hover:scale-105 flex items-center">
-                            <i class="fab fa-github text-xl mr-2"></i> GitHub
-                        </a>
-                        <a href="https://twitter.com/jaiderog" target="_blank" class="text-blue-600 hover:text-blue-800 transition-colors duration-300 transform hover:scale-105 flex items-center">
-                            <i class="fab fa-twitter text-xl mr-2"></i> Twitter
-                        </a>
-                        <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" class="text-blue-600 hover:text-blue-800 transition-colors duration-300 transform hover:scale-105 flex items-center">
-                            <i class="fab fa-orcid text-xl mr-2"></i> ORCID
-                        </a>
-                        <a href="https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001360461" target="_blank" class="text-blue-600 hover:text-blue-800 transition-colors duration-300 transform hover:scale-105 flex items-center">
-                            <i class="fas fa-graduation-cap text-xl mr-2"></i> CVLAC
-                        </a>
-                    </nav>
-                </div>
-            </div>
-        </section>
+      <section id="contacto" aria-labelledby="contacto-title">
+        <h2 id="contacto-title">Contacto</h2>
+        <p class="section-lead">
+          Conecta con Enjambre de Datos y con Jaider Ochoa.
+        </p>
+        <div class="contact-box">
+          <ul class="links">
+            <li><a href="https://www.linkedin.com/in/jaiderog" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><a href="https://github.com/jaiderog" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://twitter.com/jaiderog" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+            <li><a href="https://orcid.org/0000-0002-5492-3922" target="_blank" rel="noopener noreferrer">ORCID</a></li>
+            <li><a href="https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001360461" target="_blank" rel="noopener noreferrer">CVLAC</a></li>
+          </ul>
+        </div>
+      </section>
     </main>
 
-    <!-- Pie de Página -->
-    <footer class="footer-refined text-white py-10 px-4 md:px-8 text-center rounded-t-3xl">
-        <div class="max-w-4xl mx-auto">
-            <p class="text-lg mb-2">&copy; <span id="current-year"></span> Enjambre de Datos. Desarrollado por Jaider Ochoa.</p>
-            <p class="text-sm">Conectando datos, generando conocimiento.</p>
-        </div>
+    <footer>
+      <p>&copy; <span id="current-year"></span> Enjambre de Datos. Desarrollado por Jaider Ochoa.</p>
+      <p>Conectando datos, generando conocimiento.</p>
+      <p class="hint">Navega con <kbd id="mod-key">Cmd</kbd>+<kbd>K</kbd></p>
     </footer>
+  </div>
 
-    <!-- Script JavaScript para actualizar el año automáticamente en el pie de página -->
-    <script>
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-    </script>
+  <div class="cmd-backdrop" id="cmd-backdrop" role="dialog" aria-modal="true" aria-label="Paleta de comandos" hidden>
+    <div class="cmd">
+      <input type="search" id="cmd-input" placeholder="Buscar o saltar…" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-controls="cmd-list">
+      <ul id="cmd-list" role="listbox"></ul>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      document.getElementById("current-year").textContent = String(new Date().getFullYear());
+
+      var isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform) ||
+        (navigator.userAgentData && navigator.userAgentData.platform === "macOS");
+      document.getElementById("mod-key").textContent = isMac ? "Cmd" : "Ctrl";
+      document.getElementById("nav-cmd").textContent = isMac ? "⌘K" : "Ctrl+K";
+
+      var progress = document.getElementById("progress");
+      function updateProgress() {
+        var doc = document.documentElement;
+        var scrollable = doc.scrollHeight - doc.clientHeight;
+        var pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+        progress.style.width = Math.min(100, Math.max(0, pct)) + "%";
+      }
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      window.addEventListener("resize", updateProgress);
+      updateProgress();
+
+      var commands = [
+        { label: "Proyectos y recursos", tag: "Sección", href: "#proyectos" },
+        { label: "Blog", tag: "Sección", href: "#blog" },
+        { label: "Perfil", tag: "Sección", href: "#perfil" },
+        { label: "Contacto", tag: "Sección", href: "#contacto" },
+        { label: "GitHub", tag: "Enlace", href: "https://github.com/jaiderog", external: true },
+        { label: "LinkedIn", tag: "Enlace", href: "https://www.linkedin.com/in/jaiderog", external: true }
+      ];
+
+      var backdrop = document.getElementById("cmd-backdrop");
+      var input = document.getElementById("cmd-input");
+      var list = document.getElementById("cmd-list");
+      var selected = 0;
+      var filtered = commands.slice();
+
+      function renderList() {
+        list.innerHTML = "";
+        if (!filtered.length) {
+          var empty = document.createElement("div");
+          empty.className = "empty";
+          empty.textContent = "Sin resultados";
+          list.appendChild(empty);
+          return;
+        }
+        filtered.forEach(function (cmd, i) {
+          var li = document.createElement("li");
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.setAttribute("role", "option");
+          btn.setAttribute("aria-selected", i === selected ? "true" : "false");
+          btn.innerHTML = "<span>" + cmd.label + "</span><span class=\"tag\">" + cmd.tag + "</span>";
+          btn.addEventListener("click", function () { runCommand(cmd); });
+          btn.addEventListener("mouseenter", function () {
+            selected = i;
+            updateSelection();
+          });
+          li.appendChild(btn);
+          list.appendChild(li);
+        });
+      }
+
+      function updateSelection() {
+        var buttons = list.querySelectorAll("button");
+        buttons.forEach(function (btn, i) {
+          btn.setAttribute("aria-selected", i === selected ? "true" : "false");
+        });
+      }
+
+      function openCmd() {
+        backdrop.hidden = false;
+        backdrop.classList.add("is-open");
+        input.value = "";
+        filtered = commands.slice();
+        selected = 0;
+        renderList();
+        setTimeout(function () { input.focus(); }, 0);
+      }
+
+      function closeCmd() {
+        backdrop.classList.remove("is-open");
+        backdrop.hidden = true;
+        input.blur();
+      }
+
+      function runCommand(cmd) {
+        closeCmd();
+        if (cmd.external) {
+          window.open(cmd.href, "_blank", "noopener,noreferrer");
+        } else {
+          var el = document.querySelector(cmd.href);
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function filterCommands(q) {
+        q = (q || "").trim().toLowerCase();
+        filtered = !q
+          ? commands.slice()
+          : commands.filter(function (c) {
+              return c.label.toLowerCase().indexOf(q) !== -1 ||
+                c.tag.toLowerCase().indexOf(q) !== -1;
+            });
+        selected = 0;
+        renderList();
+      }
+
+      document.addEventListener("keydown", function (e) {
+        var isCmdK = (e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey);
+        if (isCmdK) {
+          e.preventDefault();
+          if (backdrop.classList.contains("is-open")) closeCmd();
+          else openCmd();
+          return;
+        }
+
+        if (!backdrop.classList.contains("is-open")) return;
+
+        if (e.key === "Escape") {
+          e.preventDefault();
+          closeCmd();
+        } else if (e.key === "ArrowDown") {
+          e.preventDefault();
+          if (!filtered.length) return;
+          selected = (selected + 1) % filtered.length;
+          updateSelection();
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          if (!filtered.length) return;
+          selected = (selected - 1 + filtered.length) % filtered.length;
+          updateSelection();
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          if (filtered[selected]) runCommand(filtered[selected]);
+        }
+      });
+
+      input.addEventListener("input", function () {
+        filterCommands(input.value);
+      });
+
+      backdrop.addEventListener("click", function (e) {
+        if (e.target === backdrop) closeCmd();
+      });
+
+      document.getElementById("nav-cmd").addEventListener("click", openCmd);
+    })();
+  </script>
 </body>
 </html>
