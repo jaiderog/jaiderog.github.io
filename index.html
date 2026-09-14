@@ -6,9 +6,6 @@
   <title>Enjambre de Datos · Jaider Ochoa</title>
   <meta name="description" content="Enjambre de Datos — ciencia de la información computacional, gobernanza de datos e IA. Marca de Jaider Ochoa Gutiérrez.">
   <link rel="icon" href="Avatar-Maker fondo.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #f6f7f9;
@@ -17,17 +14,13 @@
       --faint: #7b8494;
       --line: rgba(18, 21, 28, 0.1);
       --panel: #0c1522;
-      --panel-fg: #f4f7fb;
-      --panel-muted: #9db0c7;
+      --panel-fg: #f5f7fa;
       --accent: #2dd4bf;
-      --accent-soft: rgba(45, 212, 191, 0.18);
       --surface: #ffffff;
       --overlay: rgba(246, 247, 249, 0.92);
       --progress: #0c1522;
       --max: 720px;
-      --radius: 18px;
-      --font: "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --display: Syne, "Source Sans 3", system-ui, sans-serif;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", system-ui, sans-serif;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -55,9 +48,7 @@
 
     body {
       margin: 0;
-      background:
-        radial-gradient(1200px 500px at 50% -120px, rgba(45, 212, 191, 0.08), transparent 60%),
-        var(--bg);
+      background: var(--bg);
       color: var(--fg);
       font-family: var(--font);
       font-size: 17px;
@@ -89,25 +80,22 @@
       pointer-events: none;
     }
 
-    .wrap {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 2.5rem 1.25rem 8rem;
-    }
-
-    /* Brand swarm header panel */
-    .hero-panel {
+    /* Full-bleed brand banner — title only */
+    .brand-banner {
       position: relative;
+      width: 100%;
+      margin: 0;
+      padding: 0;
       overflow: hidden;
-      border-radius: var(--radius);
       background:
-        radial-gradient(ellipse 80% 70% at 85% 20%, rgba(45, 212, 191, 0.22), transparent 55%),
-        radial-gradient(ellipse 60% 50% at 10% 90%, rgba(56, 189, 248, 0.14), transparent 50%),
-        linear-gradient(145deg, #0a1320 0%, #122033 55%, #0d1a2b 100%);
+        radial-gradient(ellipse 70% 80% at 80% 30%, rgba(45, 212, 191, 0.12), transparent 55%),
+        radial-gradient(ellipse 50% 60% at 12% 80%, rgba(56, 189, 248, 0.08), transparent 50%),
+        linear-gradient(160deg, #0a1320 0%, #101c2e 50%, #0c1726 100%);
       color: var(--panel-fg);
-      padding: 1.75rem 1.5rem 1.6rem;
-      margin-bottom: 2.75rem;
-      min-height: 280px;
+      min-height: clamp(160px, 28vw, 240px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .swarm {
@@ -116,11 +104,11 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      opacity: 0.9;
+      opacity: 0.45;
     }
 
     .swarm .edge {
-      stroke: rgba(125, 211, 252, 0.28);
+      stroke: rgba(125, 211, 252, 0.22);
       stroke-width: 1;
     }
 
@@ -130,87 +118,92 @@
 
     .swarm .node.soft {
       fill: #7dd3fc;
-      opacity: 0.85;
+      opacity: 0.7;
     }
 
     .swarm .pulse {
       fill: none;
-      stroke: rgba(45, 212, 191, 0.45);
-      stroke-width: 1.2;
+      stroke: rgba(45, 212, 191, 0.35);
+      stroke-width: 1;
       transform-box: fill-box;
       transform-origin: center;
-      animation: pulse 4.5s ease-in-out infinite;
+      animation: pulse 5s ease-in-out infinite;
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 0.2; transform: scale(0.7); }
-      50% { opacity: 0.7; transform: scale(1.35); }
+      0%, 100% { opacity: 0.15; transform: scale(0.75); }
+      50% { opacity: 0.5; transform: scale(1.25); }
     }
 
-    .hero-copy {
+    .brand-banner h1 {
       position: relative;
       z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 1.25rem 1.5rem;
-      align-items: end;
-    }
-
-    .hero-text {
-      max-width: 28rem;
-    }
-
-    .hero-panel h1 {
-      margin: 0 0 0.35rem;
-      font-family: var(--display);
-      font-size: clamp(1.85rem, 5vw, 2.55rem);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-    }
-
-    .hero-panel .signature {
-      margin: 0 0 1rem;
-      font-size: 1.05rem;
-      font-weight: 400;
-      color: var(--panel-muted);
-    }
-
-    .hero-panel .intro {
-      margin: 0 0 0.85rem;
-      font-size: 1.08rem;
-      line-height: 1.55;
-      color: #e8eef6;
-    }
-
-    .hero-panel .lede {
       margin: 0;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: var(--panel-muted);
+      padding: 2.5rem 1.5rem;
+      font-family: var(--font);
+      font-size: clamp(2rem, 5.5vw, 3rem);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 2rem 1.25rem 8rem;
+    }
+
+    /* Identity strip under banner */
+    .identity {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.1rem 1.25rem;
+      align-items: start;
+      margin-bottom: 2.75rem;
+      padding-top: 0.25rem;
     }
 
     .portrait {
-      width: 112px;
-      height: 112px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid rgba(255, 255, 255, 0.35);
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
-      background: #1a2838;
+      border: 1px solid var(--line);
+      background: #ddd;
+    }
+
+    .identity .signature {
+      margin: 0 0 0.2rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+    }
+
+    .identity .intro {
+      margin: 0 0 0.65rem;
+      font-size: 1.02rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .identity .lede {
+      margin: 0 0 0.75rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.6;
     }
 
     .hint {
-      margin: 1.15rem 0 0;
+      margin: 0;
       font-size: 0.82rem;
-      color: rgba(157, 176, 199, 0.95);
-      grid-column: 1 / -1;
+      color: var(--faint);
     }
 
     .hint kbd {
       font-family: var(--font);
       font-size: 0.8em;
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      border: 1px solid var(--line);
       border-radius: 4px;
       padding: 0.05em 0.4em;
     }
@@ -221,9 +214,9 @@
 
     section > h2 {
       margin: 0 0 0.35rem;
-      font-family: var(--display);
-      font-size: 1.35rem;
-      font-weight: 700;
+      font-family: var(--font);
+      font-size: 1.3rem;
+      font-weight: 600;
       letter-spacing: -0.02em;
     }
 
@@ -255,8 +248,8 @@
     .item h3 {
       margin: 0 0 0.4rem;
       font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-weight: 600;
+      letter-spacing: -0.015em;
       line-height: 1.35;
     }
 
@@ -325,7 +318,7 @@
     .subblock h3 {
       margin: 0 0 0.75rem;
       font-size: 0.8rem;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--muted);
@@ -368,7 +361,6 @@
       margin: 0 0 0.25rem;
     }
 
-    /* Floating dock */
     .dock {
       position: fixed;
       left: 50%;
@@ -417,7 +409,6 @@
       opacity: 1;
     }
 
-    /* Command palette */
     .cmd-backdrop {
       position: fixed;
       inset: 0;
@@ -501,15 +492,13 @@
     }
 
     @media (max-width: 560px) {
-      .hero-copy {
+      .identity {
         grid-template-columns: 1fr;
-        justify-items: start;
       }
 
       .portrait {
-        order: -1;
-        width: 88px;
-        height: 88px;
+        width: 64px;
+        height: 64px;
       }
 
       .perfil-grid {
@@ -533,55 +522,57 @@
 <body>
   <div id="progress" role="presentation" aria-hidden="true"></div>
 
-  <div class="wrap">
-    <header class="hero-panel" id="inicio">
-      <svg class="swarm" viewBox="0 0 720 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <g class="edges" fill="none">
-          <path class="edge" d="M70 70 L150 120 L240 80 L320 140 L410 95 L500 150 L590 100 L660 160"/>
-          <path class="edge" d="M90 220 L180 180 L270 230 L360 170 L450 240 L540 190 L630 250"/>
-          <path class="edge" d="M150 120 L180 180 L270 230 L320 140 L360 170 L410 95"/>
-          <path class="edge" d="M500 150 L540 190 L450 240 L410 95"/>
-          <path class="edge" d="M240 80 L270 230"/>
-          <path class="edge" d="M590 100 L540 190 L660 160"/>
-        </g>
-        <circle class="pulse" cx="320" cy="140" r="12"/>
-        <circle class="pulse" cx="500" cy="150" r="10" style="animation-delay:-1.5s"/>
-        <circle class="node soft" cx="70" cy="70" r="3.5"/>
-        <circle class="node" cx="150" cy="120" r="4.5"/>
-        <circle class="node soft" cx="240" cy="80" r="3.2"/>
-        <circle class="node" cx="320" cy="140" r="5.5"/>
-        <circle class="node soft" cx="410" cy="95" r="3.8"/>
-        <circle class="node" cx="500" cy="150" r="4.8"/>
-        <circle class="node soft" cx="590" cy="100" r="3.5"/>
-        <circle class="node" cx="660" cy="160" r="4"/>
-        <circle class="node soft" cx="90" cy="220" r="3"/>
-        <circle class="node" cx="180" cy="180" r="4"/>
-        <circle class="node soft" cx="270" cy="230" r="3.5"/>
-        <circle class="node" cx="360" cy="170" r="4.2"/>
-        <circle class="node soft" cx="450" cy="240" r="3.2"/>
-        <circle class="node" cx="540" cy="190" r="4.5"/>
-        <circle class="node soft" cx="630" cy="250" r="3.5"/>
-      </svg>
+  <header class="brand-banner" id="inicio">
+    <svg class="swarm" viewBox="0 0 1200 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g class="edges" fill="none">
+        <path class="edge" d="M40 90 L140 140 L260 70 L400 160 L560 95 L720 155 L880 80 L1040 150 L1160 110"/>
+        <path class="edge" d="M80 240 L200 190 L340 250 L480 180 L640 260 L800 200 L960 270 L1120 220"/>
+        <path class="edge" d="M140 140 L200 190 L340 250 L400 160 L480 180 L560 95"/>
+        <path class="edge" d="M720 155 L800 200 L640 260 L560 95"/>
+        <path class="edge" d="M260 70 L340 250"/>
+        <path class="edge" d="M880 80 L800 200 L1040 150"/>
+      </g>
+      <circle class="pulse" cx="400" cy="160" r="14"/>
+      <circle class="pulse" cx="720" cy="155" r="11" style="animation-delay:-1.8s"/>
+      <circle class="node soft" cx="40" cy="90" r="3"/>
+      <circle class="node" cx="140" cy="140" r="4"/>
+      <circle class="node soft" cx="260" cy="70" r="3"/>
+      <circle class="node" cx="400" cy="160" r="5"/>
+      <circle class="node soft" cx="560" cy="95" r="3.5"/>
+      <circle class="node" cx="720" cy="155" r="4.5"/>
+      <circle class="node soft" cx="880" cy="80" r="3"/>
+      <circle class="node" cx="1040" cy="150" r="4"/>
+      <circle class="node soft" cx="1160" cy="110" r="3"/>
+      <circle class="node soft" cx="80" cy="240" r="2.8"/>
+      <circle class="node" cx="200" cy="190" r="3.8"/>
+      <circle class="node soft" cx="340" cy="250" r="3.2"/>
+      <circle class="node" cx="480" cy="180" r="4"/>
+      <circle class="node soft" cx="640" cy="260" r="3"/>
+      <circle class="node" cx="800" cy="200" r="4.2"/>
+      <circle class="node soft" cx="960" cy="270" r="3"/>
+      <circle class="node" cx="1120" cy="220" r="3.5"/>
+    </svg>
+    <h1>Enjambre de Datos</h1>
+  </header>
 
-      <div class="hero-copy">
-        <div class="hero-text">
-          <h1>Enjambre de Datos</h1>
-          <p class="signature">Jaider Ochoa</p>
-          <p class="intro">Hacia la ciencia de la información computacional</p>
-          <p class="lede">
-            Convertimos ciencia de la información computacional, gobernanza de datos e inteligencia artificial en decisiones claras, trazables y con valor público.
-          </p>
-        </div>
-        <img
-          class="portrait"
-          src="Perfil%20(Peque%C3%B1a).JPG"
-          width="112"
-          height="112"
-          alt="Retrato de Jaider Ochoa"
-        >
+  <div class="wrap">
+    <div class="identity">
+      <img
+        class="portrait"
+        src="Perfil%20(Peque%C3%B1a).JPG"
+        width="72"
+        height="72"
+        alt="Retrato de Jaider Ochoa"
+      >
+      <div>
+        <p class="signature">Jaider Ochoa</p>
+        <p class="intro">Hacia la ciencia de la información computacional</p>
+        <p class="lede">
+          Convertimos ciencia de la información computacional, gobernanza de datos e inteligencia artificial en decisiones claras, trazables y con valor público.
+        </p>
         <p class="hint">Presiona <kbd id="mod-key">Cmd</kbd>+<kbd>K</kbd> para navegar</p>
       </div>
-    </header>
+    </div>
 
     <main>
       <section id="proyectos" aria-labelledby="proyectos-title">
