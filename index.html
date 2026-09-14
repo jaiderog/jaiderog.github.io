@@ -83,16 +83,18 @@
     /* Full-bleed brand banner — title only */
     .brand-banner {
       position: relative;
-      width: 100%;
+      width: 100vw;
+      max-width: 100%;
       margin: 0;
       padding: 0;
+      border-radius: 0;
       overflow: hidden;
       background:
         radial-gradient(ellipse 70% 80% at 80% 30%, rgba(45, 212, 191, 0.12), transparent 55%),
         radial-gradient(ellipse 50% 60% at 12% 80%, rgba(56, 189, 248, 0.08), transparent 50%),
         linear-gradient(160deg, #0a1320 0%, #101c2e 50%, #0c1726 100%);
       color: var(--panel-fg);
-      min-height: clamp(160px, 28vw, 240px);
+      min-height: clamp(168px, 26vw, 220px);
       display: flex;
       align-items: center;
       justify-content: center;
