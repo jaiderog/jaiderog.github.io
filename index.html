@@ -4,30 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Enjambre de Datos · Jaider Ochoa</title>
-  <meta name="description" content="Enjambre de Datos — marca de Jaider Ochoa Gutiérrez. Hacia la ciencia de la información computacional.">
+  <meta name="description" content="Enjambre de Datos — ciencia de la información computacional, gobernanza de datos e IA. Marca de Jaider Ochoa Gutiérrez.">
   <link rel="icon" href="Avatar-Maker fondo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff;
-      --fg: #000000;
-      --muted: #555555;
-      --faint: #888888;
-      --border: rgba(0, 0, 0, 0.12);
-      --overlay: rgba(255, 255, 255, 0.92);
-      --progress: #000000;
-      --max: 680px;
-      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --bg: #f6f7f9;
+      --fg: #12151c;
+      --muted: #4b5563;
+      --faint: #7b8494;
+      --line: rgba(18, 21, 28, 0.1);
+      --panel: #0c1522;
+      --panel-fg: #f4f7fb;
+      --panel-muted: #9db0c7;
+      --accent: #2dd4bf;
+      --accent-soft: rgba(45, 212, 191, 0.18);
+      --surface: #ffffff;
+      --overlay: rgba(246, 247, 249, 0.92);
+      --progress: #0c1522;
+      --max: 720px;
+      --radius: 18px;
+      --font: "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --display: Syne, "Source Sans 3", system-ui, sans-serif;
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #000000;
-        --fg: #ffffff;
-        --muted: #aaaaaa;
-        --faint: #777777;
-        --border: rgba(255, 255, 255, 0.16);
-        --overlay: rgba(0, 0, 0, 0.92);
-        --progress: #ffffff;
+        --bg: #090c12;
+        --fg: #eef2f7;
+        --muted: #a8b3c4;
+        --faint: #7d8899;
+        --line: rgba(238, 242, 247, 0.12);
+        --surface: #111722;
+        --overlay: rgba(9, 12, 18, 0.92);
+        --progress: #2dd4bf;
       }
     }
 
@@ -43,7 +55,9 @@
 
     body {
       margin: 0;
-      background: var(--bg);
+      background:
+        radial-gradient(1200px 500px at 50% -120px, rgba(45, 212, 191, 0.08), transparent 60%),
+        var(--bg);
       color: var(--fg);
       font-family: var(--font);
       font-size: 17px;
@@ -61,10 +75,9 @@
     }
 
     a:hover {
-      opacity: 0.7;
+      opacity: 0.75;
     }
 
-    /* Reading progress */
     #progress {
       position: fixed;
       top: 0;
@@ -79,79 +92,166 @@
     .wrap {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 4.5rem 1.25rem 8rem;
+      padding: 2.5rem 1.25rem 8rem;
     }
 
-    header {
-      margin-bottom: 3.5rem;
+    /* Brand swarm header panel */
+    .hero-panel {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background:
+        radial-gradient(ellipse 80% 70% at 85% 20%, rgba(45, 212, 191, 0.22), transparent 55%),
+        radial-gradient(ellipse 60% 50% at 10% 90%, rgba(56, 189, 248, 0.14), transparent 50%),
+        linear-gradient(145deg, #0a1320 0%, #122033 55%, #0d1a2b 100%);
+      color: var(--panel-fg);
+      padding: 1.75rem 1.5rem 1.6rem;
+      margin-bottom: 2.75rem;
+      min-height: 280px;
     }
 
-    header h1 {
-      margin: 0 0 0.4rem;
-      font-size: clamp(1.85rem, 4.5vw, 2.4rem);
-      font-weight: 700;
-      letter-spacing: -0.035em;
-      line-height: 1.15;
+    .swarm {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.9;
     }
 
-    header .signature {
-      margin: 0 0 1.35rem;
+    .swarm .edge {
+      stroke: rgba(125, 211, 252, 0.28);
+      stroke-width: 1;
+    }
+
+    .swarm .node {
+      fill: var(--accent);
+    }
+
+    .swarm .node.soft {
+      fill: #7dd3fc;
+      opacity: 0.85;
+    }
+
+    .swarm .pulse {
+      fill: none;
+      stroke: rgba(45, 212, 191, 0.45);
+      stroke-width: 1.2;
+      transform-origin: center;
+      animation: pulse 4.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.15; r: 8; }
+      50% { opacity: 0.55; r: 16; }
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.25rem 1.5rem;
+      align-items: end;
+    }
+
+    .hero-text {
+      max-width: 28rem;
+    }
+
+    .hero-panel h1 {
+      margin: 0 0 0.35rem;
+      font-family: var(--display);
+      font-size: clamp(1.85rem, 5vw, 2.55rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+
+    .hero-panel .signature {
+      margin: 0 0 1rem;
       font-size: 1.05rem;
       font-weight: 400;
-      color: var(--muted);
-      letter-spacing: -0.01em;
+      color: var(--panel-muted);
     }
 
-    header .intro {
-      margin: 0 0 1.5rem;
-      font-size: 1.15rem;
-      font-weight: 400;
-      line-height: 1.65;
+    .hero-panel .intro {
+      margin: 0 0 0.85rem;
+      font-size: 1.08rem;
+      line-height: 1.55;
+      color: #e8eef6;
     }
 
-    header .lede {
-      margin: 0 0 1rem;
-      color: var(--muted);
+    .hero-panel .lede {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--panel-muted);
+    }
+
+    .portrait {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+      background: #1a2838;
     }
 
     .hint {
-      margin: 1.75rem 0 0;
-      font-size: 0.85rem;
-      color: var(--faint);
+      margin: 1.15rem 0 0;
+      font-size: 0.82rem;
+      color: rgba(157, 176, 199, 0.95);
+      grid-column: 1 / -1;
     }
 
     .hint kbd {
       font-family: var(--font);
       font-size: 0.8em;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       border-radius: 4px;
       padding: 0.05em 0.4em;
     }
 
     section {
-      margin: 3.25rem 0;
+      margin: 3rem 0;
     }
 
     section > h2 {
+      margin: 0 0 0.35rem;
+      font-family: var(--display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    section > .section-lead {
       margin: 0 0 1.5rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
       color: var(--muted);
+      font-size: 0.98rem;
     }
 
-    /* Projects — continuous vertical list */
-    .project {
-      margin: 0 0 2rem;
-      padding: 0;
+    .item {
+      padding: 1.15rem 0;
+      border-top: 1px solid var(--line);
     }
 
-    .project:last-child {
-      margin-bottom: 0;
+    .item:last-child {
+      border-bottom: 1px solid var(--line);
     }
 
-    .project h3 {
+    .item .eyebrow {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .item h3 {
       margin: 0 0 0.4rem;
       font-size: 1.05rem;
       font-weight: 700;
@@ -159,65 +259,75 @@
       line-height: 1.35;
     }
 
-    .project p {
-      margin: 0 0 0.35rem;
-      color: var(--muted);
-      font-size: 0.98rem;
-    }
-
-    .project .more {
-      display: inline-block;
-      margin-top: 0.35rem;
-      font-size: 0.9rem;
-      color: var(--faint);
+    .item h3 a {
       text-decoration: none;
     }
 
-    .project .more:hover {
-      color: var(--fg);
-      opacity: 1;
-    }
-
-    /* Plain rows / bullets */
-    .feed {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .feed li {
-      margin: 0 0 1.15rem;
-      padding: 0;
-    }
-
-    .feed li:last-child {
-      margin-bottom: 0;
-    }
-
-    .feed a {
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .feed a:hover {
+    .item h3 a:hover {
       text-decoration: underline;
       opacity: 1;
     }
 
-    .feed .meta {
-      display: block;
-      margin-top: 0.15rem;
+    .item p {
+      margin: 0 0 0.3rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .item .more {
+      display: inline-block;
+      margin-top: 0.4rem;
       font-size: 0.9rem;
       color: var(--faint);
-      font-weight: 400;
+      text-decoration: none;
     }
 
-    .bio p {
-      margin: 0 0 1rem;
+    .item .more:hover {
+      color: var(--fg);
+      opacity: 1;
     }
 
-    .bio p:last-of-type {
-      margin-bottom: 1.25rem;
+    .meta {
+      display: block;
+      margin-top: 0.2rem;
+      font-size: 0.9rem;
+      color: var(--faint);
+    }
+
+    .perfil-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.25rem 1.5rem;
+      align-items: start;
+    }
+
+    .perfil-photo {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--line);
+    }
+
+    .perfil-grid p {
+      margin: 0 0 0.9rem;
+    }
+
+    .perfil-grid p:last-child {
+      margin-bottom: 0;
+    }
+
+    .subblock {
+      margin-top: 1.75rem;
+    }
+
+    .subblock h3 {
+      margin: 0 0 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
     .links {
@@ -232,6 +342,7 @@
     .links a {
       text-decoration: none;
       color: var(--muted);
+      font-weight: 600;
     }
 
     .links a:hover {
@@ -240,10 +351,14 @@
       text-decoration: underline;
     }
 
+    .contact-box {
+      padding: 1.25rem 0 0;
+    }
+
     footer {
-      margin-top: 4rem;
+      margin-top: 3.5rem;
       padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--line);
       font-size: 0.9rem;
       color: var(--faint);
     }
@@ -259,16 +374,18 @@
       bottom: 1.25rem;
       transform: translateX(-50%) translateY(0);
       display: flex;
-      gap: 0.15rem;
-      padding: 0.4rem 0.55rem;
+      gap: 0.1rem;
+      padding: 0.4rem 0.5rem;
       background: var(--overlay);
-      border: 1px solid var(--border);
+      border: 1px solid var(--line);
       border-radius: 999px;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       z-index: 90;
       transition: transform 0.28s ease, opacity 0.28s ease;
       opacity: 1;
+      max-width: calc(100% - 1.5rem);
+      overflow-x: auto;
     }
 
     .dock.is-hidden {
@@ -284,9 +401,9 @@
       background: transparent;
       color: var(--fg);
       font-family: var(--font);
-      font-size: 0.8rem;
-      font-weight: 500;
-      padding: 0.45rem 0.7rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.45rem 0.65rem;
       border-radius: 999px;
       cursor: pointer;
       text-decoration: none;
@@ -295,7 +412,7 @@
 
     .dock a:hover,
     .dock button:hover {
-      background: var(--border);
+      background: var(--line);
       opacity: 1;
     }
 
@@ -303,7 +420,7 @@
     .cmd-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(8, 12, 20, 0.4);
       z-index: 200;
       display: none;
       align-items: flex-start;
@@ -317,18 +434,18 @@
 
     .cmd {
       width: 100%;
-      max-width: 420px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      max-width: 440px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
     }
 
     .cmd input {
       width: 100%;
       border: 0;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--line);
       background: transparent;
       color: var(--fg);
       font-family: var(--font);
@@ -345,7 +462,7 @@
       list-style: none;
       margin: 0;
       padding: 0.35rem;
-      max-height: 280px;
+      max-height: 300px;
       overflow-y: auto;
     }
 
@@ -359,7 +476,7 @@
       font-size: 0.95rem;
       text-align: left;
       padding: 0.65rem 0.75rem;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
@@ -368,7 +485,7 @@
 
     .cmd li button[aria-selected="true"],
     .cmd li button:hover {
-      background: var(--border);
+      background: var(--line);
     }
 
     .cmd li .tag {
@@ -382,34 +499,33 @@
       font-size: 0.9rem;
     }
 
-    @media (max-width: 540px) {
-      .wrap {
-        padding: 3rem 1.1rem 7.5rem;
+    @media (max-width: 560px) {
+      .hero-copy {
+        grid-template-columns: 1fr;
+        justify-items: start;
       }
 
-      .dock {
-        bottom: 0.75rem;
-        gap: 0;
-        padding: 0.3rem 0.4rem;
-        max-width: calc(100% - 1.5rem);
-        overflow-x: auto;
+      .portrait {
+        order: -1;
+        width: 88px;
+        height: 88px;
+      }
+
+      .perfil-grid {
+        grid-template-columns: 1fr;
       }
 
       .dock a,
       .dock button {
-        padding: 0.4rem 0.55rem;
-        font-size: 0.75rem;
+        padding: 0.4rem 0.5rem;
+        font-size: 0.72rem;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      .dock {
-        transition: none;
-      }
+      html { scroll-behavior: auto; }
+      .dock { transition: none; }
+      .swarm .pulse { animation: none; }
     }
   </style>
 </head>
@@ -417,27 +533,64 @@
   <div id="progress" role="presentation" aria-hidden="true"></div>
 
   <div class="wrap">
-    <header id="inicio">
-      <h1>Enjambre de Datos</h1>
-      <p class="signature">Jaider Ochoa</p>
-      <p class="intro">Hacia la ciencia de la información computacional</p>
-      <p class="lede">
-        Convertimos ciencia de la información computacional, gobernanza de datos e inteligencia artificial en decisiones claras, trazables y con valor público.
-      </p>
-      <p class="lede">
-        Del dato al criterio: marcos verificables de gobernanza e IA para anticipar escenarios, reducir incertidumbre y abrir oportunidades. Más de diez años de experiencia en NLP, automatización documental y analítica estratégica.
-      </p>
-      <p class="lede">
-        Líneas de trabajo: ciencia de la información computacional aplicada; gobernanza de datos e información digital; ciencia de datos e inteligencia artificial.
-      </p>
-      <p class="hint">Presiona <kbd id="mod-key">Cmd</kbd>+<kbd>K</kbd> para navegar</p>
+    <header class="hero-panel" id="inicio">
+      <svg class="swarm" viewBox="0 0 720 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g class="edges" fill="none">
+          <path class="edge" d="M70 70 L150 120 L240 80 L320 140 L410 95 L500 150 L590 100 L660 160"/>
+          <path class="edge" d="M90 220 L180 180 L270 230 L360 170 L450 240 L540 190 L630 250"/>
+          <path class="edge" d="M150 120 L180 180 L270 230 L320 140 L360 170 L410 95"/>
+          <path class="edge" d="M500 150 L540 190 L450 240 L410 95"/>
+          <path class="edge" d="M240 80 L270 230"/>
+          <path class="edge" d="M590 100 L540 190 L660 160"/>
+        </g>
+        <circle class="pulse" cx="320" cy="140" r="12"/>
+        <circle class="pulse" cx="500" cy="150" r="10" style="animation-delay:-1.5s"/>
+        <circle class="node soft" cx="70" cy="70" r="3.5"/>
+        <circle class="node" cx="150" cy="120" r="4.5"/>
+        <circle class="node soft" cx="240" cy="80" r="3.2"/>
+        <circle class="node" cx="320" cy="140" r="5.5"/>
+        <circle class="node soft" cx="410" cy="95" r="3.8"/>
+        <circle class="node" cx="500" cy="150" r="4.8"/>
+        <circle class="node soft" cx="590" cy="100" r="3.5"/>
+        <circle class="node" cx="660" cy="160" r="4"/>
+        <circle class="node soft" cx="90" cy="220" r="3"/>
+        <circle class="node" cx="180" cy="180" r="4"/>
+        <circle class="node soft" cx="270" cy="230" r="3.5"/>
+        <circle class="node" cx="360" cy="170" r="4.2"/>
+        <circle class="node soft" cx="450" cy="240" r="3.2"/>
+        <circle class="node" cx="540" cy="190" r="4.5"/>
+        <circle class="node soft" cx="630" cy="250" r="3.5"/>
+      </svg>
+
+      <div class="hero-copy">
+        <div class="hero-text">
+          <h1>Enjambre de Datos</h1>
+          <p class="signature">Jaider Ochoa</p>
+          <p class="intro">Hacia la ciencia de la información computacional</p>
+          <p class="lede">
+            Convertimos ciencia de la información computacional, gobernanza de datos e inteligencia artificial en decisiones claras, trazables y con valor público.
+          </p>
+        </div>
+        <img
+          class="portrait"
+          src="Perfil%20(Peque%C3%B1a).JPG"
+          width="112"
+          height="112"
+          alt="Retrato de Jaider Ochoa"
+        >
+        <p class="hint">Presiona <kbd id="mod-key">Cmd</kbd>+<kbd>K</kbd> para navegar</p>
+      </div>
     </header>
 
     <main>
       <section id="proyectos" aria-labelledby="proyectos-title">
-        <h2 id="proyectos-title">Proyectos</h2>
+        <h2 id="proyectos-title">Proyectos y recursos</h2>
+        <p class="section-lead">
+          Proyectos colaborativos y personales, junto con recursos compartibles construidos desde Enjambre de Datos.
+        </p>
 
-        <article class="project">
+        <article class="item">
+          <span class="eyebrow">Proyecto · Colaborativo</span>
           <h3>Gobernanza de Datos para Investigación Colaborativa</h3>
           <p><strong>Reto:</strong> datos dispersos y criterios inconsistentes entre equipos de investigación.</p>
           <p><strong>Método:</strong> diseño de gobierno del dato con roles, estándares de calidad y trazabilidad del ciclo de vida.</p>
@@ -445,7 +598,8 @@
           <a class="more" href="#proyectos">Ver caso →</a>
         </article>
 
-        <article class="project">
+        <article class="item">
+          <span class="eyebrow">Proyecto · Aplicado</span>
           <h3>IA para Recuperación de Evidencia Científica</h3>
           <p><strong>Reto:</strong> sobrecarga documental y baja precisión en la búsqueda de evidencia relevante.</p>
           <p><strong>Método:</strong> uso de NLP e IA para clasificación, filtrado semántico y priorización de fuentes.</p>
@@ -453,7 +607,8 @@
           <a class="more" href="#proyectos">Ver caso →</a>
         </article>
 
-        <article class="project">
+        <article class="item">
+          <span class="eyebrow">Proyecto · Aplicado</span>
           <h3>ETESA Asistida por Analítica y Automatización</h3>
           <p><strong>Reto:</strong> procesos ETESA fragmentados, lentos y con variabilidad metodológica.</p>
           <p><strong>Método:</strong> automatización de flujos críticos con criterios comunes de evaluación y seguimiento.</p>
@@ -461,76 +616,156 @@
           <a class="more" href="#proyectos">Ver caso →</a>
         </article>
 
-        <article class="project">
+        <article class="item">
+          <span class="eyebrow">Proyecto · Estratégico</span>
           <h3>Inteligencia Estratégica para Decisión Pública y Académica</h3>
           <p><strong>Reto:</strong> alta incertidumbre para priorizar decisiones en gestión académica y pública.</p>
           <p><strong>Método:</strong> tableros de vigilancia y análisis multicriterio para leer señales del entorno en tiempo útil.</p>
           <p><strong>Resultado:</strong> decisiones más oportunas, mejor asignación de esfuerzos y agendas de acción mejor fundamentadas.</p>
           <a class="more" href="#proyectos">Ver caso →</a>
         </article>
+
+        <article class="item">
+          <span class="eyebrow">Recurso</span>
+          <h3><a href="guias/DataJournalLab.html">Data Journal Lab</a></h3>
+          <p>Guía / laboratorio abierto para periodismo y análisis de datos.</p>
+          <a class="more" href="guias/DataJournalLab.html">Abrir recurso →</a>
+        </article>
+
+        <article class="item">
+          <span class="eyebrow">Recurso · PharosAI</span>
+          <h3><a href="pharosai/logic.html">Lógica y esquemas metodológicos PharosAI</a></h3>
+          <p>Materiales de lógica computacional y diagramas metodológicos del proyecto doctoral / multiagente.</p>
+          <a class="more" href="pharosai/neurosimb.html">Ver neurosimbólico →</a>
+        </article>
+
+        <article class="item">
+          <span class="eyebrow">Recurso</span>
+          <h3><a href="induccion_bibliotecologia.html">Inducción a la bibliotecología</a></h3>
+          <p>Recurso formativo de introducción al campo y sus prácticas de información.</p>
+          <a class="more" href="induccion_bibliotecologia.html">Abrir recurso →</a>
+        </article>
       </section>
 
-      <section id="publicaciones" aria-labelledby="publicaciones-title">
-        <h2 id="publicaciones-title">Publicaciones</h2>
-        <ul class="feed">
-          <li>
-            <a href="https://scholar.google.com/citations?user=GECEUhMAAAAJ&hl=es" target="_blank" rel="noopener noreferrer">Panorama de la producción intelectual sobre humanidades digitales</a>
-            <span class="meta">Artículo · 2025 · Disponible en Google Scholar</span>
-          </li>
-          <li>
-            <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" rel="noopener noreferrer">Situación del acceso abierto y pagos APC en Colombia</a>
-            <span class="meta">Investigación · 2022 · Referencias y producción en ORCID</span>
-          </li>
-          <li>
-            <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" rel="noopener noreferrer">Visibilidad e impacto altmétrico de investigadores UdeA</a>
-            <span class="meta">Estudio aplicado · Producción indexada en ORCID</span>
-          </li>
-          <li>
-            <a href="https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001360461" target="_blank" rel="noopener noreferrer">Producción académica y técnica consolidada</a>
-            <span class="meta">CVLAC · Proyectos, artículos, docencia y trayectoria</span>
-          </li>
-        </ul>
+      <section id="blog" aria-labelledby="blog-title">
+        <h2 id="blog-title">Blog</h2>
+        <p class="section-lead">
+          Escritura, artículos e investigaciones publicadas — entradas y referencias desde la agenda de Enjambre de Datos.
+        </p>
+
+        <article class="item">
+          <h3>
+            <a href="https://scholar.google.com/citations?user=GECEUhMAAAAJ&hl=es" target="_blank" rel="noopener noreferrer">
+              Panorama de la producción intelectual sobre humanidades digitales
+            </a>
+          </h3>
+          <span class="meta">Artículo · 2025 · Disponible en Google Scholar</span>
+        </article>
+
+        <article class="item">
+          <h3>
+            <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" rel="noopener noreferrer">
+              Situación del acceso abierto y pagos APC en Colombia
+            </a>
+          </h3>
+          <span class="meta">Investigación · 2022 · Referencias y producción en ORCID</span>
+        </article>
+
+        <article class="item">
+          <h3>
+            <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" rel="noopener noreferrer">
+              Visibilidad e impacto altmétrico de investigadores UdeA
+            </a>
+          </h3>
+          <span class="meta">Estudio aplicado · Producción indexada en ORCID</span>
+        </article>
+
+        <article class="item">
+          <h3>
+            <a href="https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001360461" target="_blank" rel="noopener noreferrer">
+              Producción académica y técnica consolidada
+            </a>
+          </h3>
+          <span class="meta">CVLAC · Proyectos, artículos, docencia y trayectoria</span>
+        </article>
       </section>
 
-      <section id="docencia" aria-labelledby="docencia-title">
-        <h2 id="docencia-title">Docencia</h2>
-        <ul class="feed">
-          <li>
-            <a href="https://github.com/jaiderog" target="_blank" rel="noopener noreferrer">Lógica computacional aplicada a ciencias sociales y de la información</a>
+      <section id="perfil" aria-labelledby="perfil-title">
+        <h2 id="perfil-title">Perfil</h2>
+        <p class="section-lead">
+          Fundador de Enjambre de Datos — docencia, investigación y vinculación.
+        </p>
+
+        <div class="perfil-grid">
+          <img
+            class="perfil-photo"
+            src="Perfil%20(Peque%C3%B1a).JPG"
+            width="96"
+            height="96"
+            alt="Jaider Ochoa Gutiérrez"
+          >
+          <div>
+            <p>
+              Jaider Ochoa Gutiérrez, profesor-investigador de la Universidad de Antioquia y doctorando en Ingeniería, impulsa Enjambre de Datos como un espacio para convertir problemas complejos de información en decisiones implementables.
+            </p>
+            <p>
+              El trabajo se desarrolla con investigadores, docentes y equipos interdisciplinarios, definiendo en cada proyecto <strong>hipótesis, métricas y entregables</strong> que aseguren utilidad, trazabilidad y reproducibilidad.
+            </p>
+            <p>
+              La articulación entre <strong>docencia</strong>, <strong>investigación</strong> y <strong>vinculación</strong> se materializa en pilotos, recursos abiertos y transferencia de capacidades. Esta agenda se desarrolla con el grupo "Información, Conocimiento y Sociedad" y el Grupo de Experimentación en Gestión Estratégica de Datos e Información Digital.
+            </p>
+            <p>
+              <strong>Líneas de trabajo:</strong> Ciencia de la información computacional, gobernanza de datos, gobernanza de la información digital, ciencia de datos e inteligencia artificial (incluyendo NLP-LLM).
+            </p>
+            <p>
+              Del dato al criterio: marcos verificables de gobernanza e IA para anticipar escenarios, reducir incertidumbre y abrir oportunidades. Más de diez años de experiencia en NLP, automatización documental y analítica estratégica.
+            </p>
+          </div>
+        </div>
+
+        <div class="subblock">
+          <h3>Docencia y transferencia</h3>
+          <article class="item">
+            <h3>
+              <a href="https://github.com/jaiderog" target="_blank" rel="noopener noreferrer">
+                Lógica computacional aplicada a ciencias sociales y de la información
+              </a>
+            </h3>
             <span class="meta">Docencia universitaria · Recursos y ejercicios en GitHub</span>
-          </li>
-          <li>
-            <a href="https://github.com/jaiderog" target="_blank" rel="noopener noreferrer">Python para análisis de datos en investigación</a>
+          </article>
+          <article class="item">
+            <h3>
+              <a href="https://github.com/jaiderog" target="_blank" rel="noopener noreferrer">
+                Python para análisis de datos en investigación
+              </a>
+            </h3>
             <span class="meta">Formación aplicada · Cuadernos y repositorios de apoyo</span>
-          </li>
-          <li>
-            <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" rel="noopener noreferrer">Seminarios en gobernanza de datos, ciencia abierta e IA</a>
+          </article>
+          <article class="item">
+            <h3>
+              <a href="https://orcid.org/0000-0002-5492-3922" target="_blank" rel="noopener noreferrer">
+                Seminarios en gobernanza de datos, ciencia abierta e IA
+              </a>
+            </h3>
             <span class="meta">Transferencia de capacidades para equipos académicos e institucionales</span>
-          </li>
-        </ul>
+          </article>
+        </div>
       </section>
 
-      <section id="contacto" class="bio" aria-labelledby="contacto-title">
+      <section id="contacto" aria-labelledby="contacto-title">
         <h2 id="contacto-title">Contacto</h2>
-        <p>
-          Jaider Ochoa Gutiérrez, profesor-investigador de la Universidad de Antioquia y doctorando en Ingeniería, impulsa Enjambre de Datos como un espacio para convertir problemas complejos de información en decisiones implementables.
+        <p class="section-lead">
+          Conecta con Enjambre de Datos y con Jaider Ochoa.
         </p>
-        <p>
-          El trabajo se desarrolla con investigadores, docentes y equipos interdisciplinarios, definiendo en cada proyecto <strong>hipótesis, métricas y entregables</strong> que aseguren utilidad, trazabilidad y reproducibilidad.
-        </p>
-        <p>
-          La articulación entre <strong>docencia</strong>, <strong>investigación</strong> y <strong>vinculación</strong> se materializa en pilotos, recursos abiertos y transferencia de capacidades. Esta agenda se desarrolla con el grupo "Información, Conocimiento y Sociedad" y el Grupo de Experimentación en Gestión Estratégica de Datos e Información Digital.
-        </p>
-        <p>
-          <strong>Líneas de trabajo:</strong> Ciencia de la información computacional, gobernanza de datos, gobernanza de la información digital, ciencia de datos e inteligencia artificial (incluyendo NLP-LLM).
-        </p>
-        <ul class="links">
-          <li><a href="https://www.linkedin.com/in/jaiderog" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-          <li><a href="https://github.com/jaiderog" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-          <li><a href="https://twitter.com/jaiderog" target="_blank" rel="noopener noreferrer">Twitter</a></li>
-          <li><a href="https://orcid.org/0000-0002-5492-3922" target="_blank" rel="noopener noreferrer">ORCID</a></li>
-          <li><a href="https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001360461" target="_blank" rel="noopener noreferrer">CVLAC</a></li>
-        </ul>
+        <div class="contact-box">
+          <ul class="links">
+            <li><a href="https://www.linkedin.com/in/jaiderog" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><a href="https://github.com/jaiderog" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://twitter.com/jaiderog" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+            <li><a href="https://orcid.org/0000-0002-5492-3922" target="_blank" rel="noopener noreferrer">ORCID</a></li>
+            <li><a href="https://scienti.minciencias.gov.co/cvlac/visualizador/generarCurriculoCv.do?cod_rh=0001360461" target="_blank" rel="noopener noreferrer">CVLAC</a></li>
+          </ul>
+        </div>
       </section>
     </main>
 
@@ -542,8 +777,8 @@
 
   <nav class="dock" id="dock" aria-label="Navegación rápida">
     <a href="#proyectos">Proyectos</a>
-    <a href="#publicaciones">Publicaciones</a>
-    <a href="#docencia">Docencia</a>
+    <a href="#blog">Blog</a>
+    <a href="#perfil">Perfil</a>
     <a href="#contacto">Contacto</a>
     <button type="button" id="dock-cmd" aria-label="Abrir paleta de comandos">⌘K</button>
   </nav>
@@ -566,7 +801,6 @@
       document.getElementById("mod-key").textContent = isMac ? "Cmd" : "Ctrl";
       document.getElementById("dock-cmd").textContent = isMac ? "⌘K" : "Ctrl+K";
 
-      /* Reading progress */
       var progress = document.getElementById("progress");
       function updateProgress() {
         var doc = document.documentElement;
@@ -578,7 +812,6 @@
       window.addEventListener("resize", updateProgress);
       updateProgress();
 
-      /* Floating dock — hide on scroll down, show on scroll up */
       var dock = document.getElementById("dock");
       var lastY = window.scrollY;
       var ticking = false;
@@ -603,11 +836,10 @@
         }
       }, { passive: true });
 
-      /* Command palette */
       var commands = [
-        { label: "Proyectos", tag: "Sección", href: "#proyectos" },
-        { label: "Publicaciones", tag: "Sección", href: "#publicaciones" },
-        { label: "Docencia", tag: "Sección", href: "#docencia" },
+        { label: "Proyectos y recursos", tag: "Sección", href: "#proyectos" },
+        { label: "Blog", tag: "Sección", href: "#blog" },
+        { label: "Perfil", tag: "Sección", href: "#perfil" },
         { label: "Contacto", tag: "Sección", href: "#contacto" },
         { label: "GitHub", tag: "Enlace", href: "https://github.com/jaiderog", external: true },
         { label: "LinkedIn", tag: "Enlace", href: "https://www.linkedin.com/in/jaiderog", external: true }
